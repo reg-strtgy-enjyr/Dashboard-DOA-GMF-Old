@@ -25,18 +25,24 @@ async function login(mm) {
 }
 
 async function addAccount(mm) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmf-aeroasia\.co\.id$/;
     const { accountid, name, unit, password, role, email } = mm;
     const pass = await helper.hashPassword(password);
-    const query = `INSERT INTO account (accountid, name, unit, password, role, email) VALUES ('${accountid}', '${name}', '${unit}', '${pass}', '${role}', '${email}')`;
-    const result = await db.query(query);
-    if (result.rowCount === 1) {
-        return {
-            status: 200, message: 'Add Account successful'
+    if(emailRegex.test(email)){
+        const query = `INSERT INTO account (name, unit, password, role, email) VALUES ('${name}', '${unit}', '${pass}', '${role}', '${email}')`;
+        const result = await db.query(query);
+        if (result.rowCount === 1) {
+            return {
+                status: 200, message: 'Add Account successful'
+            }
+        } else {
+            return {
+                status: 404, message: 'Add Account Failed'
+            }
         }
-    } else {
-        return {
-            status: 404, message: 'Add Account Failed'
-        }
+    }
+    return{
+        status: 404, message: 'Add Account Failed: Email not valid'
     }
 }
 

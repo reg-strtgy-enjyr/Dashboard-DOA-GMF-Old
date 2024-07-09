@@ -21,16 +21,16 @@
             <button type="submit">Login</button>
         </form>
         <div class="button-container"><button @click="forgotPassword">Lupa Password?</button></div>
-        <p id="emailDisplay">{{ loginMessage }}</p>
-        <p id="emailDisplay">{{ $data.email ? 'Account ID: ' + $data.email : '' }}</p>
+        <div class="button-container"><button @click="registerAccount">Belum Punya Akun?</button></div>
+        <p v-if="showEmailDisplay" id="emailDisplay">{{ loginMessage }}</p>
+        <p v-if="showEmailDisplay" id="emailDisplay">{{ email ? 'Account ID: ' + email : '' }}</p>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"
         integrity="sha512-TjBzDQIDnc6pWyeM1bhMnDxtWH0QpOXMcVooglXrali/Tj7W569/wd4E8EDjk1CwOAOPSJon1VfcEt1BI4xIrA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module">
-
-        import { createApwp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+        import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 
         createApp({
             data() {
@@ -40,7 +40,8 @@
                         Password: ''
                     },
                     loginMessage: '',
-                    email: null
+                    email: null,
+                    showEmailDisplay: false
                 };
             },
             methods: {
@@ -55,6 +56,7 @@
                             this.email = response.data.user.email;
                             this.loginMessage = 'Account ID: ' + this.email;
                             sessionStorage.setItem('email', this.email);
+                            this.showEmailDisplay = true;
 
                             if (userRole === 'Admin') {
                                 this.loginMessage += ' - Redirecting...';
@@ -65,15 +67,24 @@
                             }
                         } else {
                             this.loginMessage = response.data.message;
+                            this.showEmailDisplay = true;
                         }
                     } catch (error) {
                         console.error("Error during login:", error);
-                        this.loginMessage = response.data.message;
+                        this.loginMessage = error.response?.data?.message || "An error occurred during login";
+                        this.showEmailDisplay = true;
                     }
                 },
                 forgotPassword() {
                     this.loginMessage = "Hubungi Admin dengan nomor 123456";
+                    this.showEmailDisplay = true;
+                },
+                registerAccount() {
+                    window.location.href = 'Register.html';
                 }
+            },
+            mounted() {
+                this.showEmailDisplay = false;
             }
         }).mount('#app');
     </script>
