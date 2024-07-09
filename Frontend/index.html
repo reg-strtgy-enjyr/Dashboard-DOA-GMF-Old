@@ -14,15 +14,15 @@
         <h1 class="header">DOA Dashboard Apps</h1>
         <h2>{{ title }}</h2>
         <form @submit.prevent="login">
-            <label for="accountid">ID Number :</label>
-            <input type="text" id="accountid" v-model="loginData.accountid" required>
+            <label for="email">Email :</label>
+            <input type="text" id="email" v-model="loginData.email" required>
             <label for="password">Password:</label>
             <input type="password" id="Password" v-model="loginData.Password" required>
             <button type="submit">Login</button>
         </form>
         <div class="button-container"><button @click="forgotPassword">Lupa Password?</button></div>
-        <p id="accountidDisplay">{{ loginMessage }}</p>
-        <p id="accountidDisplay">{{ $data.accountid ? 'Account ID: ' + $data.accountid : '' }}</p>
+        <p id="emailDisplay">{{ loginMessage }}</p>
+        <p id="emailDisplay">{{ $data.email ? 'Account ID: ' + $data.email : '' }}</p>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"
@@ -36,11 +36,11 @@
             data() {
                 return {
                     loginData: {
-                        accountid: '',
+                        email: '',
                         Password: ''
                     },
                     loginMessage: '',
-                    accountid: null
+                    email: null
                 };
             },
             methods: {
@@ -52,9 +52,9 @@
 
                         if (response.data.status === 200 && response.data.message === 'Login successful') {
                             const userRole = response.data.user.role;
-                            this.accountid = response.data.user.accountid;
-                            this.loginMessage = 'Account ID: ' + this.accountid;
-                            sessionStorage.setItem('accountid', this.accountid);
+                            this.email = response.data.user.email;
+                            this.loginMessage = 'Account ID: ' + this.email;
+                            sessionStorage.setItem('email', this.email);
 
                             if (userRole === 'Admin') {
                                 this.loginMessage += ' - Redirecting...';

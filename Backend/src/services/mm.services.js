@@ -8,8 +8,8 @@ const helper = require('../utils/helper');
 //===========================================
 
 async function login(mm) {
-    const { accountid, Password } = mm;
-    const query = `SELECT * FROM account WHERE accountid = '${accountid}'`;
+    const { email, Password } = mm;
+    const query = `SELECT * FROM account WHERE email = '${email}'`;
     const result = await db.query(query);
     if (result.rowCount > 0) {
         const user = result.rows[0];
@@ -25,9 +25,9 @@ async function login(mm) {
 }
 
 async function addAccount(mm) {
-    const { accountid, name, unit, password, role } = mm;
+    const { accountid, name, unit, password, role, email } = mm;
     const pass = await helper.hashPassword(password);
-    const query = `INSERT INTO account (accountid, name, unit, password, role) VALUES ('${accountid}', '${name}', '${unit}', '${pass}', '${role}')`;
+    const query = `INSERT INTO account (accountid, name, unit, password, role, email) VALUES ('${accountid}', '${name}', '${unit}', '${pass}', '${role}', '${email}')`;
     const result = await db.query(query);
     if (result.rowCount === 1) {
         return {
