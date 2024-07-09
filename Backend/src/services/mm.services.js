@@ -17,10 +17,10 @@ async function login(mm) {
         if (comparePass) {
             return { status: 200, message: 'Login successful', user };
         } else {
-            return { status: 401, message: 'Password is not correct' };
+            return { status: 401, message: 'Email/Password is not correct' };
         }
     } else {
-        return { status: 404, message: 'Account not found' };
+        return { status: 404, message: 'Email/Password is not correct' };
     }
 }
 
