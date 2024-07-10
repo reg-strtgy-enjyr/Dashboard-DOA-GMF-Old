@@ -762,6 +762,31 @@ async function showNCRInit_ID(temp) {
     }
 }
 
+async function searchNCR(temp) {
+    const {input, dummy} = temp;
+    const numberRegex = /^\d+$/;
+    let query;
+    console.log(input);
+    if(numberRegex.test(input)){
+        query = `SELECT * FROM NCR_Initial WHERE ncr_init_id = '${input}'`;
+    }else{
+        query = `SELECT * FROM NCR_Initial WHERE audit_by LIKE '%${input}%' OR to_uic::TEXT LIKE '%${input}%'`;
+    }
+    console.log(query);
+    const result = await db.query(query);
+    if (result.rowCount) {
+        console.log("Found");
+        return {
+            message: 'Showing result of NCR',
+            showProduct: result.rows
+        }
+    } else {
+        return {
+            message: 'No Data NCR'
+        }
+    }
+}
+
 async function showNCRInit_ID(temp) {
     const { ncr_init_id } = temp;
     const query = `SELECT * FROM NCR_Initial WHERE ncr_init_id = '${ncr_init_id}'`;
@@ -932,6 +957,7 @@ module.exports = {
     deleteNCRInit,
     UpdateNCRInit,
     showNCRInit,
+    searchNCR,
     addNCRReply,
     deleteNCRReply,
     UpdateNCRReply,

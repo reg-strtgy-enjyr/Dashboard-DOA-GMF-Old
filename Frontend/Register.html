@@ -58,24 +58,11 @@
                     try {
                         const response = await axios.post("http://localhost:3000/addAccount", this.registerData);
                         console.log("Server response:", response.data);
-
-                        if (response.data.status === 200 && response.data.message === 'Register successful') {
-                            const userRole = response.data.user.role;
-                            this.email = response.data.user.email;
-                            this.registerMessage = 'User Email: ' + this.email;
-                            sessionStorage.setItem('email', this.email);
-                            this.showEmailDisplay = true;
-
-                            if (userRole === 'Admin') {
-                                this.registerMessage += ' - Redirecting...';
-                                window.location.href = 'main_menu.html';
-                            } else if (userRole === 'DO' || userRole === 'AO' || userRole === 'IM') {
-                                this.registerMessage += ' - Redirecting...';
-                                window.location.href = 'main_menu2.html';
-                            }
+                        if (response.data.status === 200) {
+                            this.registerMessage += ' - Registration success...';
+                            window.location.href = 'index.html';
                         } else {
                             this.registerMessage = response.data.message;
-                            this.showEmailDisplay = true;
                         }
                     } catch (error) {
                         console.error("Error during registration:", error);
@@ -83,13 +70,6 @@
                         this.showEmailDisplay = true;
                     }
                 },
-                forgotPassword() {
-                    this.registerMessage = "Hubungi Admin dengan nomor 123456";
-                    this.showEmailDisplay = true;
-                }, 
-                login(){
-                    window.location.href = 'index.html';
-                }
             },
             mounted() {
                 this.showEmailDisplay = false;

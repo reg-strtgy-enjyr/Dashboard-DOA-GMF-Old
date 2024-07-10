@@ -236,6 +236,16 @@ async function showNCRInit(req,res){
     }
 }
 
+
+async function searchNCR(req,res){
+    try{
+        const result = await mmService.searchNCR(req.body);
+        res.json(result);
+    }catch(err){
+        res.json(err.detail);
+    }
+}
+
 async function showNCRInit_ID(req,res){
     try{
         const result = await mmService.showNCRInit_ID(req.body);
@@ -378,6 +388,7 @@ module.exports = {
     addNCRInit,
     deleteNCRInit,
     showNCRInit,
+    searchNCR,
     UpdateNCRInit,
     addNCRReply,
     deleteNCRReply,

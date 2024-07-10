@@ -59,6 +59,8 @@ router.put('/UpdateNCRInit', mmController.UpdateNCRInit);
 
 router.get('/showNCRInit', mmController.showNCRInit);
 
+router.post('/searchNCR', mmController.searchNCR);
+
 router.post('/showNCRInit_ID', mmController.showNCRInit_ID);
 
 router.post('/addNCRReply', mmController.addNCRReply);
