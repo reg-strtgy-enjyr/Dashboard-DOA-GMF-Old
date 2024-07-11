@@ -52,7 +52,7 @@
         <!-- Input pencarian -->
         <div class="search-bar">
             <label for="search">Search:</label>
-            <input type="text" id="search" v-model="searchTerm">
+            <input type="text" id="search" v-model="searchData.input" @input="debounceFetchDataBySearchTerm">
         </div>
 
         <div class="show-table" style="margin-top: 20px;">
@@ -126,47 +126,52 @@
     <script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash/lodash.min.js"></script>
     <script type="module">
-        import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+        import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 
         createApp({
             data() {
                 return {
-                    searchData:{
-                        searchTerm: '',
-                        dummy: '1'
-                    },
                     title: "Searching NCR",
                     items: [],
+                    searchData: {
+                        input: ''
+                    }
                 };
             },
             methods: {
                 async fetchDataFromServer() {
                     try {
-                        const response = await axios.get("http://localhost:3000/showNCRInit");
+                        if (!this.searchData.input) { // Only fetch if no search term is present
+                            const response = await axios.get("http://localhost:3000/showNCRInit");
+                            if (response.data.status === 200) {
+                                this.items = response.data.showProduct;
+                            } else {
+                                console.error('Error Message:', response.data.message);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                },
+                async fetchDataBySearchTerm() {
+                    try {
+                        const response = await axios.post("http://localhost:3000/searchNCR", this.searchData);
                         if (response.data.status === 200) {
                             this.items = response.data.showProduct;
                         } else {
                             console.error('Error Message:', response.data.message);
+                            this.items = []; // Set items to an empty array on error
                         }
                     } catch (error) {
                         console.error('Error:', error);
+                        this.items = []; // Set items to an empty array on error
                     }
                 },
-                async fetchDataBySearchTerm(searchTerm) {
-                    try {
-                        this.searchData.searchTerm = searchTerm;
-                        console.log("Search term in fetch: " + searchTerm);
-                        const response = await axios.post("http://localhost:3000/searchNCR", this.searchData);
-                        if (response.data.status == 200) {
-                            this.items = response.data.showProduct;
-                        } else {
-                            console.error('Error Message:', response.data.message);
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                    }
-                },
+                debounceFetchDataBySearchTerm: _.debounce(function () {
+                    this.fetchDataBySearchTerm();
+                }, 300),
                 exportToExcel() {
                     // Mengambil data dari tabel
                     const table = document.getElementById('data-table');
@@ -188,19 +193,10 @@
                 navigateEdit(ncrNo) {
                     sessionStorage.setItem('ncr_init_id', ncrNo);
                     window.location.href = 'Edit_NCR_2.html';
-                },
-                handleSearch() {
-                    // Call fetchDataBySearchTerm with the current searchTerm value
-                    this.fetchDataBySearchTerm(this.searchTerm);
                 }
             },
             watch: {
-                searchTerm(newSearchTerm) {
-                    console.log("New search term:", newSearchTerm);
-                    console.log("This new Search term ", +this.newSearchTerm);
-                    // Optional: Add delay or debounce logic here if needed
-                    this.fetchDataBySearchTerm(newSearchTerm);
-                }
+                'searchData.input': 'debounceFetchDataBySearchTerm'
             },
             mounted() {
                 this.fetchDataFromServer();

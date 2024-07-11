@@ -763,7 +763,7 @@ async function showNCRInit_ID(temp) {
 }
 
 async function searchNCR(temp) {
-    const {input, dummy} = temp;
+    const {input} = temp;
     const numberRegex = /^\d+$/;
     let query;
     console.log(input);
@@ -777,12 +777,15 @@ async function searchNCR(temp) {
     if (result.rowCount) {
         console.log("Found");
         return {
+            status: 200,
             message: 'Showing result of NCR',
             showProduct: result.rows
         }
     } else {
         return {
-            message: 'No Data NCR'
+            status: 200, // Still return status 200 to indicate the request was successful
+            message: 'No Data NCR',
+            showProduct: [] // Return an empty array to indicate no results
         }
     }
 }
