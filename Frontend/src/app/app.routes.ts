@@ -6,14 +6,17 @@ import { RegisterComponent } from './register/register.component';
 import { AccountComponent } from './account/account.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'account', component: AccountComponent }
+    { path: 'account', component: AccountComponent },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
