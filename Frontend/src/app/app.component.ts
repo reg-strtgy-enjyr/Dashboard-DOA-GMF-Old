@@ -9,6 +9,4 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'gmf-angular';
-}
+export class AppComponent {}
