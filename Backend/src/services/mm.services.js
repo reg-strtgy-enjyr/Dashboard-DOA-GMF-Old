@@ -2,8 +2,113 @@ const res = require('express/lib/response');
 const { use } = require('passport/lib');
 const db = require('../configs/db.config');
 const helper = require('../utils/helper');
-//const {google} = require('googleapis');
-//const docs = google.docs('v1');
+const { google } = require('googleapis');
+// Set up Google authentication with the necessary scopes for Google Docs and Drive
+const auth = new google.auth.GoogleAuth({
+    keyFile: 'Backend/googleCredential.json', // Path to your JSON key file
+    scopes: [
+        'https://www.googleapis.com/auth/documents', // Scope for Google Docs
+        'https://www.googleapis.com/auth/drive' // Scope for Google Drive
+    ]
+});
+
+
+// Function to replace text in a Google Docs document
+async function replaceTextInGoogleDocs(documentId, findText, replaceText) {
+    try {
+        const docs = google.docs({ version: 'v1', auth }); // Create a Google Docs API client
+
+        // Send a batchUpdate request to modify the document
+        const writer = await docs.documents.batchUpdate({
+            documentId, // ID of the document to update
+            requestBody: {
+                requests: [
+                    {
+                        replaceAllText: {
+                            containsText: {
+                                text: findText,
+                                matchCase: true
+                            },
+                            replaceText: replaceText
+                        }
+                    }
+                ]
+            }
+        });
+        return writer; // Return the response from the Google Docs API
+    } catch (error) {
+        console.error('Error in replaceTextInGoogleDocs:', error.message); // Log any errors that occur
+        console.error(error.response.data); // Log the detailed error response
+    }
+}
+
+// Function to copy a Google Docs document with a custom title and place it in the same folder
+async function copyGoogleDoc(sourceDocumentId, copyTitle) {
+    try {
+        const drive = google.drive({ version: 'v3', auth });
+
+        // Get the parent folder(s) of the original file
+        const originalFile = await drive.files.get({
+            fileId: sourceDocumentId,
+            fields: 'parents'
+        });
+
+        const parents = originalFile.data.parents;
+
+        // Copy the document and set the parent folder
+        const response = await drive.files.copy({
+            fileId: sourceDocumentId,
+            requestBody: {
+                name: copyTitle,
+                parents: parents
+            }
+        });
+
+        // Ensure the copied document is shared with your account
+        const copiedDocumentId = response.data.id;
+        await drive.permissions.create({
+            fileId: copiedDocumentId,
+            requestBody: {
+                role: 'writer',
+                type: 'user',
+                emailAddress: 'c010d4ky0625@bangkit.academy' // replace with your email
+            }
+        });
+
+        return copiedDocumentId;
+    } catch (error) {
+        console.error('Error in copyGoogleDocWithFolder:', error.message);
+        console.error(error.response?.data);
+    }
+}
+
+async function moveFileToFolder(fileId, newParentId) {
+    try {
+        const drive = google.drive({ version: 'v3', auth });
+
+        // Get the current parents of the file
+        const fileMetadata = await drive.files.get({
+            fileId: fileId,
+            fields: 'parents'
+        });
+
+        const previousParents = fileMetadata.data.parents.join(',');
+
+        // Move the file to the new parent folder
+        await drive.files.update({
+            fileId: fileId,
+            addParents: newParentId,
+            removeParents: previousParents,
+            fields: 'id, parents'
+        });
+
+        console.log(`File ID: ${fileId} moved to folder ID: ${newParentId}`);
+    } catch (error) {
+        console.error('Error in moveFileToFolder:', error.message);
+        console.error(error.response?.data);
+    }
+}
+
 //===========================================
 //============ account ======================
 //===========================================
@@ -688,7 +793,48 @@ async function updateFollowUpOccurrence(followUpData) {
 
 async function addNCRInit(mm) {
     const { accountid, regulationbased, subject, audit_no, ncr_no, issued_date, responsible_office, audit_type, audit_scope, to_uic, attention, require_condition, level_finding, problem_analis, answer_duedate, issue_ian, ian_no, encounter_condition, audit_by, audit_date, acknowledge_by, acknowledge_date, status, temporarylink } = mm;
-    const query = `INSERT INTO NCR_Initial ( AccountID, RegulationBased, Subject, Audit_Plan_No, NCR_No, Issued_Date,  Responsibility_Office, Audit_Type, Audit_Scope, To_UIC, Attention, Require_Condition_Reference, Level_Finding, Problem_Analysis, Answer_Due_Date, Issue_IAN, IAN_No, Encountered_Condition, Audit_by, Audit_Date, Acknowledge_by, Acknowledge_date, Status, TemporaryLink) VALUES ('${accountid}','${regulationbased}', '${subject}', '${audit_no}', '${ncr_no}', '${issued_date}', '${responsible_office}', '${audit_type}', '${audit_scope}', '${to_uic}', '${attention}', '${require_condition}', '${level_finding}', '${problem_analis}', '${answer_duedate}', '${issue_ian}', '${ian_no}', '${encounter_condition}', '${audit_by}', '${audit_date}', '${acknowledge_by}', '${acknowledge_date}', '${status}', '${temporarylink}')`;
+    // New title for the copied document, including ncr_no from the parameters
+    const newTitle = `NCR_${ncr_no}`;
+    console.log(newTitle);
+    const parentFolderId = '1tkj7lPPXC8IbJrqsk4WwyrMoR3F6RJK0';
+    const copiedDocumentId = await copyGoogleDoc('1TsYiA9MRFPCgkqYCwusHTwnhSDBRekhCzpU6fZF8JwI', newTitle);
+    let ian = issue_ian ? "Yes" : "No";
+    await moveFileToFolder(copiedDocumentId, parentFolderId);
+    // List of placeholders and their replacements
+    const replacements = {
+        '{AuditPlan}' : audit_no,
+        '{NCR_No}': ncr_no,
+        '{IssuedDate}': issued_date,
+        '{Responsibility_Office}': responsible_office,
+        '{Audit_Type}': audit_type,
+        '{to_uic}': to_uic,
+        '{attention}': attention,
+        '{regulationbased}': regulationbased,
+        '{Level_Finding}': level_finding,
+        '{Problem_Analysis}': problem_analis,
+        '{Due_Date}': answer_duedate,
+        '{IAN}': ian,
+        '{No}': ian_no,
+        '{Encountered_Condition}': encounter_condition,
+        '{Audit_by}': audit_by,
+        '{Audit_Date}': audit_date,
+        '{Acknowledge_by}': acknowledge_by,
+        '{Acknowledge_date}': acknowledge_date,
+    };
+    // Replace each placeholder in the document
+    for (const [placeholder, replacement] of Object.entries(replacements)) {
+        await replaceTextInGoogleDocs(copiedDocumentId, placeholder, replacement);
+    }
+    console.log("Added document")
+    const query = `INSERT INTO NCR_Initial ( AccountID, RegulationBased, Subject, Audit_Plan_No, NCR_No, Issued_Date, 
+    Responsibility_Office, Audit_Type, Audit_Scope, To_UIC, Attention, Require_Condition_Reference, Level_Finding, 
+    Problem_Analysis, Answer_Due_Date, Issue_IAN, IAN_No, Encountered_Condition, Audit_by, Audit_Date, Acknowledge_by, 
+    Acknowledge_date, Status, TemporaryLink, documentid) VALUES ('${accountid}','${regulationbased}', '${subject}', 
+    '${audit_no}', '${ncr_no}', '${issued_date}', '${responsible_office}', '${audit_type}', '${audit_scope}', '${to_uic}', 
+    '${attention}', '${require_condition}', '${level_finding}', '${problem_analis}', '${answer_duedate}', '${issue_ian}', 
+    '${ian_no}', '${encounter_condition}', '${audit_by}', '${audit_date}', '${acknowledge_by}', '${acknowledge_date}', 
+    '${status}', '${temporarylink}', '${copiedDocumentId}')`;
+    console.log(query)
     const result = await db.query(query);
     if (result.rowCount === 1) {
         return {
@@ -702,6 +848,8 @@ async function addNCRInit(mm) {
         }
     }
 }
+
+
 
 async function deleteNCRInit(temp) {
     const { ncr_init_id } = temp;
