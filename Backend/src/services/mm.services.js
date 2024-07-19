@@ -2,7 +2,8 @@ const res = require('express/lib/response');
 const { use } = require('passport/lib');
 const db = require('../configs/db.config');
 const helper = require('../utils/helper');
-
+//const {google} = require('googleapis');
+//const docs = google.docs('v1');
 //===========================================
 //============ account ======================
 //===========================================
@@ -11,10 +12,14 @@ async function login(mm) {
     const { email, Password } = mm;
     const query = `SELECT * FROM account WHERE email = '${email}'`;
     const result = await db.query(query);
+    console.log(query);
     if (result.rowCount > 0) {
         const user = result.rows[0];
+        console.log(user);
+        console.log(Password);
         const comparePass = await helper.comparePassword(Password, user.password);
         if (comparePass) {
+            console.log("Masuk");
             return { status: 200, message: 'Login successful', user };
         } else {
             return { status: 401, message: 'Email/Password is not correct' };
@@ -770,7 +775,7 @@ async function searchNCR(temp) {
     if(numberRegex.test(input)){
         query = `SELECT * FROM NCR_Initial WHERE ncr_init_id = '${input}'`;
     }else{
-        query = `SELECT * FROM NCR_Initial WHERE audit_by LIKE '%${input}%' OR to_uic::TEXT LIKE '%${input}%'`;
+        query = `SELECT * FROM NCR_Initial WHERE audit_by ILIKE '%${input}%' OR to_uic::TEXT ILIKE '%${input}%'`;
     }
     console.log(query);
     const result = await db.query(query);
@@ -811,6 +816,7 @@ async function addNCRReply(mm) {
     const { accountid, ncr_init_id, rca_problem, corrective_act, preventive_act, identified_by, identified_date, accept_by, audit_accept, temporarylink, Recommend_corrective_action } = mm;
     const query = `INSERT INTO NCR_reply ( AccountID, NCR_init_ID, RCA_problem, Corrective_Action, Preventive_Action, Identified_by_Auditee, Identified_Date, Accept_by_Auditor, Auditor_Accept_date, TemporaryLink,Recommend_corrective_action) VALUES ('${accountid}', '${ncr_init_id}', '${rca_problem}', '${corrective_act}', '${preventive_act}', '${identified_by}', '${identified_date}', '${accept_by}', '${audit_accept}', '${temporarylink}','${Recommend_corrective_action}')`;
     const result = await db.query(query);
+
     if (result.rowCount === 1) {
         return {
             status: 200,
