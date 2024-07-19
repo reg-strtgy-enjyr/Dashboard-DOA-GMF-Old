@@ -6,25 +6,25 @@
                 <li (click)="selectTab('account-info')">
                     <a href="/account#account-info" class="inline-flex items-center px-4 py-3 rounded-lg w-full"
                         [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'account-info', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedTab !== 'account-info'}">
-                        Account info
+                        Account Info
                     </a>
                 </li>
                 <li (click)="selectTab('change-password')">
                     <a href="/account#change-password" class="inline-flex items-center px-4 py-3 rounded-lg w-full"
                         [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'change-password', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedTab !== 'change-password'}">
-                        Change password
+                        Change Password
                     </a>
                 </li>
                 <li (click)="selectTab('all-accounts')">
                     <a href="/account#all-accounts" class="inline-flex items-center px-4 py-3 rounded-lg w-full"
                         [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'all-accounts', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedTab !== 'all-accounts'}">
-                        All accounts
+                        All Account
                     </a>
                 </li>
                 <li (click)="selectTab('delete-account')">
                     <a href="/account#delete-account" class="inline-flex items-center px-4 py-3 rounded-lg w-full"
                         [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'delete-account', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedTab !== 'delete-account'}">
-                        Delete account
+                        Delete Account
                     </a>
                 </li>
             </ul>
@@ -33,19 +33,19 @@
                     <h3 class="text-lg font-bold text-gray-900">My Account Information</h3>
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName">Name</label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" placeholder="First Name">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">Last Name</label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" placeholder="Last Name">
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" v-model="Account_data.name" readonly>
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email">
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" v-model="Account_data.nemail" readonly>
                         </div>
                         <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Phone</label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="tel" placeholder="Phone">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Unit</label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="tel" v-model="Account_data.unit" readonly>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Role</label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="tel" v-model="Account_data.role" readonly>
                         </div>
                 </div>
                 <div id="change-password" *ngIf="selectedTab === 'change-password'">
