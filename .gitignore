@@ -1,6 +1,7 @@
-Backend/node_modules
-
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+.vscode
+Backend/node_modules
 
 # Compiled output
 Frontend/dist
