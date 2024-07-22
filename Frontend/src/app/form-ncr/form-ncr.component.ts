@@ -1,41 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import axios from 'axios';
 
 @Component({
-  selector: 'app-account',
+  selector: 'app-form-ncr',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent],
-  templateUrl: './account.component.html',
-  styleUrl: './account.component.css'
+  imports: [NavbarComponent, FooterComponent],
+  templateUrl: './form-ncr.component.html',
+  styleUrl: './form-ncr.component.css'
 })
-
-
-export class AccountComponent implements OnInit {
-  selectedTab: string = 'account-info';
-
-  selectTab(tab: string) {
-    this.selectedTab = tab;
-  }
+export class FormNCRComponent implements OnInit {
 
   accountid: string | null = null;
-  role: string | null = null;
   account: any = {};
 
   ngOnInit() {
     this.accountid = sessionStorage.getItem('accountid');
-    this.role = sessionStorage.getItem('role');
     console.log('Retrieved accountid:', this.accountid);
-    console.log('Retrieved role:', this.role);
     if (this.accountid) {
       this.getAccountInfo();
     }
-  }
-
-  isAdmin(): boolean {
-    return this.role === 'Admin';
   }
 
   async getAccountInfo() {

@@ -4,12 +4,14 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountComponent } from './account/account.component';
+import { FormNCRComponent } from './form-ncr/form-ncr.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'account', component: AccountComponent },
+    { path: 'formNCR', component: FormNCRComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];

@@ -13,7 +13,6 @@
 </head>
 
 <body>
-
     <ul class="nav-links">
         <img src="image/gmf9.png" alt="Login Image"
             style="width: 95%; max-width: 300px; margin-bottom: 0px; margin-left: 0px;">
@@ -38,8 +37,9 @@
         </li>
         <li><a href="#">Personel</a></li>
         <li><a href="#">Project</a></li>
-        <li class="upward dropdown">
+    
             <a href="#">Link</a>
+            <li class="upward dropdown"></li>
             <ul class="dropdown-content">
                 <li><a href="https://imsis-djpu.dephub.go.id/PortalDKPPU/" target="_blank">DGCA</a></li>
                 <li><a href="https://www.easa.europa.eu/en/regulations" target="_blank">EASA</a></li>
@@ -310,7 +310,7 @@
                     this.fetchAllAccounts();
                     this.currentAccountID = accountid;
                 } else {
-                    window.location.href = 'login.html';
+                    window.location.href = 'index.html';
                 }
             },
             methods: {
