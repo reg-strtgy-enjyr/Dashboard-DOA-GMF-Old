@@ -1,6 +1,9 @@
 const res = require('express/lib/response');
 const { use } = require('passport/lib');
+const os = require('os');
+const path = require('path');
 const db = require('../configs/db.config');
+const fs = require('fs');
 const helper = require('../utils/helper');
 const { google } = require('googleapis');
 // Set up Google authentication with the necessary scopes for Google Docs and Drive
@@ -849,7 +852,91 @@ async function addNCRInit(mm) {
     }
 }
 
+/**
+ * Download a Document file in PDF format
+ * @param{string} fileId file ID
+ * @return{obj} file status
+ * */
+async function exportPdf(fileId) {
+    const service = google.drive({ version: 'v3', auth });
+    try {
+        const res = await service.files.export({
+            fileId: fileId,
+            mimeType: 'application/pdf',
+        }, { responseType: 'stream' });
 
+        return res.data;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+/*
+// Function to download a file from a URL
+async function downloadFile(fileUrl, outputLocationPath) {
+    const response = await axios({
+        url: fileUrl,
+        method: 'GET',
+        responseType: 'stream'
+    });
+
+    return new Promise((resolve, reject) => {
+        const writer = fs.createWriteStream(outputLocationPath);
+        response.data.pipe(writer);
+        
+        let error = null;
+        writer.on('error', err => {
+            error = err;
+            writer.close();
+            reject(err);
+        });
+
+        writer.on('close', () => {
+            if (!error) {
+                resolve(true);
+            }
+        });
+    });
+}
+*/
+
+
+async function getPDF(temp) {
+    const { documentId } = temp; // Extract documentId from temp
+    console.log(`${documentId}.pdf`);
+    console.log(os.homedir());
+    const outputLocationPath = path.join(os.homedir(), 'Downloads', `${documentId}.pdf`);
+    console.log(outputLocationPath);
+
+    const authClient = await auth.getClient();
+    console.log("TEST AFTER AUTH");
+
+    if (authClient && documentId) {
+        console.log("Downloading file...");
+        try {
+            const fileContent = await exportPdf(documentId);
+            const dest = fs.createWriteStream(outputLocationPath);
+
+            return new Promise((resolve, reject) => {
+                fileContent.pipe(dest);
+                dest.on('finish', () => {
+                    console.log("Download Completed");
+                    resolve({ success: true, path: outputLocationPath });
+                });
+
+                dest.on('error', (err) => {
+                    console.error('Error writing file:', err);
+                    reject({ success: false, message: 'Error in writing file' });
+                });
+            });
+        } catch (error) {
+            console.error('Error during file export:', error);
+            throw { success: false, message: 'Error during file export' };
+        }
+    } else {
+        throw { success: false, message: 'Error in setting up Google Drive API client' };
+    }
+}
 
 async function deleteNCRInit(temp) {
     const { ncr_init_id } = temp;
@@ -1119,6 +1206,7 @@ module.exports = {
     deleteNCRReply,
     UpdateNCRReply,
     showNCRReply,
+    getPDF,
     addNCRFollowResult,
     deleteNCRFollowResult,
     UpdateNCRFollowResult,

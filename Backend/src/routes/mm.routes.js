@@ -73,6 +73,8 @@ router.get('/showNCRReply', mmController.showNCRReply);
 
 router.post('/addNCRFollowResult', mmController.addNCRFollowResult);
 
+router.post('/getPDF', mmController.getPDF);
+
 router.delete('/deleteNCRFollowResult', mmController.deleteNCRFollowResult);
 
 router.put('/UpdateNCRFollowResult', mmController.UpdateNCRFollowResult);

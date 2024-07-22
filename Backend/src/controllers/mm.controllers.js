@@ -209,6 +209,24 @@ async function addNCRInit(req,res){
     }
 }
 
+async function getPDF(req, res) {
+    try {
+        const result = await mmService.getPDF(req.body);
+        if (result.success) {
+            res.download(result.path, `${req.body.documentId}.pdf`, (err) => {
+                if (err) {
+                    console.error('Error in sending file:', err);
+                    res.status(500).send('Error in sending file');
+                }
+            });
+        } else {
+            res.status(500).send(result.message);
+        }
+    } catch (err) {
+        res.status(500).send(err.message || 'An unexpected error occurred');
+    }
+}
+
 async function deleteNCRInit(req,res){
     try{
         const result = await mmService.deleteNCRInit(req.body);
@@ -393,6 +411,7 @@ module.exports = {
     addNCRReply,
     deleteNCRReply,
     UpdateNCRReply,
+    getPDF,
     showNCRReply,
     addNCRFollowResult,
     deleteNCRFollowResult,
