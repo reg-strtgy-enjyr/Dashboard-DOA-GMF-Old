@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountComponent } from './account/account.component';
 import { FormNCRComponent } from './form-ncr/form-ncr.component';
+import { FormIORComponent } from './form-ior/form-ior.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -12,6 +13,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'account', component: AccountComponent },
     { path: 'formNCR', component: FormNCRComponent },
+    { path: 'formIOR', component: FormIORComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
