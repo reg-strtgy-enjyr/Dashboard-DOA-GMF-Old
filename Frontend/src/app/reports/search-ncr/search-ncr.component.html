@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+<div class="min-h-screen flex items-center justify-center">
+    <div class="mx-auto w-11/12 my-8 bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="p-6">
+            <h2 class="text-2xl font-semibold text-gray-900 text-center justify-center mb-3 uppercase py-3">Search NCR</h2>
+            <form class="w-full mx-auto">   
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 focus:outline-none" placeholder="Enter your data" required />
+                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#016299] hover:bg-[#015581] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+                </div>
+            </form>
+            <div class="show-table mt-5">
+                <div class="table-responsive overflow-auto">
+                  <table class="table w-full bg-white overflow-y-scroll" id="data-table">
+                    <thead class="bg-blue-100">
+                      <tr>
+                        <th id="ncr_init_id" class="px-4 py-2">NCR Init ID</th>
+                        <th id="regulationbased" class="px-4 py-2">Regulation Based</th>
+                        <th id="subject" class="px-4 py-2">Subject</th>
+                        <th id="audit_plan_no" class="px-4 py-2">Audit Plan No</th>
+                        <th id="ncr_no" class="px-4 py-2">NCR No</th>
+                        <th id="issued_date" class="px-4 py-2">Issued Date</th>
+                        <th id="responsibility_office" class="px-4 py-2">Responsibility Office</th>
+                        <th id="audit_type" class="px-4 py-2">Audit Type</th>
+                        <th id="to_uic" class="px-4 py-2">To UIC</th>
+                        <th id="require_condition_reference" class="px-4 py-2">Require Condition Reference</th>
+                        <th id="level_finding" class="px-4 py-2">Level Finding</th>
+                        <th id="problem_analis" class="px-4 py-2">Problem Analysis</th>
+                        <th id="answer_due_date" class="px-4 py-2">Answer Due Date</th>
+                        <th id="issued_ian" class="px-4 py-2">Issued IAN</th>
+                        <th id="ian_no" class="px-4 py-2">IAN No</th>
+                        <th id="encountered_condition" class="px-4 py-2">Encountered Condition</th>
+                        <th id="audit_by" class="px-4 py-2">Audit By</th>
+                        <th id="audit_date" class="px-4 py-2">Audit Date</th>
+                        <th id="acknowledge_by" class="px-4 py-2">Acknowledge By</th>
+                        <th id="acknowledge_date" class="px-4 py-2">Acknowledge Date</th>
+                        <th id="status" class="px-4 py-2">Status</th>
+                        <th id="temporary_link" class="px-4 py-2">Temporary Link</th>
+                        <th id="action" class="px-4 py-2">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-t">
+                        <td class="px-4 py-2"></td>
+                        <td class="px-4 py-2"></td>
+                        <td class="px-4 py-2"></td>
+                        <td class="px-4 py-2">
+                          <button  class="text-blue-500 hover:underline">Preview</button><br>
+                          <button class="text-blue-500 hover:underline">Edit</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>                           
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

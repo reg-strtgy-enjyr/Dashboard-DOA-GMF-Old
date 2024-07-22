@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { FooterComponent } from '../footer/footer.component';
+import { Component } from '@angular/core';
+import { NavbarComponent } from '../../navbar/navbar.component';
+import { FooterComponent } from '../../footer/footer.component';
 import axios from 'axios';
 
 @Component({
-  selector: 'app-form-ncr',
+  selector: 'app-followon-ncr',
   standalone: true,
   imports: [NavbarComponent, FooterComponent],
-  templateUrl: './form-ncr.component.html',
-  styleUrl: './form-ncr.component.css'
+  templateUrl: './followon-ncr.component.html',
+  styleUrl: './followon-ncr.component.css'
 })
-export class FormNCRComponent implements OnInit {
-
+export class FollowonNCRComponent {
   accountid: string | null = null;
   account: any = {};
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { FooterComponent } from '../footer/footer.component';
+import { NavbarComponent } from '../../navbar/navbar.component';
+import { FooterComponent } from '../../footer/footer.component';
 import { ControlValueAccessor,NG_VALUE_ACCESSOR} from '@angular/forms';
 import axios from 'axios';
 
