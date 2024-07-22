@@ -83,4 +83,16 @@ router.get('/showFollupOccurrence', mmController.showFollupOccurrence);
 
 router.get('/showFollupOccurrenceID', mmController.showFollupOccurrenceID);
 
+router.post('/logout', (req, res) => {
+    // Assuming you're using sessions
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).send('Failed to logout.');
+        }
+
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        return res.status(200).send('Logged out successfully.');
+    });
+});
+
 module.exports = router;
