@@ -3,7 +3,9 @@
 <div class="mx-auto mt-24 w-full md:w-auto my-8 bg-white shadow-md rounded-lg overflow-hidden">
     <div class="p-6">
       <form>
-        <h2 class="text-2xl font-bold text-gray-900 text-center justify-center mb-7 uppercase">Non-Conformance Report (NCR)</h2>
+        <div class="bg-[#02507d] rounded-lg">
+        <h2 class="text-2xl font-semibold text-white text-center justify-center mb-7 uppercase py-3 mx-3">Non-Conformance Report (NCR)</h2>
+        </div>
 
         <!-- First Row -->
         <div class="flex flex-wrap -mx-3 mb-6">
@@ -20,7 +22,7 @@
                 Regulation Based
                 </label>
                 <div class="relative">
-                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
                     <option value="" disabled selected>Select your data</option>
                     <option value="DGCA">DGCA</option>
                     <option value="EASA">EASA</option>
@@ -35,14 +37,14 @@
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 NCR NO
                 </label>
-                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="NCR-09-2022">
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="NCR-09-2022" required>
             </div>
             <!-- AUDIT NO -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 AUDIT NO
                 </label>
-                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="AP-01-2022">
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="AP-01-2022" required>
             </div>
             <!-- Issued Date -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
@@ -147,14 +149,14 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                 Subject
               </label>
-              <textarea class="appearance-none h-auto block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="This is a sample text"></textarea>
+              <textarea class="appearance-none h-auto block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Enter your data" required></textarea>
             </div>
             <!-- Subject -->
             <div class="w-full md:w-1/2 px-3">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                 Require Condition
               </label>
-              <textarea class="appearance-none h-auto block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="This is a sample text"></textarea>
+              <textarea class="appearance-none h-auto block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Enter your data" required></textarea>
             </div>
         </div>
 
@@ -183,7 +185,7 @@
                 Problem Analysis
                 </label>
                 <div class="relative">
-                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
                     <option value="" disabled selected>Select your data</option>
                     <option value="Required">Required</option>
                     <option value="Not required">Not required</option>
@@ -198,7 +200,7 @@
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Answer Due Date
                 </label>
-                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="date">
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="date" required>
             </div>
             <!-- Issue IAN -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
@@ -206,7 +208,7 @@
                 Issue IAN
                 </label>
                 <div class="relative">
-                    <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <option value="" disabled selected>Select your data</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
@@ -267,6 +269,9 @@
                         <option value="Closed">Closed</option>
                         <option value="Monitor">Monitor</option>
                     </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
                 </div>
             </div>
         </div>
@@ -278,17 +283,21 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                 Encounter Condition
               </label>
-              <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="This is a sample text"></textarea>
+              <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Enter your data" required></textarea>
             </div>
             <!-- Remark -->
             <div class="w-full md:w-1/2 px-3">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                   Remark
                 </label>
-                <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="This is a sample text"></textarea>
+                <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Enter your data" required></textarea>
               </div>
         </div>
 
+        <!-- Submit Button -->
+        <div class="flex items-center justify-center">
+            <button type="submit" class="w-full md:w-1/6 text-white bg-[#016299] hover:bg-[#015581] focus:ring-4 focus:outline-none font-semibold rounded-lg text-base px-5 py-2.5 text-center">Submit</button>
+        </div>
       </form>
     </div>
   </div>

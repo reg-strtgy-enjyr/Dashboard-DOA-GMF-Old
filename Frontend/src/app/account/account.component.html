@@ -63,26 +63,4 @@
         </div>
     </div>
 </div>
-<div class="min-h-screen flex items-center justify-center">
-    <div class="max-w-5xl mx-auto p-3 bg-white shadow-md rounded-lg">
-      <div class="md:flex">
-        <ul class="flex flex-col md:me-3 space-y-4 text-sm font-medium text-gray-500 mb-4 md:mb-0 md:w-1/4">
-          <li (click)="selectTab('account-info')">
-            <a class="inline-flex items-center px-4 py-3 rounded-lg w-full"
-               [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'account-info', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedTab !== 'account-info'}">
-              Account Info
-            </a>
-          </li>
-          <!-- other tabs -->
-        </ul>
-        <div class="p-5 bg-gray-50 text-medium text-gray-500 w-auto h-96 md:w-3/4">
-          <div *ngIf="selectedTab === 'account-info'">
-            <h3 class="text-lg font-bold text-gray-900">My Account Information</h3>
-            <!-- account information fields -->
-          </div>
-          <!-- other tab contents -->
-        </div>
-      </div>
-    </div>
-  </div>
 <app-footer></app-footer>

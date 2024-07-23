@@ -4,14 +4,27 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountComponent } from './account/account.component';
-import { FormNCRComponent } from './form-ncr/form-ncr.component';
+import { FormNCRComponent } from './reports/form-ncr/form-ncr.component';
+import { SearchNCRComponent } from './reports/search-ncr/search-ncr.component';
+import { FollowonNCRComponent } from './reports/followon-ncr/followon-ncr.component';
+import { FormIORComponent } from './reports/form-ior/form-ior.component';
+import { SearchIORComponent } from './reports/search-ior/search-ior.component';
+import { FollowonIORComponent } from './reports/followon-ior/followon-ior.component';
 
 export const routes: Routes = [
+    // Essential routes
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'account', component: AccountComponent },
+    // Report routes
     { path: 'formNCR', component: FormNCRComponent },
+    { path: 'searchNCR', component: SearchNCRComponent },
+    { path: 'followNCR', component: FollowonNCRComponent },
+    { path: 'formIOR', component: FormIORComponent },
+    { path: 'searchIOR', component: SearchIORComponent },
+    { path: 'followIOR', component: FollowonIORComponent },
+    // Redirects
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
