@@ -21,34 +21,50 @@
                     <thead class="bg-blue-100">
                       <tr>
                         <th id="id_ior">ID IOR</th>
-                            <th id="subject_ior">Subject IOR</th>
-                            <th id="occur_nbr">IOR Number</th>
-                            <th id="occur_date">IOR Date</th>
-                            <th id="reference_ior">Reference IOR</th>
-                            <th id="to_uic">To UIC</th>
-                            <th id="cc_uic">CC UIC</th>
-                            <th id="category_ior">Category IOR</th>
-                            <th id="type_or_phone_number">Type OR Phone Number</th>
-                            <th id="level_type">Level Type</th>
-                            <th id="detail_occurrence">Detail Occurance</th>
-                            <th id="reported_by">Reported By</th>
-                            <th id="reporter_uic">Reporter UIC</th>
-                            <th id="report_date">Report Date</th>
-                            <th id="report_identify">Report Identify</th>
-                            <th id="data_reference">Data Reference</th>
-                            <th id="hirac_process">Hirac Process</th>
-                            <th id="initial_probability">Initial Probability</th>
-                            <th id="initial_severity">Initial Severity</th>
-                            <th id="initial_riskindex">Initial Riskindex</th>
+                            <th id="subject_ior" class="px-4 py-2 border-r border-gray-500">Subject IOR</th>
+                            <th id="occur_nbr" class="px-4 py-2 border-r border-gray-500">IOR Number</th>
+                            <th id="occur_date" class="px-4 py-2 border-r border-gray-500">IOR Date</th>
+                            <th id="reference_ior" class="px-4 py-2 border-r border-gray-500">Reference IOR</th>
+                            <th id="to_uic" class="px-4 py-2 border-r border-gray-500">To UIC</th>
+                            <th id="cc_uic" class="px-4 py-2 border-r border-gray-500">CC UIC</th>
+                            <th id="category_ior" class="px-4 py-2 border-r border-gray-500">Category IOR</th>
+                            <th id="type_or_phone_number" class="px-4 py-2 border-r border-gray-500">Type&nbsp;OR&nbsp;Phone&nbsp;Number</th>
+                            <th id="level_type" class="px-4 py-2 border-r border-gray-500">Level Type</th>
+                            <th id="detail_occurrence" class="px-4 py-2 border-r border-gray-500">Detail Occurance</th>
+                            <th id="reported_by" class="px-4 py-2 border-r border-gray-500">Reported By</th>
+                            <th id="reporter_uic" class="px-4 py-2 border-r border-gray-500">Reporter UIC</th>
+                            <th id="report_date" class="px-4 py-2 border-r border-gray-500">Report Date</th>
+                            <th id="report_identify" class="px-4 py-2 border-r border-gray-500">Report Identify</th>
+                            <th id="data_reference" class="px-4 py-2 border-r border-gray-500">Data Reference</th>
+                            <th id="hirac_process" class="px-4 py-2 border-r border-gray-500">Hirac Process</th>
+                            <th id="initial_probability" class="px-4 py-2 border-r border-gray-500">Initial Probability</th>
+                            <th id="initial_severity" class="px-4 py-2 border-r border-gray-500">Initial Severity</th>
+                            <th id="initial_riskindex" class="px-4 py-2 border-r border-gray-500">Initial Riskindex</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="border-t">
-                        <td class="px-4 py-2"></td>
-                        <td class="px-4 py-2"></td>
-                        <td class="px-4 py-2"></td>
+                      <tr *ngFor="let item of items" class="border-b border-gray-500">
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.subject_ior }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.occur_nbr }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.occur_date}}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.reference_ior }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.to_uic }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.cc_uic }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.category_ior }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.type_or_phone_number }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.level_type }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.detail_occurrence }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.reported_by }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.reporter_uic }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.report_date }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.report_identify }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.data_reference }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.hirac_process }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.initial_probability }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.initial_severity }}</td>
+                        <td class="px-4 py-2 border-r border-gray-500">{{ item.initial_riskindex}}</td>
                         <td class="px-4 py-2">
-                          <button  class="text-blue-500 hover:underline">Preview</button><br>
+                          <button class="text-blue-500 hover:underline">Preview</button><br>
                           <button class="text-blue-500 hover:underline">Edit</button>
                         </td>
                       </tr>
