@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { FooterComponent } from "../../footer/footer.component";
-import { HttpClient } from '@angular/common/http';
 import { debounceTime, Subject } from 'rxjs';
+import { NCRService } from '../../ncrservice.service';
+import axios from 'axios';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-search-ncr',
@@ -12,66 +14,51 @@ import { debounceTime, Subject } from 'rxjs';
   templateUrl: './search-ncr.component.html',
   styleUrl: './search-ncr.component.css'
 })
-export class SearchNCRComponent {
-  /*
-  title = 'Searching NCR';
+export class SearchNCRComponent implements OnInit {
   items: any[] = [];
-  searchData = {
-    input: ''
-  };
-  private searchSubject = new Subject<string>();
+  searchData = { input: '' };
+  searchSubject = new Subject<string>();
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.fetchDataFromServer();
-    setInterval(() => {
-      this.fetchDataFromServer();
-    }, 5000);
-
-    this.searchSubject.pipe(debounceTime(300)).subscribe(searchTerm => {
-      this.fetchDataBySearchTerm(searchTerm);
-    });
   }
 
-  fetchDataFromServer(): void {
-    if (!this.searchData.input) {
-      this.http.get<any>('http://localhost:3000/showNCRInit').subscribe(
-        response => {
-          if (response.status === 200) {
-            this.items = response.showProduct;
+  async fetchDataFromServer() {
+    try {
+      if (!this.searchData.input) {
+          const response = await axios.get("http://localhost:3000/showNCRInit");
+          if (response.data.status === 200) {
+              this.items = response.data.showProduct;
           } else {
-            console.error('Error Message:', response.message);
+              console.error('Error Message:', response.data.message);
           }
-        },
-        error => {
-          console.error('Error:', error);
-        }
-      );
+      }
+    } catch (error) {
+        console.error('Error:', error);
     }
   }
 
-  fetchDataBySearchTerm(searchTerm: string): void {
-    this.http.post<any>('http://localhost:3000/searchNCR', { input: searchTerm }).subscribe(
-      response => {
-        if (response.status === 200) {
-          this.items = response.showProduct;
-        } else {
-          console.error('Error Message:', response.message);
-          this.items = [];
-        }
-      },
-      error => {
-        console.error('Error:', error);
-        this.items = [];
+  async fetchDataBySearchTerm() {
+    try {
+      const response = await axios.post("http://localhost:3000/searchNCR", this.searchData);
+      if (response.data.status === 200) {
+          this.items = response.data.showProduct;
+      } else {
+          console.error('Error Message:', response.data.message);
+          this.items = []; // Set items to an empty array on error
       }
-    );
+    } catch (error) {
+        console.error('Error:', error);
+        this.items = []; // Set items to an empty array on error
+    }
   }
 
-  onSearchTermChange(searchTerm: string): void {
-    this.searchSubject.next(searchTerm);
+  onSearchChange(searchValue: string): void {
+    this.searchSubject.next(searchValue);
   }
-/*
+
   exportToExcel(): void {
     const table = document.getElementById('data-table');
     const ws = XLSX.utils.table_to_sheet(table);
@@ -79,14 +66,14 @@ export class SearchNCRComponent {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, 'NCR_Data.xlsx');
   }
+
   navigatePreview(ncrNo: string): void {
     sessionStorage.setItem('ncr_init_id', ncrNo);
-    window.location.href = 'previewPage.html';
+    window.location.href = '/preview';
   }
 
   navigateEdit(ncrNo: string): void {
     sessionStorage.setItem('ncr_init_id', ncrNo);
-    window.location.href = 'Edit_NCR_2.html';
+    window.location.href = '/editNCR';
   }
-*/
 }

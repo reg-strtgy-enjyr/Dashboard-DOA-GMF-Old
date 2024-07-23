@@ -15,7 +15,6 @@ const auth = new google.auth.GoogleAuth({
     ]
 });
 
-
 // Function to replace text in a Google Docs document
 async function replaceTextInGoogleDocs(documentId, findText, replaceText) {
     try {
