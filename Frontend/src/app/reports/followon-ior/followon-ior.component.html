@@ -1,1 +1,224 @@
-<p>followon-ior works!</p>
+<app-navbar></app-navbar>
+<div class="min-h-screen flex items-center justify-center">
+<div class="mx-auto mt-24 w-full md:w-auto my-8 bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="p-6">
+      <form>
+        <!----------------------- IOR #1-->
+        <div class="bg-[#02507d] rounded-lg">
+        <h2 class="text-2xl font-semibold text-white text-center justify-center mb-7 uppercase py-3 mx-3">IOR #1</h2> 
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <!-- reported by -->
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              reported by
+              </label>
+              <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Enter Your Data">
+            </div> 
+            <!-- reported uic -->
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">                           
+                  reporter UIC
+                </label>
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Enter Your Data">
+            </div> 
+          <!-- repoirt Date -->
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              report Date
+              </label>
+              <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="date" required>
+            </div>
+          <!-- reporter identity -->
+          <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+              reporter identity
+              </label>
+              <div class="relative">
+              <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Select" required>
+                  <option value="" disabled selected>Select your data</option>
+                  <option value="shown">Shown</option>
+                  <option value="hidden">Hidden</option>
+              </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                  </div>
+              </div>
+          </div>
+          <!-- fifth row -->
+          <!-- Data reference -->
+            <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+              Data reference
+              </label>
+                <div class="relative">
+                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Select" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                  </div>
+                </div>
+            </div>
+           <!-- Hirac process-->
+           <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+              Hirac process
+              </label>
+              <div class="relative">
+              <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Select" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+              </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                  </div>
+              </div>
+          </div>
+          <!-- initial probability -->
+          <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              initial probability
+              </label>
+              <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter Your Data" required>
+          </div>
+          <!-- initial Severity -->
+          <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              initial Severity
+              </label>
+              <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter Your Data" required>
+          </div>
+           <!-- initial Risk index -->
+           <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              initial Risk index
+              </label>
+              <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter Your Data" required>
+          </div>
+      </div>
+
+         <!-- sixth Row -->
+         <div class="flex flex-wrap -mx-3 mb-6">
+            <!-- #1 follow on-->
+            <div class="w-full px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                #1 FOllow on
+              </label>
+              <textarea class="appearance-none h-auto block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="This is a sample text"></textarea>
+            </div>
+        </div>
+
+        <!----------------------- IOR #2-->
+        <!----------------------- IOR #1-->
+        <div class="bg-[#02507d] rounded-lg">
+        <h2 class="text-2xl font-semibold text-white text-center justify-center mb-7 uppercase py-3 mx-3">IOR #2</h2> 
+        </div>
+        <!-- Fourth Row -->
+        <div class="flex flex-wrap -mx-3 mb-6">
+              <!-- reported by -->
+              <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                reported by
+                </label>
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Enter Your Data">
+            </div> 
+              <!-- reported uic -->
+              <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                   <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">                           
+                    reporter UIC
+                    </label>
+            <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Enter Your Data">
+                        </div> 
+            <!-- repoirt Date -->
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                report Date
+                </label>
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="date" required>
+            </div>
+            <!-- fifth row -->
+            <!-- data reference -->
+            <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                data reference
+                </label>
+                <div class="relative">
+                    <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Select" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                </div>
+            </div>
+            <!-- status -->
+            <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Status
+                </label>
+                <div class="relative">
+                    <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Select" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="open">Open</option>
+                        <option value="close">Close</option>
+                    </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                </div>
+            </div>
+             <!-- Next unit-->
+             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Next unit
+                </label>
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Enter Data">
+            </div>
+            <!-- Current probability -->
+            <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Current Probability
+                </label>
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter Your Data" required>
+            </div>
+            <!-- Current Severity -->
+            <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Current Severity
+                </label>
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter Your Data" required>
+            </div>
+             <!-- Current Risk index -->
+             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Current Risk index
+                </label>
+                <input class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter Your Data" required>
+            </div>
+        </div>
+
+         <!-- sixth Row -->
+         <div class="flex flex-wrap -mx-3 mb-6">
+            <!-- #2 follow on-->
+            <div class="w-full px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                #2 FOllow on
+              </label>
+              <textarea class="appearance-none h-auto block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="This is a sample text"></textarea>
+            </div>
+        </div>
+        <!-- Submit Button -->
+        <div class="flex items-center justify-center">
+            <button type="submit" class="w-full md:w-1/6 text-white bg-[#016299] hover:bg-[#015581] focus:ring-4 focus:outline-none font-semibold rounded-lg text-base px-5 py-2.5 text-center">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
