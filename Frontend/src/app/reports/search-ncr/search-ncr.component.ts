@@ -62,14 +62,17 @@ export class SearchNCRComponent implements OnInit {
     }
   }
 
-  exportToExcel() {
+  exportToExcel(): void {
     const table = document.getElementById('data-table');
-    if (table) {
-      const ws = XLSX.utils.table_to_sheet(table);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-      XLSX.writeFile(wb, 'NCR_Data.xlsx');
-    }
+    const ws = XLSX.utils.table_to_sheet(table);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+    const date = new Date();
+    const formattedDate = date.toISOString().slice(0, 10); // Format as YYYY-MM-DD
+    const fileName = `NCR_${formattedDate}.xlsx`;
+  
+    XLSX.writeFile(wb, fileName);
   }
 
   navigatePreview(ncrNo: string) {

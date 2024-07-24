@@ -63,8 +63,14 @@ export class SearchIORComponent implements OnInit {
     const ws = XLSX.utils.table_to_sheet(table);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, 'IOR_Data.xlsx');
+  
+    const date = new Date();
+    const formattedDate = date.toISOString().slice(0, 10); // Format as YYYY-MM-DD
+    const fileName = `IOR_${formattedDate}.xlsx`;
+  
+    XLSX.writeFile(wb, fileName);
   }
+  
 
   navigatePreview(iorNo: string): void {
     sessionStorage.setItem('ior_init_id', iorNo);
