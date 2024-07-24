@@ -159,24 +159,36 @@ async function addAccount(mm) {
 }
 
 async function updatePassword(mm) {
-    const { accountid, password } = mm;
-    const pass = await helper.hashPassword(password);
-    const query = `UPDATE account SET password = '${pass}' WHERE accountid = '${accountid}'`;
-    const result = await db.query(query);
+    const { email, currentPass, newPass } = mm;
+    try {
+        const passQuery = `SELECT password FROM account WHERE email = ?`;
+        const passResult = await db.query(passQuery, [email]);
 
-    if (result.rowCount === 1) {
-        return {
-            status: 200,
-            message: 'Password Updated'
-        };
-    } else {
-        return {
-            status: 404,
-            message: 'User not found or Error updating password'
-        };
+        if (passResult.rowCount === 0) {
+            return { status: 404, message: 'User not found' };
+        }
+
+        const storedPass = passResult.rows[0].password;
+        const isValidPassword = await helper.verifyPassword(currentPass, storedPass);
+
+        if (!isValidPassword) {
+            return { status: 400, message: 'Current password is incorrect' };
+        }
+
+        const hashedNewPass = await helper.hashPassword(newPass);
+        const updateQuery = `UPDATE account SET password = ? WHERE accountid = ?`;
+        const result = await db.query(updateQuery, [hashedNewPass, accountid]);
+
+        if (result.rowCount === 1) {
+            return { status: 200, message: 'Password Updated' };
+        } else {
+            return { status: 500, message: 'Error updating password' };
+        }
+    } catch (error) {
+        console.error('Error updating password:', error);
+        return {status: 500, message: 'Internal server error' };
     }
 }
-
 
 async function showAccount(temp) {
     try {
@@ -226,22 +238,37 @@ async function showAllAccount() {
 }
 
 async function deleteAccount(temp) {
-    const { accountid } = temp;
-    const query = `DELETE FROM account WHERE accountid = '${accountid}'`;
-    const result = await db.query(query);
-    if (result.rowCount === 1) {
-        return {
-            status: 200,
-            message: 'User deleted'
-        }
+    const { email, password } = temp;
+    const userQuery = `SELECT password FROM account WHERE email = '${email}'`;
+    const userResult = await db.query(userQuery);
+    
+    if (userResult.rowCount === 0) {
+        console.log('User not found');
+        return {status: 404, message: 'User not found'};
     }
-    else {
+    
+    const hashedPassword = userResult.rows[0].password;
+    const isMatch = await helper.comparePassword(password, hashedPassword);
+    
+    if (!isMatch) {
         return {
-            status: 404,
-            message: 'User not found'
-        }
+            status: 401,
+            message: 'Invalid password'
+        };
+    }
+    
+    const deleteQuery = `DELETE FROM account WHERE email = '${email}'`;
+    const deleteResult = await db.query(deleteQuery);
+    
+    if (deleteResult.rowCount === 1) {
+        console.log('User deleted');
+        return { status: 200, message: 'User deleted' };
+    } else {
+        console.log('User not found');
+        return { status: 404, message: 'User not found' };
     }
 }
+
 
 //===========================================
 //============ AuditPlan ====================

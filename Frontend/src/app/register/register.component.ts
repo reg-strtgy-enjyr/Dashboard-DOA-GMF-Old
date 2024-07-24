@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import axios, { AxiosError } from 'axios';
@@ -6,19 +7,29 @@ import axios, { AxiosError } from 'axios';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FooterComponent, FormsModule],
+  imports: [CommonModule, FooterComponent, FormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 
 export class RegisterComponent implements OnInit {
+  accountid: string | null = null;
+  role: string | null = null;
   registerData = { name: '', unit: '', role: '', email: '', password: '' };
   registerMessage = '';
   email: string | null = null;
   showEmailDisplay = false;
 
   ngOnInit() {
+    this.accountid = sessionStorage.getItem('accountid');
+    this.role = sessionStorage.getItem('role');
+    console.log('Retrieved accountid:', this.accountid);
+    console.log('Retrieved role:', this.role);
     this.showEmailDisplay = false;
+  }
+
+  isAdmin(): boolean {
+    return this.role === 'Admin';
   }
 
   async registerAccount() {
