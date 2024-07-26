@@ -221,6 +221,7 @@
                         const response = await axios.post("http://localhost:3000/addNCRInit", this.NCR_data);
 
                         if (response.data.status === 200) {
+                            this.route
                             this.loginMessage = 'NCR added successfully';
                         } else {
                             this.loginMessage = 'Failed to add NCR';

@@ -5,42 +5,30 @@ import { FooterComponent } from "../../footer/footer.component";
 import axios from 'axios';
 import _ from 'lodash';
 import * as XLSX from 'xlsx';
+import { FormsModule } from '@angular/forms'; // Ensure FormsModule is imported
 
 @Component({
   selector: 'app-search-ncr',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent, FormsModule],
   templateUrl: './search-ncr.component.html',
-  styleUrl: './search-ncr.component.css'
+  styleUrls: ['./search-ncr.component.css']
 })
 export class SearchNCRComponent implements OnInit {
   items: any[] = [];
   searchData = { input: '' };
-  private debounceFetchDataBySearchTerm = _.debounce(this.fetchDataBySearchTerm.bind(this), 300);
-  private fetchDataInterval: any;
 
   ngOnInit() {
     this.fetchDataFromServer();
-    //this.fetchDataInterval = setInterval(() => {
-    //  this.fetchDataFromServer();
-    //}, 5000);
   }
-/*
-  ngOnDestroy() {
-    if (this.fetchDataInterval) {
-      clearInterval(this.fetchDataInterval);
-    }
-  }
-*/
+
   async fetchDataFromServer() {
     try {
-      if (!this.searchData.input) {
-        const response = await axios.get('http://localhost:3000/showNCRInit');
-        if (response.data.status === 200) {
-          this.items = response.data.showProduct;
-        } else {
-          console.error('Error Message:', response.data.message);
-        }
+      const response = await axios.get('http://localhost:3000/showNCRInit');
+      if (response.data.status === 200) {
+        this.items = response.data.showProduct;
+      } else {
+        console.error('Error Message:', response.data.message);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -69,7 +57,7 @@ export class SearchNCRComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
   
     const date = new Date();
-    const formattedDate = date.toISOString().slice(0, 10); // Format as YYYY-MM-DD
+    const formattedDate = date.toISOString().slice(0, 10);
     const fileName = `NCR_${formattedDate}.xlsx`;
   
     XLSX.writeFile(wb, fileName);
@@ -84,9 +72,8 @@ export class SearchNCRComponent implements OnInit {
     sessionStorage.setItem('ncr_init_id', ncrNo);
     window.location.href = 'Edit_NCR_2.html';
   }
-/*
-  onSearchInputChange() {
-    this.debounceFetchDataBySearchTerm();
+
+  search() {
+    this.fetchDataBySearchTerm();
   }
-*/
 }
