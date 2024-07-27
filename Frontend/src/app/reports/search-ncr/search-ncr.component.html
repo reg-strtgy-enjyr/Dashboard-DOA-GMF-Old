@@ -70,16 +70,21 @@
                         <td class="px-4 py-2 border-r border-gray-500">{{ item.status }}</td>
                         <td class="px-4 py-2 border-r border-gray-500">{{ item.temporary_link }}</td>
                         <td class="px-4 py-2">
-                          <button (click)="navigatePreview(item.ncr_no)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Preview</button>
-                          <button (click)="navigateEdit(item.ncr_no)" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">Edit</button>
-                        </td>
+                          <button (click)="navigatePreview(item.ncr_no)" class="inline-block bg-[#016299] rounded border-2 border-primary px-3 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-accent-300 hover:bg-primary-50/50 hover:text-primary-accent-300 focus:border-primary-600 focus:bg-primary-50/50 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 motion-reduce:transition-none dark:text-primary-500 dark:hover:bg-blue-950 dark:focus:bg-blue-950 text-white">Preview</button>
+                          <button (click)="navigateEdit(item.ncr_no)" class="inline-block bg-[#016299] rounded border-2 border-primary px-4 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-accent-300 hover:bg-primary-50/50 hover:text-primary-accent-300 focus:border-primary-600 focus:bg-primary-50/50 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 motion-reduce:transition-none dark:text-primary-500 dark:hover:bg-blue-950 dark:focus:bg-blue-950 text-white">
+                            <i class="fas fa-edit" style="font-size: 12px;"></i> Edit
+                          </button>
+                          </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-            <button class="my-3 p-2 bg-[#016299] hover:bg-[#015581] text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium" (click)="exportToExcel()">Export to Excel</button>
-        </div>
+              <button class="my-3 p-2 bg-[#0F783E] hover:bg-[#015581] text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium" (click)="exportToExcel()">
+                <i class="fas fa-file-excel text-logo-color"></i> Export to Excel
+              </button>  
+
+            </div>
     </div>
 </div>
 <app-footer></app-footer>
