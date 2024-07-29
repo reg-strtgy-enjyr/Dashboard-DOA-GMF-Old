@@ -1,11 +1,12 @@
 <app-navbar></app-navbar>
-<div class="min-h-screen flex items-center justify-center mt-20">
+<div class="min-h-screen flex items-center justify-center mt-20 my-20">
   <div class="max-w-5xl mx-auto w-full md:w-3/4 p-3 bg-white shadow-md rounded-lg">
     <div class="p-6">
       <div class="bg-[#02507d] rounded-lg">
         <h2 class="text-2xl font-semibold text-white text-center mb-7 uppercase py-3 mx-3">User Guide</h2>
       </div>
       <div class="md:flex">
+        <!-- select tab -->
         <ul class="flex flex-col md:me-3 space-y-4 text-sm font-medium text-gray-500 mb-4 md:mb-0 md:w-1/4">
           <li (click)="selectTab('account')">
             <a href="/userGuide#account" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
@@ -40,8 +41,10 @@
         </ul>
         <div class="p-5 bg-gray-50 text-grey-900 w-full md:w-3/4">
           <div id="account" *ngIf="selectedTab === 'account'">
-            <img src="..\..\assets\Userguide\login2page.png" class="w-full p-6"/><br>
-            <div class="user-manual">
+            <!-- login page -->
+            <h2 class="font-bold text-center text-xl">Login Page</h2><br>
+            <img src="..\..\assets\Userguide\account\login2page.png" class="w-full p-6"/><br>
+            <div class="user-manual w-fit ">
               <h2 class="font-bold">Accessing the Login Page</h2><br>
               <h3>Open Your Browser:</h3>
               <ul>
@@ -49,45 +52,39 @@
               </ul>
               <h3>Navigate to the Login Page:</h3>
               <ul>
-                <li>Enter the URL for the login page in the address bar and press <code style="color:black;">Enter</code>. The URL is usually provided by your organization.</li>
-                <li>or can be accessed via a link on the homepage of the platform.</li>
-              </ul><br>
+                <li>Enter the URL for the login page in the address bar and press <code style="color:black;">Enter</code> or can be accessed via a link on the homepage of the platform.
+                </ul><br>
               <h2 class="font-bold">Logging In</h2><br>
               <h3>Enter Your Username:</h3>
               <ul>
-                <li>Locate the <strong>"Username"</strong> or <strong>"Email"</strong> field on the login page.</li>
-                <li>Click on the field and type your registered username or email address.</li>
+                <li>Locate the <strong>"Email"</strong> field on the login page.</li>
+                <li>Click on the field and type your registered email address.</li>
               </ul>
               <h3>Enter Your Password:</h3>
               <ul>
                 <li>Click on the <strong>"Password"</strong> field.</li>
                 <li>Type your password. Ensure that you enter it correctly, paying attention to case sensitivity.</li>
               </ul>
-              <h3>Optional: Remember Me:</h3>
+              <h3>Optional Remember Me:</h3>
               <ul>
                 <li>If available and if you are on a personal device, check the <strong>"Remember Me"</strong> box to stay logged in on this device.</li>
                 <li>This will keep you signed in across sessions until you log out.</li>
               </ul>
               <h3>Click the Login Button:</h3>
               <ul>
-                <li>Once you have entered your credentials, click the <strong>"Login"</strong> or <strong>"Sign In"</strong> button to proceed.</li>
+                <li>Once you have entered your credentials, click the <strong>"Login"</strong> button to proceed.</li>
               </ul><br>
               <h2 class="font-bold">Handling Common Issues</h2><br>
               <h3>Forgot Your Password?:</h3>
               <ul>
-                <li>If you cannot remember your password, click the <strong>"Forgot Password?"</strong> link usually found below the password field.</li>
-                <li>Follow the on-screen instructions to reset your password. This often involves receiving an email with a password reset link.</li>
+                <li>If you cannot remember your password, click the <strong>"Forgot Password?"</strong> link found below the password field.</li>
+                <li>Follow the on-screen instructions to reset your password. This involves receiving a notification to contact your system administrator.</li>
               </ul>
               <h3>Incorrect Username or Password:</h3>
               <ul>
                 <li>Ensure that you have entered your username and password correctly.</li>
                 <li>Check for typos, and make sure Caps Lock is not turned on.</li>
                 <li>If the issue persists, use the <strong>"Forgot Password?"</strong> link to reset your password.</li>
-              </ul>
-              <h3>Account Locked:</h3>
-              <ul>
-                <li>After multiple failed login attempts, your account may be temporarily locked for security reasons.</li>
-                <li>Contact customer support for assistance in unlocking your account.</li>
               </ul>
               <h3>Technical Issues:</h3>
               <ul>
@@ -106,10 +103,295 @@
               <h3>Update Your Password Regularly:</h3>
               <ul>
                 <li>Change your password periodically to maintain security.</li>
-              </ul>
+              </ul><br>
+              
+              <!--account info -->
+              <h2 class="font-bold text-center text-xl">Account Info</h2><br>
+                <img src="..\..\assets\Userguide\account\accountinfo.png" class="w-full p-6"/><br>            
+                  <h3 class="font-bold">Name</h3>
+                  <p>This field displays your full name as it is registered within the system. It is essential to ensure that this information is accurate and up-to-date as it is used for identification and communication purposes.</p>
+                  <br>
+            
+                  <h3 class="font-bold">Email</h3>
+                  <p>This field shows the email address associated with your account. The email address is a vital piece of information as it is used for logging in, receiving notifications, and password recovery. Ensuring that this email is current and accessible is important for maintaining account security and receiving timely updates.</p>
+                  <br>
+            
+                  <h3 class="font-bold">Unit</h3>
+                  <p>This field indicates the organizational unit or department you belong to. This information helps in categorizing users based on their functional areas within the organization. It aids in ensuring that communication and permissions are appropriately managed according to departmental roles and responsibilities.</p>
+                  <br>
+            
+                  <h3 class="font-bold">Role</h3>
+                  <p>This field shows your role within the organization, such as Admin, DO, AO or IM. The role assigned to your account determines the level of access and permissions you have on the platform. It is crucial for maintaining security and proper access controls, ensuring that each user has the appropriate level of access required for their duties.</p>
+                
             </div>
           </div>
-          <div id="audit" *ngIf="selectedTab === 'audit'">dor</div>
+          <!------- audit ------------------>
+          <div id="audit" *ngIf="selectedTab === 'audit'">
+            <!-- NCR form -->
+            <h2 class="font-bold text-center text-xl">Non-Conformance Reports Form</h2><br>
+            <img src="..\..\assets\Userguide\audit\NCRform.png" class="w-full p-6"/><br>
+            <div class=" w-fit ">
+              <div class="min-h-screen bg-gray-50 p-6">
+                <!-- User Guide Table -->
+                <section class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8">
+                  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Form Fields and Instructions</h2>
+                  <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                      <thead class="bg-gray-100">
+                        <tr>
+                          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Field</th>
+                          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-white divide-y divide-gray-200">
+                        <tr *ngFor="let field of fields">
+                          <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ field.field }}</td>
+                          <td class="px-6 py-4 text-sm text-gray-500">{{ field.description }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              </div>
+              
+              <!--Search NCR -->
+              <br><h2 class="font-bold text-center text-xl">Search Non-Conformance Form</h2><br>
+                <img src="..\..\assets\Userguide\audit\searchNCR.png" class="w-full p-6"/><br>            
+                 <div class="container mx-auto p-4">
+                
+                <section class="mb-6">
+                  <h2 class="text-xl font-semibold mb-2">Introduction</h2>
+                  <p class="text-gray-700">
+                    This guide provides comprehensive instructions for users to effectively search for Non-Conformance Reports (NCRs) using the search functionality provided in the system. Ensure that you have the necessary permissions to access and search the NCR database.
+                  </p>
+                </section>
+
+                <section class="mb-6">
+                  <h2 class="text-xl font-semibold mb-2">Accessing the Search NCR Page</h2>
+                  <ol class="list-decimal pl-6 text-gray-700">
+                    <li>Open your preferred web browser (e.g., Chrome, Firefox, Safari).</li>
+                    <li>Enter the URL for the NCR search page provided by your organization.</li>
+                    <li>The page title "Search NON-CONFORMANCE REPORT" should be visible.</li>
+                  </ol>
+                </section>
+
+                <section class="mb-6">
+                  <h2 class="text-xl font-semibold mb-2">Using the Search Functionality</h2>
+                  <h3 class="text-lg font-semibold mb-2">Search Parameters:</h3>
+                  <p class="text-gray-700">
+                    You can search for NCRs using either the TO UIC or NCR INIT ID fields. Enter the appropriate search term in the search input field.
+                  </p><br>
+                  <h3 class="text-lg font-semibold mb-2">Initiate the Search:</h3>
+                  <p class="text-gray-700">
+                    After entering the search term, click the Search button or press enter. The system will process your request and display the relevant NCRs in a table format.
+                  </p>
+                </section>
+
+                <section class="mb-6">
+                  <!-- <h2 class="text-xl font-semibold mb-2">Understanding the Search Results</h2> -->
+                  <p class="text-gray-700">
+                    <!-- The search results are displayed in a table with the following columns: -->
+                  </p>
+                  <ul class="list-disc pl-6 text-gray-700">
+                    <div class="container mx-auto p-4">
+                      <h2 class="text-xl font-semibold mb-4">Understanding the Search Results</h2>
+                      
+                      <p class="text-gray-700 mb-4">
+                        The search results are displayed in a table with the following columns:
+                      </p>
+                      
+                      <table class="min-w-full bg-white border border-gray-200">
+                        <thead class="bg-gray-100">
+                          <tr>
+                            <th class="px-4 py-2 text-left text-gray-600">Column</th>
+                            <th class="px-4 py-2 text-left text-gray-600">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="px-4 py-2 border-b">NCR Init ID</td>
+                            <td class="px-4 py-2 border-b">Unique identifier for the NCR initiation.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Regulation Based</td>
+                            <td class="px-4 py-2 border-b">Basis of the regulation related to the NCR.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Subject</td>
+                            <td class="px-4 py-2 border-b">Subject or title of the NCR.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Audit Plan No</td>
+                            <td class="px-4 py-2 border-b">Number assigned to the audit plan.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">NCR No</td>
+                            <td class="px-4 py-2 border-b">The specific NCR number.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Issued Date</td>
+                            <td class="px-4 py-2 border-b">Date when the NCR was issued.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Responsibility Office</td>
+                            <td class="px-4 py-2 border-b">Office responsible for addressing the NCR.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Audit Type</td>
+                            <td class="px-4 py-2 border-b">Type of audit performed.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">To UIC</td>
+                            <td class="px-4 py-2 border-b">Unique identifier code for the unit.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Require Condition Reference</td>
+                            <td class="px-4 py-2 border-b">Reference for the required condition.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Level Finding</td>
+                            <td class="px-4 py-2 border-b">Level of the finding (e.g., 1, 2, 3).</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Problem Analysis</td>
+                            <td class="px-4 py-2 border-b">Analysis of the problem identified.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Answer Due Date</td>
+                            <td class="px-4 py-2 border-b">Date by which a response is due.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Issued IAN</td>
+                            <td class="px-4 py-2 border-b">Identifier for issued IAN.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">IAN No</td>
+                            <td class="px-4 py-2 border-b">Number for the issued IAN.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Encountered Condition</td>
+                            <td class="px-4 py-2 border-b">Condition encountered during the audit.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Audit By</td>
+                            <td class="px-4 py-2 border-b">Name of the auditor.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Audit Date</td>
+                            <td class="px-4 py-2 border-b">Date of the audit.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Acknowledge By</td>
+                            <td class="px-4 py-2 border-b">Person who acknowledged the NCR.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Acknowledge Date</td>
+                            <td class="px-4 py-2 border-b">Date of acknowledgment.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Status</td>
+                            <td class="px-4 py-2 border-b">Current status of the NCR.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Temporary Link</td>
+                            <td class="px-4 py-2 border-b">Link for temporary access.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 border-b">Action</td>
+                            <td class="px-4 py-2 border-b">Actions available (e.g., Preview, Edit).</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                  </ul>
+                </section>
+
+                <section class="mb-6">
+                  <h2 class="text-xl font-semibold mb-2">Performing Actions on Search Results</h2>
+                  <h3 class="text-lg font-semibold mb-2">Preview an NCR:</h3>
+                  <p class="text-gray-700">
+                    Click the Preview button next to the NCR you wish to view. This will open a detailed view of the selected NCR.
+                  </p>
+                  <h3 class="text-lg font-semibold mb-2">Edit an NCR:</h3>
+                  <p class="text-gray-700">
+                    Click the Edit button next to the NCR you wish to modify. This will redirect you to the edit page where you can update the NCR details.
+                  </p>
+                  <h3 class="text-lg font-semibold mb-2">Export to Excel:</h3>
+                  <p class="text-gray-700">
+                    Click the Export to Excel button to download the search results in an Excel format for offline analysis and record-keeping.
+                  </p>
+                </section>
+              </div>
+
+                   <!--Follow on NCR -->
+              <br><h2 class="font-bold text-center text-xl">Follow On NCR</h2><br>
+              <img src="..\..\assets\Userguide\audit\followon.png" class="w-full p-6"/><br>            
+              <div class="min-h-screen bg-gray-50 p-6">
+                <!-- Header Section -->
+                <section class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8">
+                  <!-- <h1 class="text-3xl font-semibold text-gray-800 mb-4">User Guide: Follow-On Non-Conformance Report</h1> -->
+                  <p class="text-gray-600 mb-6">
+                    This guide provides a detailed walkthrough for users on how to complete the "Follow on Non-Conformance Report" form. This form is essential for managing and updating the status of Non-Conformance Reports (NCRs). Please ensure you have the appropriate permissions and understand the necessary steps before proceeding.
+                  </p>
+                </section>
+              
+                <!-- Accessing the Form -->
+                <section class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8">
+                  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Accessing the Form</h2>
+                  <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                    <li>Launch your preferred web browser (e.g., Google Chrome, Mozilla Firefox, Apple Safari).</li>
+                    <li>Navigate to the URL provided by your organization to access the form.</li>
+                    <li>Ensure the page title displays "Follow on Non-Conformance Report".</li>
+                  </ol>
+                </section>
+              
+                <!-- Form Fields and Instructions -->
+                <section class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8">
+                  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Form Fields and Instructions</h2>
+                  <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                      <thead class="bg-gray-100">
+                        <tr>
+                          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Field</th>
+                          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-white divide-y divide-gray-200">
+                        <tr *ngFor="let field of formFields">
+                          <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ field.name }}</td>
+                          <td class="px-6 py-4 text-sm text-gray-500">{{ field.description }}</td>
+                          <td class="px-6 py-4 text-sm text-gray-500">{{ field.action }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              
+                <!-- Submitting the Form -->
+                <section class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8">
+                  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Submitting the Form</h2>
+                  <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                    <li><strong>Review:</strong> Thoroughly review all entered information for accuracy and completeness. Ensure all required fields are filled out.</li>
+                    <li><strong>Submit:</strong> Click the <strong>Submit</strong> button located at the bottom of the form. The button is styled with a blue background and white text, changing to a darker blue on hover. Confirm submission by checking for any confirmation messages or prompts.</li>
+                  </ol>
+                </section>
+              
+                <!-- Troubleshooting -->
+                <section class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mb-8">
+                  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Troubleshooting</h2>
+                  <ul class="list-disc list-inside space-y-2 text-gray-600">
+                    <li><strong>Missing Information:</strong> Ensure all mandatory fields are completed before attempting to submit the form.</li>
+                    <li><strong>Date Issues:</strong> Verify that all dates are selected correctly and fall within appropriate ranges.</li>
+                    <li><strong>Dropdown Menus:</strong> Ensure options are selected from the dropdown menus accurately.</li>
+                  </ul>
+                </section>
+              </div>
+              
+            </div>
+
+          </div>
           <div id="occurrence" *ngIf="selectedTab === 'occurrence'"></div>
           <div id="personnel" *ngIf="selectedTab === 'personnel'"></div>
           <div id="project" *ngIf="selectedTab === 'project'"></div>
