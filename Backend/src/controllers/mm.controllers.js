@@ -227,6 +227,30 @@ async function getPDF(req, res) {
     }
 }
 
+async function getPDFDrive(req, res) {
+    try {
+        const result = await mmService.getPDFDrive(req.body);
+
+        if (result.success) {
+            res.status(200).json({
+                status: 200,
+                message: result.message // Ensure result.message contains the file link
+            });
+        } else {
+            // For non-200 cases that are not necessarily errors
+            res.status(200).json({
+                status: 200,
+                message: result.message
+            });
+        }
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            message: err.message || 'An unexpected error occurred'
+        });
+    }
+}
+
 async function deleteNCRInit(req,res){
     try{
         const result = await mmService.deleteNCRInit(req.body);
@@ -412,6 +436,7 @@ module.exports = {
     deleteNCRReply,
     UpdateNCRReply,
     getPDF,
+    getPDFDrive,
     showNCRReply,
     addNCRFollowResult,
     deleteNCRFollowResult,

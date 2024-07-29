@@ -4,11 +4,12 @@ const os = require('os');
 const path = require('path');
 const db = require('../configs/db.config');
 const fs = require('fs');
+const tmp = require('tmp');
 const helper = require('../utils/helper');
 const { google } = require('googleapis');
 // Set up Google authentication with the necessary scopes for Google Docs and Drive
 const auth = new google.auth.GoogleAuth({
-    keyFile: 'Backend/googleCredential.json', // Path to your JSON key file
+    keyFile: 'Backend/artnaon-d7b021c1b7c5.json', // Path to your JSON key file
     scopes: [
         'https://www.googleapis.com/auth/documents', // Scope for Google Docs
         'https://www.googleapis.com/auth/drive' // Scope for Google Drive
@@ -897,35 +898,6 @@ async function exportPdf(fileId) {
         throw err;
     }
 }
-/*
-// Function to download a file from a URL
-async function downloadFile(fileUrl, outputLocationPath) {
-    const response = await axios({
-        url: fileUrl,
-        method: 'GET',
-        responseType: 'stream'
-    });
-
-    return new Promise((resolve, reject) => {
-        const writer = fs.createWriteStream(outputLocationPath);
-        response.data.pipe(writer);
-        
-        let error = null;
-        writer.on('error', err => {
-            error = err;
-            writer.close();
-            reject(err);
-        });
-
-        writer.on('close', () => {
-            if (!error) {
-                resolve(true);
-            }
-        });
-    });
-}
-*/
-
 
 async function getPDF(temp) {
     const { documentId } = temp; // Extract documentId from temp
@@ -963,6 +935,98 @@ async function getPDF(temp) {
         throw { success: false, message: 'Error in setting up Google Drive API client' };
     }
 }
+
+async function getPDFDrive(temp) {
+    const { documentId } = temp;
+    console.log(`${documentId}.pdf`);
+    console.log(os.homedir());
+    const parentFolderId = '1tkj7lPPXC8IbJrqsk4WwyrMoR3F6RJK0';
+
+    try {
+        const authClient = await auth.getClient();
+        console.log("TEST AFTER AUTH");
+
+        if (authClient && documentId) {
+            try {
+                const fileContent = await exportPdf(documentId);
+
+                const tmpFile = tmp.fileSync({ postfix: '.pdf' });
+                const dest = fs.createWriteStream(tmpFile.name);
+
+                await new Promise((resolve, reject) => {
+                    fileContent.pipe(dest);
+                    dest.on('finish', resolve);
+                    dest.on('error', reject);
+                });
+
+                const fileMetadata = {
+                    name: `${documentId}.pdf`,
+                    mimeType: 'application/pdf',
+                    parents: [parentFolderId],
+                };
+
+                const driveService = google.drive({ version: 'v3', auth: authClient });
+                const response = await driveService.files.create({
+                    resource: fileMetadata,
+                    media: {
+                        mimeType: 'application/pdf',
+                        body: fs.createReadStream(tmpFile.name),
+                    },
+                    fields: 'id',
+                });
+
+                tmpFile.removeCallback();
+
+                console.log('File uploaded to Google Drive, file ID:', response.data.id);
+
+                const fileLink = `https://drive.google.com/file/d/${response.data.id}/view?usp=sharing`;
+                console.log('Uploaded file link:', fileLink);
+
+                return { 
+                    status: 200, 
+                    message: fileLink 
+                };
+            } catch (error) {
+                console.error('Error during file export or upload:', error);
+                throw { success: false, message: 'Error during file export or upload' };
+            }
+        } else {
+            console.log('Auth client or document ID not properly initialized.');
+            throw { success: false, message: 'Error in setting up Google Drive API client' };
+        }
+    } catch (authError) {
+        console.error('Error getting auth client:', authError);
+        throw { success: false, message: 'Error getting auth client' };
+    }
+}
+/*
+// Function to download a file from a URL
+async function downloadFile(fileUrl, outputLocationPath) {
+    const response = await axios({
+        url: fileUrl,
+        method: 'GET',
+        responseType: 'stream'
+    });
+
+    return new Promise((resolve, reject) => {
+        const writer = fs.createWriteStream(outputLocationPath);
+        response.data.pipe(writer);
+        
+        let error = null;
+        writer.on('error', err => {
+            error = err;
+            writer.close();
+            reject(err);
+        });
+
+        writer.on('close', () => {
+            if (!error) {
+                resolve(true);
+            }
+        });
+    });
+}
+*/
 
 async function deleteNCRInit(temp) {
     const { ncr_init_id } = temp;
@@ -1232,6 +1296,7 @@ module.exports = {
     UpdateNCRReply,
     showNCRReply,
     getPDF,
+    getPDFDrive,
     addNCRFollowResult,
     deleteNCRFollowResult,
     UpdateNCRFollowResult,

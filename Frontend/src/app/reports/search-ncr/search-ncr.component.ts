@@ -63,13 +63,24 @@ export class SearchNCRComponent implements OnInit {
     XLSX.writeFile(wb, fileName);
   }
 
-  navigatePreview(ncrNo: string) {
-    sessionStorage.setItem('ncr_init_id', ncrNo);
-    window.location.href = 'previewPage.html';
+  async navigatePreview(documentId: string) {
+    try {
+      sessionStorage.setItem('document_id', documentId);
+      console.log(documentId);
+      const response = await axios.post('http://localhost:3000/getPDFDrive', {documentId});
+      console.log(response.data.message);
+      if (response.data.status === 200) {
+        window.location.href = response.data.message;
+      } else {
+        console.error('Error Message:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
-  navigateEdit(ncrNo: string) {
-    sessionStorage.setItem('ncr_init_id', ncrNo);
+  navigateEdit(documentId: string) {
+    sessionStorage.setItem('document_id', documentId);
     window.location.href = 'Edit_NCR_2.html';
   }
 
