@@ -1,14 +1,120 @@
 <app-navbar></app-navbar>
-<div class="min-h-screen flex items-center justify-center">
-<div class="mx-auto mt-24 w-full md:w-auto my-8 bg-white shadow-md rounded-lg overflow-hidden">
+<div class="min-h-screen flex items-center justify-center mt-20">
+  <div class="max-w-5xl mx-auto w-full md:w-3/4 p-3 bg-white shadow-md rounded-lg">
     <div class="p-6">
-      <form>
-        <div class="bg-[#02507d] rounded-lg">
-        <h2 class="text-2xl font-semibold text-white text-center justify-center mb-7 uppercase py-3 mx-3">User Guide</h2>
+      <div class="bg-[#02507d] rounded-lg">
+        <h2 class="text-2xl font-semibold text-white text-center mb-7 uppercase py-3 mx-3">User Guide</h2>
+      </div>
+      <div class="md:flex">
+        <ul class="flex flex-col md:me-3 space-y-4 text-sm font-medium text-gray-500 mb-4 md:mb-0 md:w-1/4">
+          <li (click)="selectTab('account')">
+            <a href="/userGuide#account" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
+              [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'account', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedTab !== 'account'}">
+              Account
+            </a>
+          </li>
+          <li (click)="selectTab('audit')">
+            <a href="/userGuide#audit" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
+              [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'audit', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedTab !== 'audit'}">
+              Audit
+            </a>
+          </li>
+          <li (click)="selectTab('occurrence')">
+            <a href="/userGuide#occurrence" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
+              [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'occurrence', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedTab !== 'occurrence'}">
+              Occurrence
+            </a>
+          </li>
+          <li (click)="selectTab('personnel')">
+            <a href="/userGuide#personnel" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
+              [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'personnel', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedTab !== 'personnel'}">
+              Personnel
+            </a>
+          </li>
+          <li (click)="selectTab('project')">
+            <a href="/userGuide#project" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
+              [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedTab === 'project', 'hover:text-black bg-gray-50 hover:bg-gray-100': selectedTab !== 'project'}">
+              Project
+            </a>
+          </li>
+        </ul>
+        <div class="p-5 bg-gray-50 text-grey-900 w-full md:w-3/4">
+          <div id="account" *ngIf="selectedTab === 'account'">
+            <img src="..\..\assets\Userguide\login2page.png" class="w-full p-6"/><br>
+            <div class="user-manual">
+              <h2 class="font-bold">Accessing the Login Page</h2><br>
+              <h3>Open Your Browser:</h3>
+              <ul>
+                <li>Launch your preferred web browser (e.g., Chrome, Firefox, Safari).</li>
+              </ul>
+              <h3>Navigate to the Login Page:</h3>
+              <ul>
+                <li>Enter the URL for the login page in the address bar and press <code style="color:black;">Enter</code>. The URL is usually provided by your organization.</li>
+                <li>or can be accessed via a link on the homepage of the platform.</li>
+              </ul><br>
+              <h2 class="font-bold">Logging In</h2><br>
+              <h3>Enter Your Username:</h3>
+              <ul>
+                <li>Locate the <strong>"Username"</strong> or <strong>"Email"</strong> field on the login page.</li>
+                <li>Click on the field and type your registered username or email address.</li>
+              </ul>
+              <h3>Enter Your Password:</h3>
+              <ul>
+                <li>Click on the <strong>"Password"</strong> field.</li>
+                <li>Type your password. Ensure that you enter it correctly, paying attention to case sensitivity.</li>
+              </ul>
+              <h3>Optional: Remember Me:</h3>
+              <ul>
+                <li>If available and if you are on a personal device, check the <strong>"Remember Me"</strong> box to stay logged in on this device.</li>
+                <li>This will keep you signed in across sessions until you log out.</li>
+              </ul>
+              <h3>Click the Login Button:</h3>
+              <ul>
+                <li>Once you have entered your credentials, click the <strong>"Login"</strong> or <strong>"Sign In"</strong> button to proceed.</li>
+              </ul><br>
+              <h2 class="font-bold">Handling Common Issues</h2><br>
+              <h3>Forgot Your Password?:</h3>
+              <ul>
+                <li>If you cannot remember your password, click the <strong>"Forgot Password?"</strong> link usually found below the password field.</li>
+                <li>Follow the on-screen instructions to reset your password. This often involves receiving an email with a password reset link.</li>
+              </ul>
+              <h3>Incorrect Username or Password:</h3>
+              <ul>
+                <li>Ensure that you have entered your username and password correctly.</li>
+                <li>Check for typos, and make sure Caps Lock is not turned on.</li>
+                <li>If the issue persists, use the <strong>"Forgot Password?"</strong> link to reset your password.</li>
+              </ul>
+              <h3>Account Locked:</h3>
+              <ul>
+                <li>After multiple failed login attempts, your account may be temporarily locked for security reasons.</li>
+                <li>Contact customer support for assistance in unlocking your account.</li>
+              </ul>
+              <h3>Technical Issues:</h3>
+              <ul>
+                <li>If the login page does not load or you encounter errors, try refreshing the page or clearing your browser’s cache.</li>
+                <li>Ensure that your internet connection is stable. If issues persist, contact technical support.</li>
+              </ul><br>
+              <h2 class="font-bold">Security Tips</h2><br>
+              <h3>Keep Your Credentials Confidential:</h3>
+              <ul>
+                <li>Never share your username or password with anyone.</li>
+              </ul>
+              <h3>Log Out After Use:</h3>
+              <ul>
+                <li>Always log out from the account when you are done, especially on shared or public computers.</li>
+              </ul>
+              <h3>Update Your Password Regularly:</h3>
+              <ul>
+                <li>Change your password periodically to maintain security.</li>
+              </ul>
+            </div>
+          </div>
+          <div id="audit" *ngIf="selectedTab === 'audit'">dor</div>
+          <div id="occurrence" *ngIf="selectedTab === 'occurrence'"></div>
+          <div id="personnel" *ngIf="selectedTab === 'personnel'"></div>
+          <div id="project" *ngIf="selectedTab === 'project'"></div>
         </div>
-        
-
-      </form>
+      </div>
     </div>
   </div>
 </div>
