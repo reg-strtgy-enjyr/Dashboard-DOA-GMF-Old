@@ -12,7 +12,7 @@
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-center">
                     Sign in to your account
                 </h1>
-                <form class="space-y-4 md:space-y-6" action="#" (ngSubmit)="login()">
+                <form class="space-y-4 md:space-y-6" (ngSubmit)="login()">
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                         <input type="text" name="email" id="email" [(ngModel)]="email" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@gmf-aeroasia.co.id" required>
