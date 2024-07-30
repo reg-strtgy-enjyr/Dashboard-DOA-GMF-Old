@@ -26,11 +26,11 @@ export class AccountComponent implements OnInit {
   constructor(private toastService: ToastService) { }
 
   selectedTab: string = 'account-info';
-
+  
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
-
+ 
   accountid: string | null = null;
   role: string | null = null;
   account: any = {};
