@@ -3,6 +3,8 @@
 **/node_modules
 **/.vscode
 
+Backend/googleCredential.json
+
 # Compiled output
 Frontend/dist
 Frontend/tmp

@@ -474,8 +474,8 @@ async function showissuence(temp) {
 
 async function addOccurrence(mm) {
     // Change 'occurrence-number' to 'occurrencenumber'
-    const { subject_ior, occur_nbr, occur_date, reference_ior, to_uic, cc_uic, category_occur, type_or_pnbr, level_type, detail_occurance, ReportedBy, reporter_uic, report_date, reporter_identity,
-        Data_reference, hirac_process, initial_probability, initial_severity, initial_riskindex } = mm;
+    const { subject_ior, occur_nbr, occur_date, reference_ior, to_uic, cc_uic, category_occur, type_or_pnbr, level_type, detail_occurance, ReportedBy, reporter_uic, report_date, reporter_identity, Data_reference, hirac_process, initial_probability, initial_severity, initial_riskindex } = mm;
+
     const query = `INSERT INTO tbl_occurrence (
         subject_ior,
         occur_nbr,
@@ -823,7 +823,10 @@ async function updateFollowUpOccurrence(followUpData) {
 async function addNCRInit(mm) {
     const { accountid, regulationbased, subject, audit_no, ncr_no, issued_date, responsible_office, audit_type, audit_scope, to_uic, attention, require_condition, level_finding, problem_analis, answer_duedate, issue_ian, ian_no, encounter_condition, audit_by, audit_date, acknowledge_by, acknowledge_date, status, temporarylink } = mm;
 
-
+    issued_date = issued_date.toISOString().split('T')[0];
+    answer_duedate = answer_duedate.toISOString().split('T')[0];
+    audit_date = audit_date.toISOString().split('T')[0];
+    acknowledge_date = acknowledge_date.toISOString().split('T')[0];
     
     // New title for the copied document, including ncr_no from the parameters
     const newTitle = `NCR_${ncr_no}`;
