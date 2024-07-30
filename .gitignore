@@ -2,7 +2,7 @@
 
 **/node_modules
 **/.vscode
-Backend/node_modules
+
 Backend/googleCredential.json
 
 # Compiled output
