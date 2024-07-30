@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../toast.service';
 import axios from 'axios';
-import { error } from 'console';
 
 @Component({
   selector: 'app-form-ncr',
@@ -70,22 +69,22 @@ export class FormNCRComponent implements OnInit {
     }
   }
 
-  async addNCRInit() {
+  async submitNCR() {
     this.ncr_data.accountid = this.currentAccountID;
     console.log("Sending data:", this.ncr_data);
     try {
       const response = await axios.post('http://localhost:3000/addNCRInit', this.ncr_data);
 
       if (response.data.status === 200) {
-        this.toastService.successToast('NCR form submitted successfully');
-        console.log('NCR Init added successfully');
+        this.toastService.successToast('NCR form added successfully');
+        console.log('NCR form added successfully');
       } else {
-        this.toastService.failedToast('Error submitting NCR form');
-        console.error('Error adding NCR Init:', response.data.message);
+        this.toastService.failedToast('Failed to submit NCR form');
+        console.error('Failed to submit NCR form:', response.data.message);
       }
     } catch (error) {
-      this.toastService.failedToast('There was an error creating NCR form');
-      console.error('There was an error creating NCR form', error);
+      this.toastService.failedToast('There was an error adding NCR form');
+      console.error('There was an error adding NCR form', error);
     }
   }
 }

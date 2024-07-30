@@ -18,7 +18,7 @@ export class ToastService {
                 </svg>
                 <span class="sr-only">Check icon</span>
             </div>
-            <div class="ms-3 text-sm font-normal">${message}</div>
+            <div class="ms-3 text-sm font-medium">${message}</div>
         </div>
       </div>
     `;
@@ -39,7 +39,7 @@ export class ToastService {
             </svg>
             <span class="sr-only">Error icon</span>
           </div>
-          <div class="ms-3 text-sm font-normal">${message}</div>
+          <div class="ms-3 text-sm font-medium">${message}</div>
         </div>
       </div>
     `;
