@@ -6,26 +6,28 @@
         <h2 class="text-2xl font-semibold text-white text-center mb-7 uppercase py-3 mx-3">User Guide</h2>
       </div>
       <div class="md:flex">
-        <!-- select tab -->
+       <!-- select tab -->
         <ul class="list-none custom-ul flex flex-col md:me-3 space-y-4 text-sm font-medium text-gray-500 mb-4 md:mb-0 md:w-1/4">
           <li (click)="selectMainTab('account')">
-            <a href="/userGuide#account" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
+            <a href="/userGuide#account" class="inline-flex items-center px-5 py-4 rounded-lg w-full text-base" 
               [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedMainTab === 'account', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedMainTab !== 'account'}">
               Account
             </a>
           </li>
           <li (click)="selectMainTab('audit')">
-            <a href="/userGuide#audit" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
+            <a href="/userGuide#audit" class="inline-flex items-center px-5 py-4 rounded-lg w-full text-base" 
               [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedMainTab === 'audit', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedMainTab !== 'audit'}">
               Audit
             </a>
           </li>
           <li (click)="selectMainTab('occurrence')">
-            <a href="/userGuide#occurrence" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
+            <a href="/userGuide#occurrence" class="inline-flex items-center px-5 py-4 rounded-lg w-full text-base" 
               [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedMainTab === 'occurrence', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedMainTab !== 'occurrence'}">
               Occurrence
             </a>
           </li>
+
+
           <!-- <li (click)="selectMainTab('personnel')">
             <a href="/userGuide#personnel" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
               [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedMainTab === 'personnel', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedMainTab !== 'personnel'}">
