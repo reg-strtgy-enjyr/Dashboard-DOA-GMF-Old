@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from '../toast.service';
 import axios from 'axios';
 
 @Component({
@@ -15,9 +16,8 @@ import axios from 'axios';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-  errorMessage: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private toastService: ToastService) { }
 
   async login() {
     try {
@@ -31,14 +31,15 @@ export class LoginComponent {
         sessionStorage.setItem('role', response.data.user.role);
         console.log('accountid:', response.data.user.accountid);
         console.log('role:', response.data.user.role);
-        //sessionStorage.setItem('loginTime', Date.now().toString());
+        this.toastService.successToast('Login successful');
+        console.log('Login successful');
         this.router.navigate(['/home']);
       } else {
-        this.errorMessage = response.data.message;
+        this.toastService.failedToast('Email or password is incorrect');
+        console.log('Error:', response.data.message);
       }
     } catch (error) {
       console.error('There was an error!', error);
-      this.errorMessage = 'An error occurred. Please try again.';
     }
   }
 }

@@ -65,12 +65,12 @@ export class SearchNCRComponent implements OnInit {
 
   navigatePreview(ncrNo: string) {
     sessionStorage.setItem('ncr_init_id', ncrNo);
-    window.location.href = 'previewPage.html';
+    window.location.href = '/preview';
   }
 
   navigateEdit(ncrNo: string) {
     sessionStorage.setItem('ncr_init_id', ncrNo);
-    window.location.href = 'Edit_NCR_2.html';
+    window.location.href = '/editNCR';
   }
 
   search() {

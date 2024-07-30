@@ -161,7 +161,7 @@ async function addAccount(mm) {
 async function updatePassword(mm) {
     const { email, currentPass, newPass } = mm;
     try {
-        const passQuery = `SELECT password FROM account WHERE email = ?`;
+        const passQuery = `SELECT password FROM account WHERE email = $1`;
         const passResult = await db.query(passQuery, [email]);
 
         if (passResult.rowCount === 0) {
@@ -169,15 +169,15 @@ async function updatePassword(mm) {
         }
 
         const storedPass = passResult.rows[0].password;
-        const isValidPassword = await helper.verifyPassword(currentPass, storedPass);
+        const isValidPassword = await helper.comparePassword(currentPass, storedPass);
 
         if (!isValidPassword) {
             return { status: 400, message: 'Current password is incorrect' };
         }
 
         const hashedNewPass = await helper.hashPassword(newPass);
-        const updateQuery = `UPDATE account SET password = ? WHERE accountid = ?`;
-        const result = await db.query(updateQuery, [hashedNewPass, accountid]);
+        const updateQuery = `UPDATE account SET password = $1 WHERE email = $2`;
+        const result = await db.query(updateQuery, [hashedNewPass, email]);
 
         if (result.rowCount === 1) {
             return { status: 200, message: 'Password Updated' };
@@ -822,9 +822,15 @@ async function updateFollowUpOccurrence(followUpData) {
 
 async function addNCRInit(mm) {
     const { accountid, regulationbased, subject, audit_no, ncr_no, issued_date, responsible_office, audit_type, audit_scope, to_uic, attention, require_condition, level_finding, problem_analis, answer_duedate, issue_ian, ian_no, encounter_condition, audit_by, audit_date, acknowledge_by, acknowledge_date, status, temporarylink } = mm;
+
+    issued_date = issued_date.toISOString().split('T')[0];
+    answer_duedate = answer_duedate.toISOString().split('T')[0];
+    audit_date = audit_date.toISOString().split('T')[0];
+    acknowledge_date = acknowledge_date.toISOString().split('T')[0];
+    
     // New title for the copied document, including ncr_no from the parameters
     const newTitle = `NCR_${ncr_no}`;
-    console.log("Init NCR");
+
     const parentFolderId = '1tkj7lPPXC8IbJrqsk4WwyrMoR3F6RJK0';
     const copiedDocumentId = await copyGoogleDoc('1TsYiA9MRFPCgkqYCwusHTwnhSDBRekhCzpU6fZF8JwI', newTitle);
     let ian = issue_ian ? "Yes" : "No";
@@ -842,7 +848,7 @@ async function addNCRInit(mm) {
         '{Level_Finding}': level_finding,
         '{Problem_Analysis}': problem_analis,
         '{Due_Date}': answer_duedate,
-        '{IAN}': ian,
+        '{IAN}': issue_ian,
         '{No}': ian_no,
         '{Encountered_Condition}': encounter_condition,
         '{Audit_by}': audit_by,
