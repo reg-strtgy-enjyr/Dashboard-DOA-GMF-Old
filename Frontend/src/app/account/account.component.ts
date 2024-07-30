@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
+import { ToastService } from '../toast.service';
 import axios from 'axios';
 
 interface AccountData {
@@ -14,27 +16,26 @@ interface AccountData {
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent, FormsModule],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })
 
 export class AccountComponent implements OnInit {
-  selectedTab: string = 'account-info';
 
+  constructor(private toastService: ToastService) { }
+
+  selectedTab: string = 'account-info';
+  
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
-
+ 
   accountid: string | null = null;
   role: string | null = null;
   account: any = {};
 
   currentAccountID = '';
-  changePasswordMessage = '';
-  deletePasswordMessage = '';
-  addMessage = '';
-  loginMessage = '';
   Account_data: AccountData = {
     name: '',
     email: '',
@@ -95,28 +96,26 @@ export class AccountComponent implements OnInit {
   async changePassword() {
     try {
         const response = await axios.post('http://localhost:3000/updatePassword', {
-            accountid: this.ChangePass.email,
+            email: this.ChangePass.email,
             currentPass: this.ChangePass.currentPass,
             newPass: this.ChangePass.newPass
         });
 
-        console.log("Update Password :", response.data.account);
-
         if (response.data.status === 200) {
-            this.changePasswordMessage = 'Password successfully updated';
+            console.log('Password updated successfully');
+            this.toastService.successToast('Password updated successfully');
         } else {
-            this.changePasswordMessage = 'Failed to update password';
+            console.log('Email or password is incorrect');
+            this.toastService.failedToast('Email or password is incorrect');
         }
 
-        this.fetchAllAccounts();
-
     } catch (error) {
-        console.error("Error updating password:", error);
-        this.changePasswordMessage = 'Failed to update password';
+        console.log("Error updating password:", error);
+        this.toastService.failedToast('Failed to update password');
     }
   }
 
-  async DeleteAcc() {
+  async deleteAccount() {
     try {
         const response = await axios.delete('http://localhost:3000/deleteAccount', {
             data: { 
@@ -128,15 +127,15 @@ export class AccountComponent implements OnInit {
         console.log("Delete Password :", response.data.account);
 
         if (response.data.status === 200) {
-            this.deletePasswordMessage = 'Account successfully Deleted';
+            console.log('Account successfully Deleted');
+            this.toastService.successToast('Account successfully Deleted');
         } else {
-            this.deletePasswordMessage = 'Failed to Delete password';
+            console.log('Email or password is incorrect');
+            this.toastService.failedToast('Email or password is incorrect');
         }
-
-        this.fetchAllAccounts();
     } catch (error) {
         console.error("Error deleting account:", error);
-        this.deletePasswordMessage = 'Failed to delete account';
+        this.toastService.failedToast('Error deleting account');
     }
   }
 }

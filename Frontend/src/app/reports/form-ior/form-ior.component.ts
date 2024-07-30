@@ -1,32 +1,59 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { FooterComponent } from '../../footer/footer.component';
-import { ControlValueAccessor,NG_VALUE_ACCESSOR} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ToastService } from '../../toast.service';
 import axios from 'axios';
 
 @Component({
   selector: 'app-form-ior',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent],
+  imports: [NavbarComponent, FooterComponent, FormsModule, CommonModule],
   templateUrl: './form-ior.component.html',
   styleUrl: './form-ior.component.css'
 })
 export class FormIORComponent implements OnInit {
-
-  accountid: string | null = null;
-  account: any = {};
+  constructor(private toastService: ToastService) { }
+  currentAccountID = '';
+  ior_data = {
+    subject_ior: '',
+    occur_nbr: '',
+    occur_date: '',
+    reference_ior: '',
+    to_uic: '',
+    cc_uic: '',
+    category_occur: '',
+    type_or_pnbr: '',
+    level_type: '',
+    detail_occurance: '',
+    ReportedBy: '',
+    reporter_uic: '',
+    report_date: '',
+    reporter_identity: '',
+    Data_reference: '',
+    hirac_process: '',
+    initial_probability: '',
+    initial_severity: '',
+    initial_riskindex: ''
+  };
 
   ngOnInit() {
-    this.accountid = sessionStorage.getItem('accountid');
-    console.log('Retrieved accountid:', this.accountid);
-    if (this.accountid) {
+    const accountid = sessionStorage.getItem('accountid');
+    if (accountid) {
+      this.currentAccountID = accountid;
+      console.log('Retrieved accountid:', accountid);
       this.getAccountInfo();
+    } else {
+      window.location.href = '/login';
     }
   }
 
+  account: any = {};
+
   async getAccountInfo() {
     try {
-      const response = await axios.post('http://localhost:3000/showAccount', { accountid: this.accountid });
+      const response = await axios.post('http://localhost:3000/showAccount', { accountid: this.currentAccountID });
       if (response.data.status === 200 && response.data.account) {
         this.account = response.data.account;
       } else {
@@ -36,54 +63,23 @@ export class FormIORComponent implements OnInit {
       console.error('There was an error fetching account info!', error);
     }
   }
-}
 
-@Component({
-  selector: 'app-custom-date-input',
-  template: `
-    <input type="text" [value]="value" (input)="onInput($event)" placeholder="YYYY-MM-SSS"/>
-  `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CustomDateInputComponent),
-      multi: true
+  async submitIOR() {
+    console.log("Sending data:", this.ior_data);
+    try {
+        const response = await axios.post("http://localhost:3000/addOccurrence", this.ior_data);
+
+        if (response.data.status === 200) {
+          this.toastService.successToast('IOR form added successfully');
+          console.log("IOR form added successfully");
+        } else {
+          this.toastService.failedToast('Failed to submit IOR form');
+          console.error("Failed to submit IOR form:", response.data.message);
+        }
+    } catch (error) {
+      this.toastService.failedToast('There was an error adding IOR form');
+      console.error('There was an error adding NCR form', error);
     }
-  ]
-})
-export class CustomDateInputComponent implements ControlValueAccessor {
-  value: string = '';
-
-  onChange = (value: string) => {};
-  onTouched = () => {};
-
-  writeValue(value: string): void {
-    this.value = value;
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  onInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const formattedValue = this.formatDate(input.value);
-    this.value = formattedValue;
-    this.onChange(formattedValue);
-  }
-
-  formatDate(value: string): string {
-    // Simple formatting: YYYY-MM-SSS
-    const cleanedValue = value.replace(/\D+/g, ''); // Remove all non-digit characters
-    const year = cleanedValue.slice(0, 4);
-    const month = cleanedValue.slice(4, 6);
-    const milliseconds = cleanedValue.slice(6, 9);
-    
-    return `${year}-${month}-${milliseconds}`;
   }
 }
 

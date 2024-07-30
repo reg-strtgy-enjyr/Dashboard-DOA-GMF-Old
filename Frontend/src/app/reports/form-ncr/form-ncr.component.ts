@@ -1,57 +1,64 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { FooterComponent } from '../../footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ToastService } from '../../toast.service';
 import axios from 'axios';
 
 @Component({
   selector: 'app-form-ncr',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent],
+  imports: [NavbarComponent, FooterComponent, FormsModule, CommonModule],
   templateUrl: './form-ncr.component.html',
   styleUrl: './form-ncr.component.css'
 })
 export class FormNCRComponent implements OnInit {
-
-  accountid: string | null = null;
-  regulationbased: string | null = null;
-  subject: string | null = null;
-  audit_no: string | null = null;
-  ncr_no: string | null = null;
-  issued_data: string | null = null;
-  responsible_office: string | null = null;
-  audit_type: string | null = null;
-  audit_scope: string | null = null;
-  to_uic: string | null = null;
-  attention: string | null = null;
-  require_condition: string | null = null;
-  level_finding: string | null = null;
-  problem_analis: string | null = null;
-  answer_duedate: string | null = null;
-  issue_ian: string | null = null;
-  ian_no: string | null = null;
-  encounter_conditon: string | null = null;
-  audit_by: string | null = null;
-  audit_date: string | null = null;
-  acknowledge_by: string | null = null;
-  acknowledge_date: string | null = null;
-  status: string | null = null;
-  temporarylink: string | null = null;
-
-  account: any = {};
+  constructor(private toastService: ToastService) { }
+  currentAccountID = '';
+  ncr_data = {
+    accountid: '',
+    regulationbased: '',
+    subject: '',
+    audit_no: '',
+    ncr_no: '',
+    issued_date: '',
+    responsible_office: '',
+    audit_type: '',
+    audit_scope: '',
+    to_uic: '',
+    attention: '',
+    require_condition: '',
+    level_finding: '',
+    problem_analis: '',
+    answer_duedate: '',
+    issue_ian: '',
+    ian_no: '',
+    encounter_conditon: '',
+    audit_by: '',
+    audit_date: '',
+    acknowledge_by: '',
+    acknowledge_date: '',
+    status: '',
+    temporarylink: '',
+  };
 
   ngOnInit() {
-    this.accountid = sessionStorage.getItem('accountid');
-    console.log('Retrieved accountid:', this.accountid);
-    if (this.accountid) {
+    const accountid = sessionStorage.getItem('accountid');
+    if (accountid) {
+      this.currentAccountID = accountid;
+      console.log('Retrieved accountid:', accountid);
       this.getAccountInfo();
+    } else {
+      window.location.href = '/login';
     }
   }
 
+  account: any = {};
+
   async getAccountInfo() {
     try {
-      const response = await axios.post('http://localhost:3000/showAccount', { 
-        accountid: this.accountid 
-      });
+      const response = await axios.post('http://localhost:3000/showAccount', { accountid: this.currentAccountID });
       if (response.data.status === 200 && response.data.account) {
         this.account = response.data.account;
       } else {
@@ -62,42 +69,22 @@ export class FormNCRComponent implements OnInit {
     }
   }
 
-  async addNCRInit() {
+  async submitNCR() {
+    this.ncr_data.accountid = this.currentAccountID;
+    console.log("Sending data:", this.ncr_data);
     try {
-      const response = await axios.post('http://localhost:3000/addNCRInit', { 
-        accountid: this.accountid, 
-        regulationbased: this.regulationbased,
-        subject: this.subject,
-        audit_no: this.audit_no,
-        ncr_no: this.ncr_no,
-        issued_data: this.issued_data,
-        responsible_office: this.responsible_office,
-        audit_type: this.audit_type,
-        audit_scope: this.audit_scope,
-        to_uic: this.to_uic,
-        attention: this.attention,
-        require_condition: this.require_condition,
-        level_finding: this.level_finding,
-        problem_analis: this.problem_analis,
-        answer_duedate: this.answer_duedate,
-        issue_ian: this.issue_ian,
-        ian_no: this.ian_no,
-        encounter_conditon: this.encounter_conditon,
-        audit_by: this.audit_by,
-        audit_date: this.audit_date,
-        acknowledge_by: this.acknowledge_by,
-        acknowledge_date: this.acknowledge_date,
-        status: this.status,
-        temporarylink: this.temporarylink
-      });
+      const response = await axios.post('http://localhost:3000/addNCRInit', this.ncr_data);
+
       if (response.data.status === 200) {
-        console.log('NCR Init added successfully');
-        // Handle success (e.g., update UI, reset form, etc.)
+        this.toastService.successToast('NCR form added successfully');
+        console.log('NCR form added successfully');
       } else {
-        console.error('Error adding NCR Init:', response.data.message);
+        this.toastService.failedToast('Failed to submit NCR form');
+        console.error('Failed to submit NCR form:', response.data.message);
       }
     } catch (error) {
-      console.error('There was an error adding NCR Init!', error);
+      this.toastService.failedToast('There was an error adding NCR form');
+      console.error('There was an error adding NCR form', error);
     }
   }
 }
