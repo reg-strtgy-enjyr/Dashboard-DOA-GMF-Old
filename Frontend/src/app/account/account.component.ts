@@ -21,11 +21,11 @@ interface AccountData {
 
 export class AccountComponent implements OnInit {
   selectedTab: string = 'account-info';
-
+  
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
-
+ 
   accountid: string | null = null;
   role: string | null = null;
   account: any = {};

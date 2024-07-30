@@ -11,13 +11,27 @@ import { CommonModule } from '@angular/common';
   styleUrl: './user-guide.component.css'
 })
 export class UserGuideComponent {
-selectedTab: any;
+  selectedTab: string = 'account';
+  selectTab(tab: string) {
+    this.selectedTab = tab;
+  }
+  selectedMainTab: string = 'account'; // default selected main tab
+  selectedNestedTab: string = 'loginpage'; // default selected nested tab within account
+
+  selectMainTab(tab: string) {
+    this.selectedMainTab = tab;
+    if (tab === 'account') {
+      this.selectedNestedTab = 'loginpage'; // set default nested tab for account
+    }
+  }
+
+  selectNestedTab(nestedTab: string) {
+    this.selectedNestedTab = nestedTab;
+  }
 onTabSelect(arg0: string) {
 throw new Error('Method not implemented.');
 }
-  selectTab(tab: string) {
-    this.selectedTab = tab;
-}
+
 formFields = [
   {
     name: 'Account Name',
@@ -116,5 +130,20 @@ fields = [
   { field: 'New NCR Issue Number', description: 'Enter the new NCR issue number if additional non-conformances are identified during the verification process.' },
   { field: 'Approval Information', description: 'Enter the name of the person who approved the NCR. Include the date of approval and provide a signature. This finalizes the NCR process.' }
 ]
+items = [
+  // Example items, replace with real data
+  { id_ior: 1, subject_ior: 'Subject 1', occur_nbr: '12345', occur_date: '2024-07-30', reference_ior: 'REF123', to_uic: 'UIC001', cc_uic: 'UIC002', category_ior: 'Category 1', type_or_phone_number: 'Type 1', level_type: 'Level 1', detail_occurrence: 'Detail 1', reported_by: 'User 1', reporter_uic: 'UIC003', report_date: '2024-07-30', report_identify: 'Identity 1', data_reference: 'Data 1', hirac_process: 'Yes', initial_probability: 'Low', initial_severity: 'Medium', initial_riskindex: '1', current_probability: 'Low', current_severity: 'Medium', current_riskindex: '1' }
+];
+
+exportToExcel() {
+  // Implement export to Excel functionality
+  console.log('Export to Excel');
+}
+auditselectedTab: string = 'ncrform';
+   auditselectTab(tab: string) {
+    this.auditselectedTab = tab;
+  }
+  
+
 }
 
