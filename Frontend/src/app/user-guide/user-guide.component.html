@@ -7,7 +7,7 @@
       </div>
       <div class="md:flex">
         <!-- select tab -->
-        <ul class="flex flex-col md:me-3 space-y-4 text-sm font-medium text-gray-500 mb-4 md:mb-0 md:w-1/4">
+        <ul class="list-none custom-ul flex flex-col md:me-3 space-y-4 text-sm font-medium text-gray-500 mb-4 md:mb-0 md:w-1/4">
           <li (click)="selectMainTab('account')">
             <a href="/userGuide#account" class="inline-flex items-center px-4 py-3 rounded-lg w-full" 
               [ngClass]="{'text-white bg-[#016299] hover:bg-[#015581]': selectedMainTab === 'account', 'hover:text-gray-900 bg-gray-50 hover:bg-gray-100': selectedMainTab !== 'account'}">
@@ -45,21 +45,24 @@
           <!-- Account tab content with nested tabs -->
           <div id="account" *ngIf="selectedMainTab === 'account'">
             <div class="border-b border-gray-200 dark:border-gray-700">
-              <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-                <!-- Login Page nested tab -->
-                <li class="me-2">
-                  <a (click)="selectNestedTab('loginpage')" href="/userGuide#loginpage" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+              <ul class="list-none flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+              <!-- Container for the tabs -->
+              <ul class="flex w-full list-none p-0 m-0">
+                <!-- Login Page -->
+                <li class="flex w-1/2">
+                  <a (click)="selectNestedTab('loginpage')" href="/userGuide#loginpage" class="inline-flex items-center justify-center w-full p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                     [ngClass]="{'text-[#016299] border-[#016299]': selectedNestedTab === 'loginpage', 'hover:text-gray-600 hover:border-gray-300': selectedNestedTab !== 'loginpage'}">
                     Login Page
                   </a>
                 </li>
                 <!-- Account Info nested tab -->
-                <li class="me-2">
-                  <a (click)="selectNestedTab('accountinfo')" href="/userGuide#accountinfo" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+                <li class="flex w-1/2">
+                  <a (click)="selectNestedTab('accountinfo')" href="/userGuide#accountinfo" class="inline-flex items-center justify-center w-full p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                     [ngClass]="{'text-[#016299] border-[#016299]': selectedNestedTab === 'accountinfo', 'hover:text-gray-600 hover:border-gray-300': selectedNestedTab !== 'accountinfo'}">
                     Account Info
                   </a>
                 </li>
+              </ul>
               </ul>
             </div>
 
@@ -150,30 +153,31 @@
           <!-- Other tab contents -->
           <div id="audit" *ngIf="selectedMainTab === 'audit'">
             <div class="border-b border-gray-200 dark:border-gray-700">
-              <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+              <!-- Added list-none class to remove default list markers -->
+              <ul class="list-none flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                 <!-- NCR Form -->
-                <li class="me-2">
-                  <a (click)="selectNestedTab('ncrform')" href="/userGuide#ncrform" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+                <li class="flex w-1/3">
+                  <a (click)="selectNestedTab('ncrform')" href="/userGuide#ncrform" class="inline-flex items-center justify-center w-full p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                     [ngClass]="{'text-[#016299] border-[#016299]': selectedNestedTab === 'ncrform', 'hover:text-gray-600 hover:border-gray-300': selectedNestedTab !== 'ncrform'}">
                     NCR Form
                   </a>
                 </li>
                 <!-- Search NCR -->
-                <li class="me-2">
-                  <a (click)="selectNestedTab('searchncr')" href="/userGuide#searchncr" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+                <li class="flex w-1/3">
+                  <a (click)="selectNestedTab('searchncr')" href="/userGuide#searchncr" class="inline-flex items-center justify-center w-full p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                     [ngClass]="{'text-[#016299] border-[#016299]': selectedNestedTab === 'searchncr', 'hover:text-gray-600 hover:border-gray-300': selectedNestedTab !== 'searchncr'}">
                     Search NCR
                   </a>
                 </li>
                 <!-- Follow On NCR -->
-                <li class="me-2">
-                  <a (click)="selectNestedTab('followonncr')" href="/userGuide#followonncr" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+                <li class="flex w-1/3">
+                  <a (click)="selectNestedTab('followonncr')" href="/userGuide#followonncr" class="inline-flex items-center justify-center w-full p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                     [ngClass]="{'text-[#016299] border-[#016299]': selectedNestedTab === 'followonncr', 'hover:text-gray-600 hover:border-gray-300': selectedNestedTab !== 'followonncr'}">
                     Follow On NCR
                   </a>
                 </li>
               </ul>
-            </div>
+            </div>            
 
             <!-- Nested tab content for NCR Form -->
             <div id="ncrform" *ngIf="selectedNestedTab === 'ncrform'">
@@ -439,29 +443,39 @@
           <!-- Main Occurrence Tab -->
           <div id="occurrence" *ngIf="selectedMainTab === 'occurrence'">
            <!-- Nested Tabs for Occurrence -->
-          <div class="border-b border-gray-200 dark:border-gray-700">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+           <div class="border-b border-gray-200 dark:border-gray-700">
+            <ul class="list-none flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+            <!-- Container for the tabs -->
+            <ul class="flex w-full list-none p-0 m-0">
               <!-- IOR Form Tab -->
-              <li class="me-2">
-                <a (click)="selectNestedTab('iorform'); $event.preventDefault();" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+              <li class="flex w-1/3 me-2">
+                <a (click)="selectNestedTab('iorform'); $event.preventDefault();"
+                  class="inline-flex items-center justify-center w-full p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                   [ngClass]="{'text-[#016299] border-[#016299]': selectedNestedTab === 'iorform', 'hover:text-gray-600 hover:border-gray-300': selectedNestedTab !== 'iorform'}">
                   IOR Form
                 </a>
               </li>
+
               <!-- Search IOR Tab -->
-              <li class="me-2">
-                <a (click)="selectNestedTab('searchior'); $event.preventDefault();" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+              <li class="flex w-1/3 me-2">
+                <a (click)="selectNestedTab('searchior'); $event.preventDefault();"
+                  class="inline-flex items-center justify-center w-full p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                   [ngClass]="{'text-[#016299] border-[#016299]': selectedNestedTab === 'searchior', 'hover:text-gray-600 hover:border-gray-300': selectedNestedTab !== 'searchior'}">
                   Search IOR
                 </a>
               </li>
+
               <!-- Follow On IOR Tab -->
-              <li class="me-2">
-                <a (click)="selectNestedTab('followonior'); $event.preventDefault();" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+              <li class="flex w-1/3 me-2">
+                <a (click)="selectNestedTab('followonior'); $event.preventDefault();"
+                  class="inline-flex items-center justify-center w-full p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                   [ngClass]="{'text-[#016299] border-[#016299]': selectedNestedTab === 'followonior', 'hover:text-gray-600 hover:border-gray-300': selectedNestedTab !== 'followonior'}">
                   Follow On IOR
                 </a>
               </li>
+            </ul>
+
+
             </ul>
           </div>
 
@@ -473,7 +487,7 @@
                 <div class="container mx-auto px-4">
                   <div class="bg-white shadow-md rounded-lg overflow-hidden">
                     <div class="p-6">
-                      <br><h2 class="font-bold text-center text-xl">Follow On NCR</h2><br>
+                      <br><h2 class="font-bold text-center text-xl">Internal Occurrence Report</h2><br>
                       <img src="..\..\assets\Userguide\Occurrence\formior.png" class="w-full p-6"/><br>            
               
                       <!-- Overview Section -->
