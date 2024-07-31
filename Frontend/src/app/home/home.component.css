@@ -39,7 +39,7 @@
     width: 560px; /* Match the width of other items */
     height: 315px; /* Match the height of other items */
   }
-  .carousel-item {
+   .carousel-item {
     opacity: 0;
     transition: opacity 1s ease-in-out;
   }
@@ -47,3 +47,16 @@
   .carousel-item.active {
     opacity: 1;
   }
+  .carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0; /* Adjust as needed */
+    padding: 2rem; /* Adjust as needed */
+    background-color: rgba(58, 161, 89, 0.5); /* Adjust as needed */
+    color: white;
+    margin-top: 20px; /* Add margin-top here */
+  }
+  .carousel-image {
+    margin-top: -20px; /* Adjust as needed */
+  }
+  
