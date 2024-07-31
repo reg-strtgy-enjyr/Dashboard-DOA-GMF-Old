@@ -9,7 +9,7 @@ const helper = require('../utils/helper');
 const { google } = require('googleapis');
 // Set up Google authentication with the necessary scopes for Google Docs and Drive
 const auth = new google.auth.GoogleAuth({
-    keyFile: '../Backend/artnaon-cf9835af1189.json', // Path to your JSON key file
+    keyFile: '../Backend/googleCredential.json', // Path to your JSON key file
     scopes: [
         'https://www.googleapis.com/auth/documents', // Scope for Google Docs
         'https://www.googleapis.com/auth/drive' // Scope for Google Drive
