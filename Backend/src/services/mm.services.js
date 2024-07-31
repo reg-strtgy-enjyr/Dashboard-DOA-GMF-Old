@@ -475,8 +475,75 @@ async function showissuence(temp) {
 
 async function addOccurrence(mm) {
     // Change 'occurrence-number' to 'occurrencenumber'
-    const { subject_ior, occur_nbr, occur_date, reference_ior, to_uic, cc_uic, category_occur, type_or_pnbr, level_type, detail_occurance, ReportedBy, reporter_uic, report_date, reporter_identity, Data_reference, hirac_process, initial_probability, initial_severity, initial_riskindex } = mm;
+    const { subject_ior, categoryIOR, occur_nbr, occur_date, reference_ior, type, to_uic, cc_uic, levelType, detailOccurence, ReportedBy, reporter_uic, report_date, reporterIdentity, dataRef, hirac_process, InitProb, InitSeverity, InitRisk} = mm;
+    const newTitle = `IOR_${occur_nbr}`;
+    const parentFolderId = '19z61tEaUF3jvtXRvVfI_w6O4nN3PF5LG';
+    const copiedDocumentId = await copyGoogleDoc('1CRPhfbn1hnmJo7X_gCaiS8VTmOj6gkzt2zok-y6yEjc', newTitle);
+    await moveFileToFolder(copiedDocumentId, parentFolderId);
+    // List of placeholders and their replacements
+    // List of categories
+    const categories = [
+        '{DOAManagement}', '{Partner or Subcontractor}', '{Procedure}', '{Material}',
+        '{Document}', '{Information Technology}', '{Personnel}', '{Training}',
+        '{Facility}', '{Others}'
+    ];
 
+    const levelTypes = [
+        '{Aircraft}', '{Engine}', '{APU}', '{Others}'
+    ];
+    // Generate the replacements for the categories
+    const categoryReplacements = categories.reduce((acc, placeholder) => {
+        acc[placeholder] = placeholder === `{${categoryIOR}}` ? `☑ ${categoryIOR}` : `☐ ${placeholder.replace(/[{}]/g, '')}`;
+        return acc;
+    }, {});
+
+    const levelTypeReplacement = levelTypes.reduce((acc, placeholder) => {
+        acc[placeholder] = placeholder === `{${levelType}}` ? `☑ ${levelType}` : `☐ ${placeholder.replace(/[{}]/g, '')}`;
+        return acc;
+    }, {});
+
+    // List of placeholders for two categories
+    const reporterIdentityReplacement = {
+        '{Shown}': reporterIdentity === 'Shown' ? '☑ Shown' : '☐ Shown',
+        '{Hidden}': reporterIdentity === 'Hidden' ? '☑ Hidden' : '☐ Hidden'
+    };
+
+    const dataRefReplacement = {
+        '{RefYes}': dataRef === 'Yes' ? '☑ Yes' : '☐ Yes',
+        '{RefNo}': dataRef === 'No' ? '☑ No' : '☐ No'
+    };
+
+    const hiracProcessReplacement = {
+        '{HIRACYes}': hirac_process === 'Yes' ? '☑ Yes' : '☐ Yes',
+        '{HIRACNo}': hirac_process === 'No' ? '☑ No' : '☐ No'
+    };
+
+    // List of placeholders and their replacements
+    const replacements = {
+        '{Subject}': subject_ior,
+        '{OccurenceReport}': occur_nbr,
+        '{OccurenceDate}': occur_date,
+        '{Ref}': reference_ior,
+        '{Type}': type,
+        '{To}': to_uic,
+        '{Copy}': cc_uic,
+        '{Detail}': detailOccurence,
+        '{NameID}': ReportedBy,
+        '{Unit}': reporter_uic,
+        '{Date}': report_date,
+        '{Init_Prob}': InitProb,
+        '{Init_Severity}': InitSeverity,
+        '{Init_Risk}': InitRisk,
+        ...categoryReplacements, // Spread the category replacements into the replacements object
+        ...levelTypeReplacement,
+        ...reporterIdentityReplacement,
+        ...dataRefReplacement,
+        ...hiracProcessReplacement
+    };
+    // Replace each placeholder in the document
+    for (const [placeholder, replacement] of Object.entries(replacements)) {
+        await replaceTextInGoogleDocs(copiedDocumentId, placeholder, replacement);
+    }
     const query = `INSERT INTO tbl_occurrence (
         subject_ior,
         occur_nbr,
@@ -496,12 +563,14 @@ async function addOccurrence(mm) {
         hirac_process,
         initial_probability,
         initial_severity,
-        initial_riskindex
-    ) VALUES ('${subject_ior}','${occur_nbr}','${occur_date}','${reference_ior}','${to_uic}','${cc_uic}','${category_occur}','${type_or_pnbr}','${level_type}','${detail_occurance}',
-    '${ReportedBy}','${reporter_uic}','${report_date}','${reporter_identity}','${Data_reference}','${hirac_process}','${initial_probability}','${initial_severity}','${initial_riskindex}')`;
-
+        initial_riskindex,
+        documentid
+    ) VALUES ('${subject_ior}', '${occur_nbr}','${occur_date}','${reference_ior}','${to_uic}','${cc_uic}','${categoryIOR}','${type}','${levelType}','${detailOccurence}',
+    '${ReportedBy}','${reporter_uic}','${report_date}','${reporterIdentity}','${dataRef}','${hirac_process}','${InitProb}','${InitSeverity}','${InitRisk}', '${copiedDocumentId}')`;
+    console.log(query);
     const result = await db.query(query);
     if (result.rowCount === 1) {
+        console.log("IOR successfully added");
         return {
             status: 200,
             message: 'Occurrence Created'

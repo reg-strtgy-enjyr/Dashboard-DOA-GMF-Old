@@ -146,12 +146,13 @@ async function showissuence(req,res){
 }
 
 
-async function addOccurrence(req,res){
-    try{
+async function addOccurrence(req, res) {
+    try {
+        console.log("Adding IOR");
         const result = await mmService.addOccurrence(req.body);
-        res.json(result);
-    }catch(err){
-        res.json(err.detail);
+        res.status(200).json({ message: 'IOR Successfully Added', result: result });
+    } catch (err) {
+        res.status(500).json({ message: 'Error in sending file', error: err.detail });
     }
 }
 
