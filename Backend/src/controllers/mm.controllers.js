@@ -146,12 +146,13 @@ async function showissuence(req,res){
 }
 
 
-async function addOccurrence(req,res){
-    try{
+async function addOccurrence(req, res) {
+    try {
+        console.log("Adding IOR");
         const result = await mmService.addOccurrence(req.body);
-        res.json(result);
-    }catch(err){
-        res.json(err.detail);
+        res.status(200).json({ message: 'IOR Successfully Added', result: result });
+    } catch (err) {
+        res.status(500).json({ message: 'Error in sending file', error: err.detail });
     }
 }
 
@@ -224,6 +225,30 @@ async function getPDF(req, res) {
         }
     } catch (err) {
         res.status(500).send(err.message || 'An unexpected error occurred');
+    }
+}
+
+async function getPDFDrive(req, res) {
+    try {
+        const result = await mmService.getPDFDrive(req.body);
+
+        if (result.success) {
+            res.status(200).json({
+                status: 200,
+                message: result.message // Ensure result.message contains the file link
+            });
+        } else {
+            // For non-200 cases that are not necessarily errors
+            res.status(200).json({
+                status: 200,
+                message: result.message
+            });
+        }
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            message: err.message || 'An unexpected error occurred'
+        });
     }
 }
 
@@ -412,6 +437,7 @@ module.exports = {
     deleteNCRReply,
     UpdateNCRReply,
     getPDF,
+    getPDFDrive,
     showNCRReply,
     addNCRFollowResult,
     deleteNCRFollowResult,

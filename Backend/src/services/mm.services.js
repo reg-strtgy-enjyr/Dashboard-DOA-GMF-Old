@@ -4,6 +4,7 @@ const os = require('os');
 const path = require('path');
 const db = require('../configs/db.config');
 const fs = require('fs');
+const tmp = require('tmp');
 const helper = require('../utils/helper');
 const { google } = require('googleapis');
 // Set up Google authentication with the necessary scopes for Google Docs and Drive
@@ -474,8 +475,75 @@ async function showissuence(temp) {
 
 async function addOccurrence(mm) {
     // Change 'occurrence-number' to 'occurrencenumber'
-    const { subject_ior, occur_nbr, occur_date, reference_ior, to_uic, cc_uic, category_occur, type_or_pnbr, level_type, detail_occurance, ReportedBy, reporter_uic, report_date, reporter_identity, Data_reference, hirac_process, initial_probability, initial_severity, initial_riskindex } = mm;
+    const { subject_ior, categoryIOR, occur_nbr, occur_date, reference_ior, type, to_uic, cc_uic, levelType, detailOccurence, ReportedBy, reporter_uic, report_date, reporterIdentity, dataRef, hirac_process, InitProb, InitSeverity, InitRisk} = mm;
+    const newTitle = `IOR_${occur_nbr}`;
+    const parentFolderId = '19z61tEaUF3jvtXRvVfI_w6O4nN3PF5LG';
+    const copiedDocumentId = await copyGoogleDoc('1CRPhfbn1hnmJo7X_gCaiS8VTmOj6gkzt2zok-y6yEjc', newTitle);
+    await moveFileToFolder(copiedDocumentId, parentFolderId);
+    // List of placeholders and their replacements
+    // List of categories
+    const categories = [
+        '{DOAManagement}', '{Partner or Subcontractor}', '{Procedure}', '{Material}',
+        '{Document}', '{Information Technology}', '{Personnel}', '{Training}',
+        '{Facility}', '{Others}'
+    ];
 
+    const levelTypes = [
+        '{Aircraft}', '{Engine}', '{APU}', '{Others}'
+    ];
+    // Generate the replacements for the categories
+    const categoryReplacements = categories.reduce((acc, placeholder) => {
+        acc[placeholder] = placeholder === `{${categoryIOR}}` ? `☑ ${categoryIOR}` : `☐ ${placeholder.replace(/[{}]/g, '')}`;
+        return acc;
+    }, {});
+
+    const levelTypeReplacement = levelTypes.reduce((acc, placeholder) => {
+        acc[placeholder] = placeholder === `{${levelType}}` ? `☑ ${levelType}` : `☐ ${placeholder.replace(/[{}]/g, '')}`;
+        return acc;
+    }, {});
+
+    // List of placeholders for two categories
+    const reporterIdentityReplacement = {
+        '{Shown}': reporterIdentity === 'Shown' ? '☑ Shown' : '☐ Shown',
+        '{Hidden}': reporterIdentity === 'Hidden' ? '☑ Hidden' : '☐ Hidden'
+    };
+
+    const dataRefReplacement = {
+        '{RefYes}': dataRef === 'Yes' ? '☑ Yes' : '☐ Yes',
+        '{RefNo}': dataRef === 'No' ? '☑ No' : '☐ No'
+    };
+
+    const hiracProcessReplacement = {
+        '{HIRACYes}': hirac_process === 'Yes' ? '☑ Yes' : '☐ Yes',
+        '{HIRACNo}': hirac_process === 'No' ? '☑ No' : '☐ No'
+    };
+
+    // List of placeholders and their replacements
+    const replacements = {
+        '{Subject}': subject_ior,
+        '{OccurenceReport}': occur_nbr,
+        '{OccurenceDate}': occur_date,
+        '{Ref}': reference_ior,
+        '{Type}': type,
+        '{To}': to_uic,
+        '{Copy}': cc_uic,
+        '{Detail}': detailOccurence,
+        '{NameID}': ReportedBy,
+        '{Unit}': reporter_uic,
+        '{Date}': report_date,
+        '{Init_Prob}': InitProb,
+        '{Init_Severity}': InitSeverity,
+        '{Init_Risk}': InitRisk,
+        ...categoryReplacements, // Spread the category replacements into the replacements object
+        ...levelTypeReplacement,
+        ...reporterIdentityReplacement,
+        ...dataRefReplacement,
+        ...hiracProcessReplacement
+    };
+    // Replace each placeholder in the document
+    for (const [placeholder, replacement] of Object.entries(replacements)) {
+        await replaceTextInGoogleDocs(copiedDocumentId, placeholder, replacement);
+    }
     const query = `INSERT INTO tbl_occurrence (
         subject_ior,
         occur_nbr,
@@ -495,12 +563,14 @@ async function addOccurrence(mm) {
         hirac_process,
         initial_probability,
         initial_severity,
-        initial_riskindex
-    ) VALUES ('${subject_ior}','${occur_nbr}','${occur_date}','${reference_ior}','${to_uic}','${cc_uic}','${category_occur}','${type_or_pnbr}','${level_type}','${detail_occurance}',
-    '${ReportedBy}','${reporter_uic}','${report_date}','${reporter_identity}','${Data_reference}','${hirac_process}','${initial_probability}','${initial_severity}','${initial_riskindex}')`;
-
+        initial_riskindex,
+        documentid
+    ) VALUES ('${subject_ior}', '${occur_nbr}','${occur_date}','${reference_ior}','${to_uic}','${cc_uic}','${categoryIOR}','${type}','${levelType}','${detailOccurence}',
+    '${ReportedBy}','${reporter_uic}','${report_date}','${reporterIdentity}','${dataRef}','${hirac_process}','${InitProb}','${InitSeverity}','${InitRisk}', '${copiedDocumentId}')`;
+    console.log(query);
     const result = await db.query(query);
     if (result.rowCount === 1) {
+        console.log("IOR successfully added");
         return {
             status: 200,
             message: 'Occurrence Created'
@@ -822,12 +892,8 @@ async function updateFollowUpOccurrence(followUpData) {
 
 async function addNCRInit(mm) {
     const { accountid, regulationbased, subject, audit_no, ncr_no, issued_date, responsible_office, audit_type, audit_scope, to_uic, attention, require_condition, level_finding, problem_analis, answer_duedate, issue_ian, ian_no, encounter_condition, audit_by, audit_date, acknowledge_by, acknowledge_date, status, temporarylink } = mm;
-
-    issued_date = issued_date.toISOString().split('T')[0];
-    answer_duedate = answer_duedate.toISOString().split('T')[0];
-    audit_date = audit_date.toISOString().split('T')[0];
-    acknowledge_date = acknowledge_date.toISOString().split('T')[0];
-    
+    console.log(issued_date);
+    console.log("Test")
     // New title for the copied document, including ncr_no from the parameters
     const newTitle = `NCR_${ncr_no}`;
     const parentFolderId = '1tkj7lPPXC8IbJrqsk4WwyrMoR3F6RJK0';
@@ -881,7 +947,7 @@ async function addNCRInit(mm) {
             message: 'Error'
         }
     }
-}
+}   
 
 /**
  * Download a Document file in PDF format
@@ -902,35 +968,6 @@ async function exportPdf(fileId) {
         throw err;
     }
 }
-/*
-// Function to download a file from a URL
-async function downloadFile(fileUrl, outputLocationPath) {
-    const response = await axios({
-        url: fileUrl,
-        method: 'GET',
-        responseType: 'stream'
-    });
-
-    return new Promise((resolve, reject) => {
-        const writer = fs.createWriteStream(outputLocationPath);
-        response.data.pipe(writer);
-        
-        let error = null;
-        writer.on('error', err => {
-            error = err;
-            writer.close();
-            reject(err);
-        });
-
-        writer.on('close', () => {
-            if (!error) {
-                resolve(true);
-            }
-        });
-    });
-}
-*/
-
 
 async function getPDF(temp) {
     const { documentId } = temp; // Extract documentId from temp
@@ -968,6 +1005,98 @@ async function getPDF(temp) {
         throw { success: false, message: 'Error in setting up Google Drive API client' };
     }
 }
+
+async function getPDFDrive(temp) {
+    const { documentId } = temp;
+    console.log(`${documentId}.pdf`);
+    console.log(os.homedir());
+    const parentFolderId = '1tkj7lPPXC8IbJrqsk4WwyrMoR3F6RJK0';
+
+    try {
+        const authClient = await auth.getClient();
+        console.log("TEST AFTER AUTH");
+
+        if (authClient && documentId) {
+            try {
+                const fileContent = await exportPdf(documentId);
+
+                const tmpFile = tmp.fileSync({ postfix: '.pdf' });
+                const dest = fs.createWriteStream(tmpFile.name);
+
+                await new Promise((resolve, reject) => {
+                    fileContent.pipe(dest);
+                    dest.on('finish', resolve);
+                    dest.on('error', reject);
+                });
+
+                const fileMetadata = {
+                    name: `${documentId}.pdf`,
+                    mimeType: 'application/pdf',
+                    parents: [parentFolderId],
+                };
+
+                const driveService = google.drive({ version: 'v3', auth: authClient });
+                const response = await driveService.files.create({
+                    resource: fileMetadata,
+                    media: {
+                        mimeType: 'application/pdf',
+                        body: fs.createReadStream(tmpFile.name),
+                    },
+                    fields: 'id',
+                });
+
+                tmpFile.removeCallback();
+
+                console.log('File uploaded to Google Drive, file ID:', response.data.id);
+
+                const fileLink = `https://drive.google.com/file/d/${response.data.id}/view?usp=sharing`;
+                console.log('Uploaded file link:', fileLink);
+
+                return { 
+                    status: 200, 
+                    message: fileLink 
+                };
+            } catch (error) {
+                console.error('Error during file export or upload:', error);
+                throw { success: false, message: 'Error during file export or upload' };
+            }
+        } else {
+            console.log('Auth client or document ID not properly initialized.');
+            throw { success: false, message: 'Error in setting up Google Drive API client' };
+        }
+    } catch (authError) {
+        console.error('Error getting auth client:', authError);
+        throw { success: false, message: 'Error getting auth client' };
+    }
+}
+/*
+// Function to download a file from a URL
+async function downloadFile(fileUrl, outputLocationPath) {
+    const response = await axios({
+        url: fileUrl,
+        method: 'GET',
+        responseType: 'stream'
+    });
+
+    return new Promise((resolve, reject) => {
+        const writer = fs.createWriteStream(outputLocationPath);
+        response.data.pipe(writer);
+        
+        let error = null;
+        writer.on('error', err => {
+            error = err;
+            writer.close();
+            reject(err);
+        });
+
+        writer.on('close', () => {
+            if (!error) {
+                resolve(true);
+            }
+        });
+    });
+}
+*/
 
 async function deleteNCRInit(temp) {
     const { ncr_init_id } = temp;
@@ -1237,6 +1366,7 @@ module.exports = {
     UpdateNCRReply,
     showNCRReply,
     getPDF,
+    getPDFDrive,
     addNCRFollowResult,
     deleteNCRFollowResult,
     UpdateNCRFollowResult,
