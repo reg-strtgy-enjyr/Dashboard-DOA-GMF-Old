@@ -4,69 +4,69 @@
     <div class="p-6">
       <form (ngSubmit)="submitIOR()">
         <div class="bg-[#02507d] rounded-lg">
-        <h2 class="text-2xl font-semibold text-white text-center justify-center mb-7 uppercase py-3 mx-3">INTERNAL OCCURRENCE REPORT</h2>
+        <h2 class="text-2xl font-semibold text-white text-center justify-center mb-7  py-3 mx-3">INTERNAL OCCURRENCE REPORT</h2>
         </div>
         <!-- First Row -->
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- Account Name-->
             <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Account Name
                 </label>
-                <input [value]="account.name" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" id="grid-city" type="text" readonly>
+                <input [value]="account.name" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" id="grid-city" type="text" readonly>
             </div>
             <!-- Subject IOR -->
             <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Subject IOR
                 </label>
-                <input [(ngModel)]="ior_data.subject_ior" name="subject_ior" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter your data" required>
+                <input [(ngModel)]="ior_data.subject_ior" name="subject_ior" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
             <!-- Occur NBR -->
             <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Occur NBR
                 </label>
-                <input [(ngModel)]="ior_data.occur_nbr" name="occur_nbr" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Enter your data" required>
+                <input [(ngModel)]="ior_data.occur_nbr" name="occur_nbr" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
             <!-- Occur Date -->
             <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Occur Date
                 </label>
-                <input [(ngModel)]="ior_data.occur_date" name="occur_date"  class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="date" required>
+                <input [(ngModel)]="ior_data.occur_date" name="occur_date"  class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="date" required>
             </div>
         </div>
         <!-- Second Row -->
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- Reference IOR -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Reference IOR
                 </label>
-                <input [(ngModel)]="ior_data.reference_ior" name="reference_ior" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter your data" required>
+                <input [(ngModel)]="ior_data.reference_ior" name="reference_ior" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
             <!-- To UIC -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 To UIC
                 </label>
-                <input [(ngModel)]="ior_data.to_uic" name="to_uic" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter your data" required>
+                <input [(ngModel)]="ior_data.to_uic" name="to_uic" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
             <!-- CC UIC -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 CC UIC
                 </label>
-                <input [(ngModel)]="ior_data.cc_uic" name="cc_uic" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter your data" required>
+                <input [(ngModel)]="ior_data.cc_uic" name="cc_uic" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
             <!-- Category Occur -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Category Occur
                 </label>
                 <div class="relative">
-                    <select  [(ngModel)]="ior_data.category_occur" name="category_occur" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                    <select [(ngModel)]="ior_data.category_occur" name="category_occur" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                         <option value="" disabled selected>Select your data</option>
                         <option [value]="'DOA Management'">DOA Management</option>
                         <option [value]="'Procedure'">Procedure</option>
@@ -105,11 +105,11 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- Level Type -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Level Type
                 </label>
                 <div class="relative">
-                    <select [(ngModel)]="ior_data.level_type" name="level_type" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                    <select [(ngModel)]="ior_data.level_type" name="level_type" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                         <option value="" disabled selected>Select your data</option>
                         <option [value]="'Aircraft'">Aircraft</option>
                         <option [value]="'Engine'">Engine</option>
@@ -123,32 +123,32 @@
             </div>
             <!-- Reported By -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Reported By
                 </label>
-                <input  [(ngModel)]="ior_data.ReportedBy" name="ReportedBy" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter your data" required>
+                <input  [(ngModel)]="ior_data.ReportedBy" name="ReportedBy" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
             <!-- Reporter UIC -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block  tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Reporter UIC
                 </label>
-                <input [(ngModel)]="ior_data.reporter_uic" name="reporter_ui" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter your data" required>
+                <input [(ngModel)]="ior_data.reporter_uic" name="reporter_ui" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
             <!-- Report Date -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Report Date
                 </label>
-                <input [(ngModel)]="ior_data.report_date" name="report_date" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="date" required>
+                <input [(ngModel)]="ior_data.report_date" name="report_date" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="date" required>
             </div>
             <!-- Reporter Identity -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Reporter Identity
                 </label>
                 <div class="relative">
-                    <select  [(ngModel)]="ior_data.reporter_identity" name="reporter_identity" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                    <select  [(ngModel)]="ior_data.reporter_identity" name="reporter_identity" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                         <option value="" disabled selected>Select your data</option>
                         <option [value]="'Shown'">Shown</option>
                         <option [value]="'Hidden'">Hidden </option>
@@ -163,7 +163,7 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- Data Reference -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Data Reference
                 </label>
                 <div class="relative">
@@ -183,7 +183,7 @@
                 HIRAC Process
                 </label>
                 <div class="relative">
-                <select  [(ngModel)]="ior_data.hirac_process" name="hirac_process" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                <select  [(ngModel)]="ior_data.hirac_process" name="hirac_process" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                     <option value="" disabled selected>Select your data</option>
                     <option [value]="'Yes'">Yes</option>
                     <option [value]="'No'">No</option>
@@ -195,34 +195,34 @@
             </div>
             <!-- Initial Probability -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Initial Probability
                 </label>
-                <input  [(ngModel)]="ior_data.initial_probability" name="initial_probability" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter your data" required>
+                <input  [(ngModel)]="ior_data.initial_probability" name="initial_probability" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
             <!-- Initial Severity -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Initial Severity
                 </label>
-                <input [(ngModel)]="ior_data.initial_severity" name="initial_severity" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter your data" required>
+                <input [(ngModel)]="ior_data.initial_severity" name="initial_severity" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
             <!-- Initial Risk Index -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Initial Risk Index
                 </label>
-                <input [(ngModel)]="ior_data.initial_riskindex" name="initial_riskindex" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Enter your data" required>
+                <input [(ngModel)]="ior_data.initial_riskindex" name="initial_riskindex" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Enter your data" required>
             </div>
         </div>
         <!-- Fifth Row -->
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- DETAIL OCCURANCE -->
             <div class="w-full px-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+              <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-password">
                 Detail Occurance
               </label>
-              <textarea  [(ngModel)]="ior_data.detail_occurance" name="detail_occurance" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Enter your data" required></textarea>
+              <textarea [(ngModel)]="ior_data.detail_occurance" name="detail_occurance" class="appearance-none block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight text-sm" placeholder="Enter your data" required></textarea>
             </div>
         </div>
         <!-- Submit Button -->

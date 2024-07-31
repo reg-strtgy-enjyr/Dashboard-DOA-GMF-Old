@@ -11,6 +11,7 @@ import { FormIORComponent } from './reports/form-ior/form-ior.component';
 import { SearchIORComponent } from './reports/search-ior/search-ior.component';
 import { FollowonIORComponent } from './reports/followon-ior/followon-ior.component';
 import { UserGuideComponent } from './user-guide/user-guide.component';
+import { EditNCRComponent } from './reports/edit-ncr/edit-ncr.component';
 
 export const routes: Routes = [
     // Essential routes
@@ -18,14 +19,15 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'account', component: AccountComponent },
+    { path: 'userGuide', component: UserGuideComponent},
     // Report routes
     { path: 'formNCR', component: FormNCRComponent },
     { path: 'searchNCR', component: SearchNCRComponent },
     { path: 'followNCR', component: FollowonNCRComponent },
+    { path: 'editNCR', component: EditNCRComponent },
     { path: 'formIOR', component: FormIORComponent },
     { path: 'searchIOR', component: SearchIORComponent },
     { path: 'followIOR', component: FollowonIORComponent },
-    { path: 'userGuide', component: UserGuideComponent},
     // Redirects
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', redirectTo: '/login', pathMatch: 'full' },
