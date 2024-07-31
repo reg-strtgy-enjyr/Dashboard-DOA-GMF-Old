@@ -15,13 +15,13 @@ import { AfterViewInit, viewChild,ElementRef } from '@angular/core';
 export class UserGuideComponent 
 {
   
-  selectedTab: string = 'account';
-  selectTab(tab: string) {
-    this.selectedTab = tab;
-  }
+  // selectedTab: string = 'account';
+  // selectTab(tab: string) {
+  //   this.selectedTab = tab;
+  // }
 
-  selectedMainTab: string = 'occurrence'; // default selected main tab
-  selectedNestedTab: string = 'iorform'; // default selected nested tab within occurrence
+  selectedMainTab: string = 'account'; // default selected main tab
+  selectedNestedTab: string = 'loginpage'; // default selected nested tab within occurrence
 
   selectMainTab(tab: string) {
     this.selectedMainTab = tab;
@@ -29,6 +29,8 @@ export class UserGuideComponent
       this.selectedNestedTab = 'iorform'; // set default nested tab for occurrence
     } else if (tab === 'audit') {
       this.selectedNestedTab = 'ncrform'; // set default nested tab for audit
+    } else if (tab === 'account') {
+      this.selectedNestedTab = 'loginpage';
     }
   }
 
