@@ -9,7 +9,7 @@ const helper = require('../utils/helper');
 const { google } = require('googleapis');
 // Set up Google authentication with the necessary scopes for Google Docs and Drive
 const auth = new google.auth.GoogleAuth({
-    keyFile: '../Backend/googleCredential.json', // Path to your JSON key file
+    keyFile: '../Backend/artnaon-cf9835af1189.json', // Path to your JSON key file
     scopes: [
         'https://www.googleapis.com/auth/documents', // Scope for Google Docs
         'https://www.googleapis.com/auth/drive' // Scope for Google Drive
@@ -823,12 +823,8 @@ async function updateFollowUpOccurrence(followUpData) {
 
 async function addNCRInit(mm) {
     const { accountid, regulationbased, subject, audit_no, ncr_no, issued_date, responsible_office, audit_type, audit_scope, to_uic, attention, require_condition, level_finding, problem_analis, answer_duedate, issue_ian, ian_no, encounter_condition, audit_by, audit_date, acknowledge_by, acknowledge_date, status, temporarylink } = mm;
-
-    issued_date = issued_date.toISOString().split('T')[0];
-    answer_duedate = answer_duedate.toISOString().split('T')[0];
-    audit_date = audit_date.toISOString().split('T')[0];
-    acknowledge_date = acknowledge_date.toISOString().split('T')[0];
-    
+    console.log(issued_date);
+    console.log("Test")
     // New title for the copied document, including ncr_no from the parameters
     const newTitle = `NCR_${ncr_no}`;
     const parentFolderId = '1tkj7lPPXC8IbJrqsk4WwyrMoR3F6RJK0';
@@ -882,7 +878,7 @@ async function addNCRInit(mm) {
             message: 'Error'
         }
     }
-}
+}   
 
 /**
  * Download a Document file in PDF format

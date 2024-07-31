@@ -1,10 +1,6 @@
 {
   "dependencies": {
-    "tmp": "^0.2.3"
-  }
-}
-{
-  "dependencies": {
+    "tmp": "^0.2.3",
     "@panzoom/panzoom": "^4.5.1",
     "ngx-image-zoom": "^3.0.0",
     "panzoom": "^9.4.3"

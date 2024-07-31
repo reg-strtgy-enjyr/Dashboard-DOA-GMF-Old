@@ -68,13 +68,19 @@ export class FormNCRComponent implements OnInit {
       console.error('There was an error fetching account info!', error);
     }
   }
-
   async submitNCR() {
     this.ncr_data.accountid = this.currentAccountID;
     console.log("Sending data:", this.ncr_data);
+  
+    // Show the generating toast
+    const generatingToastElement = this.toastService.generatingToast('Generating NCR Form');
+  
     try {
       const response = await axios.post('http://localhost:3000/addNCRInit', this.ncr_data);
-
+  
+      // Remove the generating toast
+      document.body.removeChild(generatingToastElement);
+  
       if (response.data.status === 200) {
         this.toastService.successToast('NCR form added successfully');
         console.log('NCR form added successfully');
@@ -83,6 +89,8 @@ export class FormNCRComponent implements OnInit {
         console.error('Failed to submit NCR form:', response.data.message);
       }
     } catch (error) {
+      // Remove the generating toast in case of error
+      document.body.removeChild(generatingToastElement);
       this.toastService.failedToast('There was an error adding NCR form');
       console.error('There was an error adding NCR form', error);
     }
