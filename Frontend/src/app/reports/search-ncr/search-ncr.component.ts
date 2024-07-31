@@ -6,6 +6,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import * as XLSX from 'xlsx';
 import { FormsModule } from '@angular/forms'; // Ensure FormsModule is imported
+import { response } from 'express';
 
 @Component({
   selector: 'app-search-ncr',
