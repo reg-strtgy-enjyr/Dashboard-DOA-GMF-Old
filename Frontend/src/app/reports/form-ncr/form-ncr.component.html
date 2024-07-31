@@ -11,18 +11,18 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- Account Name-->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Account Name
                 </label>
-                <input [value]="account.name" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" id="grid-city" type="text" readonly>
+                <input [value]="account.name" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none py-3 px-4 leading-tight" id="grid-city" type="text" readonly>
             </div>
             <!-- Regulation Based -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Regulation Based
                 </label>
                 <div class="relative">
-                <select [(ngModel)]="ncr_data.regulationbased" name="regulationbased" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                <select [(ngModel)]="ncr_data.regulationbased" name="regulationbased" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                     <option value="" disabled selected>Select your data</option>
                     <option [value]="'DGCA'">DGCA</option>
                     <option [value]="'EASA'">EASA</option>
@@ -34,24 +34,24 @@
             </div>
             <!-- NCR NO -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 NCR NO
                 </label>
-                <input [(ngModel)]="ncr_data.ncr_no" name="ncr_no" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="NCR-09-2022" required>
+                <input [(ngModel)]="ncr_data.ncr_no" name="ncr_no" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="NCR-09-2022" required>
             </div>
             <!-- AUDIT NO -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                AUDIT NO
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
+                Audit No
                 </label>
-                <input [(ngModel)]="ncr_data.audit_no" name="audit_no" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="AP-01-2022" required>
+                <input [(ngModel)]="ncr_data.audit_no" name="audit_no" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="AP-01-2022" required>
             </div>
             <!-- Issued Date -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Issued Date
                 </label>
-                <input [(ngModel)]="ncr_data.issued_date" name="issued_date" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="date" required>
+                <input [(ngModel)]="ncr_data.issued_date" name="issued_date" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="date" required>
             </div>
         </div>
 
@@ -59,11 +59,11 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- Responsible Office -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Responsible Office
                 </label>
                 <div class="relative">
-                <select [(ngModel)]="ncr_data.responsible_office" name="responsible_office" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Select" required>
+                <select [(ngModel)]="ncr_data.responsible_office" name="responsible_office" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" placeholder="Select" required>
                     <option value="" disabled selected>Select your data</option>
                     <option [value]="'AO: Airworthiness Office'">AO: Airworthiness Office</option>
                     <option [value]="'DO: Design Office'">DO: Design Office</option>
@@ -82,11 +82,11 @@
             </div>
             <!-- AUDIT TYPE -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                audit type
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
+                Audit Type
                 </label>
                 <div class="relative">
-                    <select [(ngModel)]="ncr_data.audit_type" name="audit_type" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" required>
+                    <select [(ngModel)]="ncr_data.audit_type" name="audit_type" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" id="grid-state" required>
                         <option value="" disabled selected>Select your data</option>
                         <option [value]="'Procedure'">Procedure</option>
                         <option [value]="'Product'">Product</option>
@@ -99,11 +99,11 @@
             </div>
             <!-- AUDIT SCOPE -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                AUDIT SCOPE
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
+                Audit Scope
                 </label>
                 <div class="relative">
-                    <select [(ngModel)]="ncr_data.audit_scope" name="audit_scope" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state" required>
+                    <select [(ngModel)]="ncr_data.audit_scope" name="audit_scope" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" id="grid-state" required>
                         <option value="" disabled selected>Select your data</option>
                         <option [value]="'Authority'">Authority</option>
                         <option [value]="'Internal'">Internal</option>
@@ -117,11 +117,11 @@
             </div>
             <!-- TO UIC -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                TO UIC
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
+                To UIC
                 </label>
                 <div class="relative">
-                    <select [(ngModel)]="ncr_data.to_uic" name="to_uic" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                    <select [(ngModel)]="ncr_data.to_uic" name="to_uic" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                         <option value="" disabled selected>Select your data</option>
                         <option [value]="'Chief Design Office'">Chief Design Office</option>
                         <option [value]="'Chief Airworthiness Office'">Chief Airworthiness Office</option>
@@ -135,10 +135,10 @@
             </div>
             <!-- Attention -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Attention
                 </label>
-                <input [(ngModel)]="ncr_data.attention" name="attention" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Compliance Reports" required>
+                <input [(ngModel)]="ncr_data.attention" name="attention" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="Compliance Reports" required>
             </div>
         </div>
 
@@ -146,17 +146,17 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- Subject -->
             <div class="w-full md:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+              <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-password">
                 Subject
               </label>
-              <textarea [(ngModel)]="ncr_data.subject" name="subject" class="appearance-none h-auto block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" placeholder="Enter your data" required></textarea>
+              <textarea [(ngModel)]="ncr_data.subject" name="subject" class="appearance-none h-auto block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight text-sm" placeholder="Enter your data" required></textarea>
             </div>
             <!-- Require Condition -->
             <div class="w-full md:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+              <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-password">
                 Require Condition
               </label>
-              <textarea [(ngModel)]="ncr_data.require_condition" name="require_condition" class="appearance-none h-auto block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" placeholder="Enter your data" required></textarea>
+              <textarea [(ngModel)]="ncr_data.require_condition" name="require_condition" class="appearance-none h-auto block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight text-sm" placeholder="Enter your data" required></textarea>
             </div>
         </div>
 
@@ -164,11 +164,11 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- Levei Finding -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Level Finding
                 </label>
                 <div class="relative">
-                    <select [(ngModel)]="ncr_data.level_finding" name="level_finding" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                    <select [(ngModel)]="ncr_data.level_finding" name="level_finding" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                         <option value="" disabled selected>Select your data</option>
                         <option [value]="'1'">1</option>
                         <option [value]="'2'">2</option>
@@ -181,11 +181,11 @@
             </div>
             <!-- Problem Analysis -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Problem Analysis
                 </label>
                 <div class="relative">
-                <select [(ngModel)]="ncr_data.problem_analis" name="problem_analis" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                <select [(ngModel)]="ncr_data.problem_analis" name="problem_analis" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                     <option value="" disabled selected>Select your data</option>
                     <option [value]="'Required'">Required</option>
                     <option [value]="'Not required'">Not required</option>
@@ -197,18 +197,18 @@
             </div>
             <!-- Answer Due Date -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Answer Due Date
                 </label>
-                <input [(ngModel)]="ncr_data.answer_duedate" name="answer_duedate" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="date" required>
+                <input [(ngModel)]="ncr_data.answer_duedate" name="answer_duedate" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="date" required>
             </div>
             <!-- Issue IAN -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 Issue IAN
                 </label>
                 <div class="relative">
-                    <select [(ngModel)]="ncr_data.issue_ian" name="issue_ian" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                    <select [(ngModel)]="ncr_data.issue_ian" name="issue_ian" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                         <option value="" disabled selected>Select your data</option>
                         <option [value]="'true'">Yes</option>
                         <option [value]="'false'">No</option>
@@ -220,10 +220,10 @@
             </div>
             <!-- IAN No -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
                 IAN No
                 </label>
-                <input [(ngModel)]="ncr_data.ian_no" name="ian_no" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="IAN-2023-001" required>
+                <input [(ngModel)]="ncr_data.ian_no" name="ian_no" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="IAN-2023-001" required>
             </div> 
         </div>
 
@@ -231,39 +231,39 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- Audit By -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-state">
                 Audit By
                 </label>
-                <input [(ngModel)]="ncr_data.audit_by" name="audit_by" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="John Doe" required>
+                <input [(ngModel)]="ncr_data.audit_by" name="audit_by" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="John Doe" required>
             </div>
             <!-- AUDIT DATE -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                audit date
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
+                Audit Date
                 </label>
-                <input [(ngModel)]="ncr_data.audit_date" name="audit_date" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="date" required>
+                <input [(ngModel)]="ncr_data.audit_date" name="audit_date" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="date" required>
             </div>
             <!-- ACKNOWLEDGE BY -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                acknowledge by
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
+                Acknowledge By
                 </label>
-                <input [(ngModel)]="ncr_data.acknowledge_by" name="acknowledge_by" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="John Doe" required>
+                <input [(ngModel)]="ncr_data.acknowledge_by" name="acknowledge_by" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="text" placeholder="John Doe" required>
             </div>
             <!-- ACKNOWLEDGE DATE -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                acknowledge date
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
+                Acknowledge Date
                 </label>
-                <input [(ngModel)]="ncr_data.acknowledge_date" name="acknowledge_date" class="block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none" type="date" required>
+                <input [(ngModel)]="ncr_data.acknowledge_date" name="acknowledge_date" class="block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight" type="date" required>
             </div>
             <!-- STATUS -->
             <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                status
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2">
+                Status
                 </label>
                 <div class="relative">
-                    <select [(ngModel)]="ncr_data.status" name="status" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required>
+                    <select [(ngModel)]="ncr_data.status" name="status" class="block appearance-none w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 pr-8 leading-tight" required>
                         <option value="" disabled selected>Select your data</option>
                         <option [value]="'Open'">Open</option>
                         <option [value]="'Closed'">Closed</option>
@@ -280,17 +280,17 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <!-- ENCOUNTER CONDITIION -->
             <div class="w-full md:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+              <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-password">
                 Encounter Condition
               </label>
-              <textarea [(ngModel)]="ncr_data.encounter_conditon" name="encounter_condition" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" placeholder="Enter your data" required></textarea>
+              <textarea [(ngModel)]="ncr_data.encounter_conditon" name="encounter_condition" class="appearance-none block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight text-sm" placeholder="Enter your data" required></textarea>
             </div>
             <!-- Temporary Link -->
             <div class="w-full md:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                <label class="block tracking-wide text-gray-700 text-xs font-semibold mb-2" for="grid-password">
                   Temporary Link
                 </label>
-                <textarea [(ngModel)]="ncr_data.temporarylink" name="temporarylink" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" placeholder="Enter your data" required></textarea>
+                <textarea [(ngModel)]="ncr_data.temporarylink" name="temporarylink" class="appearance-none block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 py-3 px-4 leading-tight text-sm" placeholder="Enter your data" required></textarea>
               </div>
         </div>
 

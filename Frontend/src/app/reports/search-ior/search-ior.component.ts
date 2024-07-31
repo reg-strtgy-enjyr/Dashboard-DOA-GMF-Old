@@ -2,23 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { FooterComponent } from "../../footer/footer.component";
-import { debounceTime, Subject } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 import axios from 'axios';
+import _ from 'lodash';
 import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-search-ior',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent, FormsModule],
   templateUrl: './search-ior.component.html',
   styleUrl: './search-ior.component.css'
 })
 export class SearchIORComponent implements OnInit {
   items: any[] = [];
   searchData = { input: '' };
-  searchSubject = new Subject<string>();
-
-  constructor() {}
 
   ngOnInit() {
     this.fetchDataFromServer();
@@ -46,16 +44,12 @@ export class SearchIORComponent implements OnInit {
           this.items = response.data.showProduct;
       } else {
           console.error('Error Message:', response.data.message);
-          this.items = []; // Set items to an empty array on error
+          this.items = [];
       }
     } catch (error) {
         console.error('Error:', error);
-        this.items = []; // Set items to an empty array on error
+        this.items = [];
     }
-  }
-
-  onSearchChange(searchValue: string): void {
-    this.searchSubject.next(searchValue);
   }
 
   exportToExcel(): void {
@@ -65,13 +59,12 @@ export class SearchIORComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
   
     const date = new Date();
-    const formattedDate = date.toISOString().slice(0, 10); // Format as YYYY-MM-DD
+    const formattedDate = date.toISOString().slice(0, 10);
     const fileName = `IOR_${formattedDate}.xlsx`;
   
     XLSX.writeFile(wb, fileName);
   }
   
-
   navigatePreview(iorNo: string): void {
     sessionStorage.setItem('ior_init_id', iorNo);
     window.location.href = '/preview';
@@ -80,5 +73,9 @@ export class SearchIORComponent implements OnInit {
   navigateEdit(iorNo: string): void {
     sessionStorage.setItem('ior_init_id', iorNo);
     window.location.href = '/editIOR';
+  }
+
+  search() {
+    this.fetchDataBySearchTerm();
   }
 }
