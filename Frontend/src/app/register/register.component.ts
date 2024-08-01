@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
         this.toastService.successToast('Registration successful');
       } else {
         this.registerMessage = response.data.message;
-        this.toastService.failedToast('Email address not valid');
+        this.toastService.failedToast('Email/password not valid, please use company domain and strong password');
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {

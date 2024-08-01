@@ -18,9 +18,14 @@ export class SearchIORComponent implements OnInit {
   searchData = { input: '' };
   searchTerm: string = '';
   filterBy: string = 'all';
+  showFilters: boolean = false;
 
   setFilter(filter: string) {
     this.filterBy = filter;
+  }
+
+  toggleFilter() {
+    this.showFilters = !this.showFilters;
   }
 
   search() {
@@ -48,7 +53,7 @@ export class SearchIORComponent implements OnInit {
 
   async fetchDataBySearchTerm() {
     try {
-      const response = await axios.post("http://localhost:3000/searchIOR", this.searchData);
+      const response = await axios.post("http://localhost:3000/searchIOR", { searchTerm: this.searchTerm, filterBy: this.filterBy });
       if (response.data.status === 200) {
         this.items = response.data.showProduct;
       } else {
@@ -63,7 +68,7 @@ export class SearchIORComponent implements OnInit {
 
   exportToExcel(): void {
     const table = document.getElementById('data-table');
-    if (table) {  // Add null check
+    if (table) {
       const ws = XLSX.utils.table_to_sheet(table);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');

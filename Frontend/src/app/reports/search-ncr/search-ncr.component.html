@@ -3,17 +3,164 @@
     <div class="mx-auto w-11/12 bg-white shadow-md rounded-lg overflow-hidden">
         <div class="p-6">
             <h2 class="text-2xl font-bold text-gray-900 text-center justify-center mb-3 uppercase py-3">Search NON-CONFORMANCE REPORT </h2>
-            <form class="w-full mx-auto" (ngSubmit)="search()">   
-                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                        </svg>
-                    </div>
-                    <input type="search" id="default-search" [(ngModel)]="searchData.input" name="searchInput" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 focus:outline-none" placeholder="Search by TO UIC or NCR INIT ID" required />
-                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#016299] hover:bg-[#015581] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+            <form class="w-full mx-auto" (ngSubmit)="search()">
+              <div class="relative flex items-center">
+                <!-- Button with filter icon -->
+                <button type="button" (click)="toggleFilter()" class="p-2 bg-gray-200 hover:bg-gray-300 rounded-full focus:outline-none">
+                  <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 6h14v2H4v-2zm1 6h12v2H5v-2zm-1 6h14v2H4v-2z"/>
+                  </svg>
+                </button>
+                <div class="relative w-full">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                  </div>
+                  <input type="search" id="default-search" [(ngModel)]="searchTerm" name="search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 focus:outline-none" placeholder="Search by TO UIC or IOR INIT ID" required />
+                  <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-[#016299] hover:bg-[#015581] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
                 </div>
+              </div>
+              <div *ngIf="showFilters" class="mt-4">
+                <label for="filter" class="block text-sm font-medium text-gray-700">Filter By</label>
+                <div class="p-4">
+                  <!-- <h2 class="text-lg font-semibold">Filter</h2> -->
+                  <div class="mt-4">
+                
+                    <!-- Category IOR Dropdown -->
+                    <div class="mb-4">
+                      <label for="category-ior" class="text-md font-semibold">Category IOR</label>
+                      <select id="category-ior" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                        <option value="DOA Management">DOA Management</option>
+                        <option value="Procedure">Procedure</option>
+                        <option value="Document">Document</option>
+                        <option value="Personnel">Personnel</option>
+                        <option value="Facility">Facility</option>
+                        <option value="Partner or Subcontractor">Partner or Subcontractor</option>
+                        <option value="Material">Material</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Training">Training</option>
+                        <option value="Others">Others</option>
+                      </select>
+                    </div>
+                
+                    <!-- Type of IOR Dropdown -->
+                    <div class="mb-4">
+                      <label for="type-ior" class="text-md font-semibold">Type of IOR</label>
+                      <select id="type-ior" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                        <option value="phone">Phone</option>
+                        <option value="number">Number</option>
+                      </select>
+                    </div>
+                
+                    <!-- Level Type Dropdown -->
+                    <div class="mb-4">
+                      <label for="level-type" class="text-md font-semibold">Level Type</label>
+                      <select id="level-type" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                        <option value="Aircraft">Aircraft</option>
+                        <option value="Engine">Engine</option>
+                        <option value="APU">APU</option>
+                        <option value="Others">Others</option>
+                      </select>
+                    </div>
+                
+                    <!-- Reporter Identity Dropdown -->
+                    <div class="mb-4">
+                      <label for="reporter-identity" class="text-md font-semibold">Reporter Identity</label>
+                      <select id="reporter-identity" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                        <option value="Shown">Shown</option>
+                        <option value="Hidden">Hidden</option>
+                      </select>
+                    </div>
+                
+                    <!-- Data Reference Dropdown -->
+                    <div class="mb-4">
+                      <label for="data-reference" class="text-md font-semibold">Data Reference</label>
+                      <select id="data-reference" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </div>
+                
+                    <!-- Hirac Process Dropdown -->
+                    <div class="mb-4">
+                      <label for="hirac-process" class="text-md font-semibold">Hirac Process</label>
+                      <select id="hirac-process" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </div>
+                
+                    <!-- Initial Probability, Initial Severity, Initial Risk Index Dropdowns -->
+                    <div class="mb-4">
+                      <label for="initial-probability" class="text-md font-semibold">Initial Probability</label>
+                      <select id="initial-probability" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                         <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                
+                    <div class="mb-4">
+                      <label for="initial-severity" class="text-md font-semibold">Initial Severity</label>
+                      <select id="initial-severity" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                         <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                
+                    <div class="mb-4">
+                      <label for="initial-riskindex" class="text-md font-semibold">Initial Risk Index</label>
+                      <select id="initial-riskindex" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                    <!-- Current Probability, Initial Severity, Initial Risk Index Dropdowns -->
+                    <div class="mb-4">
+                      <label for="Current-probability" class="text-md font-semibold">Current Probability</label>
+                      <select id="Current-probability" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                         <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                
+                    <div class="mb-4">
+                      <label for="Current-severity" class="text-md font-semibold">Current Severity</label>
+                      <select id="Current-severity" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                         <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                
+                    <div class="mb-4">
+                      <label for="Current-riskindex" class="text-md font-semibold">Current Risk Index</label>
+                      <select id="Current-riskindex" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled selected>Select your data</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
             </form>
             <div class="show-table mt-5 border border-gray-500">
                 <div class="table-responsive overflow-auto "style="max-height: 600px; min-height: 200px;">

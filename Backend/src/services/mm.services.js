@@ -139,28 +139,36 @@ async function login(mm) {
 
 async function addAccount(mm) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@gmf-aeroasia\.co\.id$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     const { accountid, name, unit, password, role, email } = mm;
-    const pass = await helper.hashPassword(password);
-    if(emailRegex.test(email)){
-        const query = `INSERT INTO account (name, unit, password, role, email) VALUES ('${name}', '${unit}', '${pass}', '${role}', '${email}')`;
-        const result = await db.query(query);
-        if (result.rowCount === 1) {
-            return {
-                status: 200, message: 'Add Account successful'
-            }
-        } else {
-            return {
-                status: 404, message: 'Add Account Failed'
-            }
-        }
+    
+    if (!emailRegex.test(email)) {
+        return { status: 400, message: 'Add Account Failed: Email not valid' };
     }
-    return{
-        status: 404, message: 'Add Account Failed: Email not valid'
+    
+    if (!passwordRegex.test(password)) {
+        return { status: 400, message: 'Add Account Failed: Password must be at least 8 characters long and include a combination of uppercase letters, lowercase letters, numbers, and symbols.' };
+    }
+
+    const pass = await helper.hashPassword(password);
+    const query = `INSERT INTO account (name, unit, password, role, email) VALUES ('${name}', '${unit}', '${pass}', '${role}', '${email}')`;
+    const result = await db.query(query);
+    
+    if (result.rowCount === 1) {
+        return { status: 200, message: 'Add Account successful' };
+    } else {
+        return { status: 500, message: 'Add Account Failed' };
     }
 }
 
 async function updatePassword(mm) {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     const { email, currentPass, newPass } = mm;
+
+    if (!passwordRegex.test(newPass)) {
+        return { status: 400, message: 'Update Password Failed: Password must be at least 8 characters long and include a combination of uppercase letters, lowercase letters, numbers, and symbols.' };
+    }
+
     try {
         const passQuery = `SELECT password FROM account WHERE email = $1`;
         const passResult = await db.query(passQuery, [email]);
@@ -187,9 +195,11 @@ async function updatePassword(mm) {
         }
     } catch (error) {
         console.error('Error updating password:', error);
-        return {status: 500, message: 'Internal server error' };
+        return { status: 500, message: 'Internal server error' };
     }
 }
+
+
 
 async function showAccount(temp) {
     try {
