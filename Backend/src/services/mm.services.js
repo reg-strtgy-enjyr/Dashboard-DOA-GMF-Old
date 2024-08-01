@@ -474,16 +474,38 @@ async function showissuence(temp) {
 //==========================================
 
 async function addOccurrence(mm) {
-    // Change 'occurrence-number' to 'occurrencenumber'
-    const { subject_ior, categoryIOR, occur_nbr, occur_date, reference_ior, type, to_uic, cc_uic, levelType, detailOccurence, ReportedBy, reporter_uic, report_date, reporterIdentity, dataRef, hirac_process, InitProb, InitSeverity, InitRisk} = mm;
+    const {
+        subject_ior, 
+        category_occur, // Correct key from the front end object
+        occur_nbr, 
+        occur_date, 
+        reference_ior, 
+        type_or_pnbr, // Correct key from the front end object
+        to_uic, 
+        cc_uic, 
+        level_type, // Correct key from the front end object
+        detail_occurance, // Correct key from the front end object
+        ReportedBy, 
+        reporter_uic, 
+        report_date, 
+        reporter_identity, // Correct key from the front end object
+        Data_reference, // Correct key from the front end object
+        hirac_process, 
+        initial_probability, // Correct key from the front end object
+        initial_severity, // Correct key from the front end object
+        initial_riskindex // Correct key from the front end object
+    } = mm;
+
     const newTitle = `IOR_${occur_nbr}`;
+    console.log(mm);
+
     const parentFolderId = '19z61tEaUF3jvtXRvVfI_w6O4nN3PF5LG';
     const copiedDocumentId = await copyGoogleDoc('1CRPhfbn1hnmJo7X_gCaiS8VTmOj6gkzt2zok-y6yEjc', newTitle);
     await moveFileToFolder(copiedDocumentId, parentFolderId);
+
     // List of placeholders and their replacements
-    // List of categories
     const categories = [
-        '{DOAManagement}', '{Partner or Subcontractor}', '{Procedure}', '{Material}',
+        '{DOA Management}', '{Partner or Subcontractor}', '{Procedure}', '{Material}',
         '{Document}', '{Information Technology}', '{Personnel}', '{Training}',
         '{Facility}', '{Others}'
     ];
@@ -491,59 +513,60 @@ async function addOccurrence(mm) {
     const levelTypes = [
         '{Aircraft}', '{Engine}', '{APU}', '{Others}'
     ];
-    // Generate the replacements for the categories
+
     const categoryReplacements = categories.reduce((acc, placeholder) => {
-        acc[placeholder] = placeholder === `{${categoryIOR}}` ? `☑ ${categoryIOR}` : `☐ ${placeholder.replace(/[{}]/g, '')}`;
+        acc[placeholder] = placeholder === `{${category_occur}}` ? `☑ ${category_occur}` : `☐ ${placeholder.replace(/[{}]/g, '')}`;
         return acc;
     }, {});
 
     const levelTypeReplacement = levelTypes.reduce((acc, placeholder) => {
-        acc[placeholder] = placeholder === `{${levelType}}` ? `☑ ${levelType}` : `☐ ${placeholder.replace(/[{}]/g, '')}`;
+        acc[placeholder] = placeholder === `{${level_type}}` ? `☑ ${level_type}` : `☐ ${placeholder.replace(/[{}]/g, '')}`;
         return acc;
     }, {});
 
-    // List of placeholders for two categories
     const reporterIdentityReplacement = {
-        '{Shown}': reporterIdentity === 'Shown' ? '☑ Shown' : '☐ Shown',
-        '{Hidden}': reporterIdentity === 'Hidden' ? '☑ Hidden' : '☐ Hidden'
+        '{Shown}': reporter_identity === 'Shown' ? '☑ Shown' : '☐ Shown',
+        '{Hidden}': reporter_identity === 'Hidden' ? '☑ Hidden' : '☐ Hidden'
     };
 
     const dataRefReplacement = {
-        '{RefYes}': dataRef === 'Yes' ? '☑ Yes' : '☐ Yes',
-        '{RefNo}': dataRef === 'No' ? '☑ No' : '☐ No'
+        '{RefYes}': Data_reference === 'Yes' ? '☑ Yes' : '☐ Yes',
+        '{RefNo}': Data_reference === 'No' ? '☑ No' : '☐ No'
     };
 
     const hiracProcessReplacement = {
-        '{HIRACYes}': hirac_process === 'Yes' ? '☑ Yes' : '☐ Yes',
+        '{HIRACYes}': hirac_process === 'Yes' ? '☑ Yes' : '☐ No',
         '{HIRACNo}': hirac_process === 'No' ? '☑ No' : '☐ No'
     };
 
-    // List of placeholders and their replacements
     const replacements = {
         '{Subject}': subject_ior,
         '{OccurenceReport}': occur_nbr,
         '{OccurenceDate}': occur_date,
         '{Ref}': reference_ior,
-        '{Type}': type,
+        '{Type}': type_or_pnbr,
         '{To}': to_uic,
         '{Copy}': cc_uic,
-        '{Detail}': detailOccurence,
+        '{Detail}': detail_occurance,
         '{NameID}': ReportedBy,
         '{Unit}': reporter_uic,
         '{Date}': report_date,
-        '{Init_Prob}': InitProb,
-        '{Init_Severity}': InitSeverity,
-        '{Init_Risk}': InitRisk,
-        ...categoryReplacements, // Spread the category replacements into the replacements object
+        '{Init_Prob}': initial_probability,
+        '{Init_Severity}': initial_severity,
+        '{Init_Risk}': initial_riskindex,
+        ...categoryReplacements,
         ...levelTypeReplacement,
         ...reporterIdentityReplacement,
         ...dataRefReplacement,
         ...hiracProcessReplacement
     };
-    // Replace each placeholder in the document
+
+    console.log("Replacement: \n", replacements);
+
     for (const [placeholder, replacement] of Object.entries(replacements)) {
         await replaceTextInGoogleDocs(copiedDocumentId, placeholder, replacement);
     }
+
     const query = `INSERT INTO tbl_occurrence (
         subject_ior,
         occur_nbr,
@@ -565,21 +588,23 @@ async function addOccurrence(mm) {
         initial_severity,
         initial_riskindex,
         documentid
-    ) VALUES ('${subject_ior}', '${occur_nbr}','${occur_date}','${reference_ior}','${to_uic}','${cc_uic}','${categoryIOR}','${type}','${levelType}','${detailOccurence}',
-    '${ReportedBy}','${reporter_uic}','${report_date}','${reporterIdentity}','${dataRef}','${hirac_process}','${InitProb}','${InitSeverity}','${InitRisk}', '${copiedDocumentId}')`;
+    ) VALUES ('${subject_ior}', '${occur_nbr}','${occur_date}','${reference_ior}','${to_uic}','${cc_uic}','${category_occur}','${type_or_pnbr}','${level_type}','${detail_occurance}',
+    '${ReportedBy}','${reporter_uic}','${report_date}','${reporter_identity}','${Data_reference}','${hirac_process}','${initial_probability}','${initial_severity}','${initial_riskindex}', '${copiedDocumentId}')`;
+
     console.log(query);
     const result = await db.query(query);
+
     if (result.rowCount === 1) {
         console.log("IOR successfully added");
         return {
             status: 200,
             message: 'Occurrence Created'
-        }
+        };
     } else {
         return {
             status: 404,
             message: 'Error'
-        }
+        };
     }
 }
 
@@ -588,7 +613,7 @@ async function showOccurrence(temp) {
         const { id_IOR } = temp;
         const query = `SELECT * FROM tbl_occurrence WHERE id_IOR  = '${id_IOR}'`;
         const result = await db.query(query);
-
+        console.log(query);
         if (result.rowCount > 0) {
             return {
                 status: 200,
@@ -604,6 +629,33 @@ async function showOccurrence(temp) {
     } catch (error) {
         console.error('Error fetching Occurrenc information:', error);
         throw error;
+    }
+}
+
+async function searchIOR(temp) {
+    const {input} = temp;
+    const numberRegex = /^\d+$/;
+    let query;
+    if(numberRegex.test(input)){
+        query = `SELECT * FROM tbl_occurrence WHERE id_ior = '${input}'`;
+    }else{
+        query = `SELECT * FROM tbl_occurrence WHERE subject_ior ILIKE '%${input}%' OR to_uic::TEXT ILIKE '%${input}%' OR cc_uic::TEXT ILIKE '%${input}%'`;
+    }
+    console.log(query);
+    const result = await db.query(query);
+    if (result.rowCount) {
+        console.log("Found");
+        return {
+            status: 200,
+            message: 'Showing result of NCR',
+            showProduct: result.rows
+        }
+    } else {
+        return {
+            status: 200, // Still return status 200 to indicate the request was successful
+            message: 'No Data NCR',
+            showProduct: [] // Return an empty array to indicate no results
+        }
     }
 }
 
@@ -1378,5 +1430,6 @@ module.exports = {
     updateFollowUpOccurrence,
     showFollupOccurrence,
     showFollupOccurrenceID,
-    showOccurrenceAll
+    showOccurrenceAll,
+    searchIOR
 };

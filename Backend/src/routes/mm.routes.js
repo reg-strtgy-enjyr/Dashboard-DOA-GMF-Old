@@ -37,6 +37,8 @@ router.get('/showOccurrence', mmController.showOccurrence);
 
 router.get('/showOccurrenceAll', mmController.showOccurrenceAll);
 
+router.post('/searchIOR', mmController.searchIOR);
+
 router.get('/showAllAccount', mmController.showAllAccount);
 
 router.get('/showissuence', mmController.showissuence);

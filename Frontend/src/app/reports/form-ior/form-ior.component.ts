@@ -66,9 +66,13 @@ export class FormIORComponent implements OnInit {
 
   async submitIOR() {
     console.log("Sending data:", this.ior_data);
+    // Show the generating toast
+    const generatingToastElement = this.toastService.generatingToast('Generating NCR Form');
+  
     try {
         const response = await axios.post("http://localhost:3000/addOccurrence", this.ior_data);
-
+        // Remove the generating toast
+        document.body.removeChild(generatingToastElement);
         if (response.data.status === 200) {
           this.toastService.successToast('IOR form added successfully');
           console.log("IOR form added successfully");
@@ -77,6 +81,8 @@ export class FormIORComponent implements OnInit {
           console.error("Failed to submit IOR form:", response.data.message);
         }
     } catch (error) {
+      // Remove the generating toast in case of error
+      document.body.removeChild(generatingToastElement);
       this.toastService.failedToast('There was an error adding IOR form');
       console.error('There was an error adding NCR form', error);
     }
