@@ -26,136 +26,106 @@
                 <div class="p-4">
                   <!-- <h2 class="text-lg font-semibold">Filter</h2> -->
                   <div class="mt-4">
-                
-                    <!-- Category IOR Dropdown -->
+
+                    <!-- Regulations Based -->
                     <div class="mb-4">
-                      <label for="category-ior" class="text-md font-semibold">Category IOR</label>
-                      <select id="category-ior" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
-                        <option value="" disabled selected>Select your data</option>
-                        <option value="DOA Management">DOA Management</option>
-                        <option value="Procedure">Procedure</option>
-                        <option value="Document">Document</option>
-                        <option value="Personnel">Personnel</option>
-                        <option value="Facility">Facility</option>
-                        <option value="Partner or Subcontractor">Partner or Subcontractor</option>
-                        <option value="Material">Material</option>
-                        <option value="Information Technology">Information Technology</option>
-                        <option value="Training">Training</option>
-                        <option value="Others">Others</option>
-                      </select>
-                    </div>
-                
-                    <!-- Type of IOR Dropdown -->
-                    <div class="mb-4">
-                      <label for="type-ior" class="text-md font-semibold">Type of IOR</label>
+                      <label for="regulation-based" class="text-md font-semibold">Regulations Based</label>
                       <select id="type-ior" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
                         <option value="" disabled selected>Select your data</option>
-                        <option value="phone">Phone</option>
-                        <option value="number">Number</option>
+                        <option value="dgca">DGCA</option>
+                        <option value="easa">EASA</option>
                       </select>
                     </div>
                 
-                    <!-- Level Type Dropdown -->
+                    <!-- responsible office Dropdown -->
                     <div class="mb-4">
-                      <label for="level-type" class="text-md font-semibold">Level Type</label>
-                      <select id="level-type" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                      <label for="responsibile-office" class="text-md font-semibold">Responsibile Office</label>
+                      <select id="responsibile-office" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
                         <option value="" disabled selected>Select your data</option>
-                        <option value="Aircraft">Aircraft</option>
-                        <option value="Engine">Engine</option>
-                        <option value="APU">APU</option>
-                        <option value="Others">Others</option>
+                        < <option value="'AO: Airworthiness Office'">AO: Airworthiness Office</option>
+                        <option value="'DO: Design Office'">DO: Design Office</option>
+                        <option value="'IM: Independent Monitoring'">IM: Independent Monitoring</option>
+                        <option value="'PR: Partner'">PR: Partner</option>
+                        <option value="'SC: Subcontractor'">SC: Subcontractor</option>
+                        <option value="'BR: BRIN'">BR: BRIN</option>
+                        <option value="'GF: GMF AeroAsia'">GF: GMF AeroAsia</option>
+                        <option value="'BA: BIFA Flying School'">BA: BIFA Flying School</option>
+                        <option value="'EL: Elang Lintas Indonesia'">EL: Elang Lintas Indonesia</option>
+                    
                       </select>
                     </div>
                 
-                    <!-- Reporter Identity Dropdown -->
+                    <!--Audit type Dropdown -->
                     <div class="mb-4">
-                      <label for="reporter-identity" class="text-md font-semibold">Reporter Identity</label>
-                      <select id="reporter-identity" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                      <label for="audit-type" class="text-md font-semibold">AuditType</label>
+                      <select id="audit-type" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
                         <option value="" disabled selected>Select your data</option>
-                        <option value="Shown">Shown</option>
-                        <option value="Hidden">Hidden</option>
+                        <option [value]="'Procedure'">Procedure</option>
+                        <option [value]="'Product'">Product</option>
+                        <option [value]="'Surveillance'">Surveillance</option>
                       </select>
                     </div>
                 
-                    <!-- Data Reference Dropdown -->
+                    <!-- audit scope Dropdown -->
                     <div class="mb-4">
-                      <label for="data-reference" class="text-md font-semibold">Data Reference</label>
+                      <label for="data-reference" class="text-md font-semibold">Audit Scope</label>
                       <select id="data-reference" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
                         <option value="" disabled selected>Select your data</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                        <option [value]="'Authority'">Authority</option>
+                        <option [value]="'Internal'">Internal</option>
+                        <option [value]="'External'">External</option>
+                        <option [value]="'Subcontractor'">Subcontractor</option>
                       </select>
                     </div>
                 
-                    <!-- Hirac Process Dropdown -->
+                    <!-- to uic Dropdown -->
                     <div class="mb-4">
-                      <label for="hirac-process" class="text-md font-semibold">Hirac Process</label>
-                      <select id="hirac-process" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                      <label for="to-uic" class="text-md font-semibold">To UIC</label>
+                      <select id="to-uic" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
                         <option value="" disabled selected>Select your data</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                        <option [value]="'Chief Design Office'">Chief Design Office</option>
+                        <option [value]="'Chief Airworthiness Office'">Chief Airworthiness Office</option>
+                        <option [value]="'Chief Independent Monitoring'">Chief Independent Monitoring</option>
+                        <option [value]="'Head of DOA'">Head of DOA</option>
                       </select>
                     </div>
-                
-                    <!-- Initial Probability, Initial Severity, Initial Risk Index Dropdowns -->
+                    <!-- level of finding Dropdown -->
                     <div class="mb-4">
-                      <label for="initial-probability" class="text-md font-semibold">Initial Probability</label>
-                      <select id="initial-probability" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                      <label for="level-finding" class="text-md font-semibold">Level Finding</label>
+                      <select id="level-finding" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
                         <option value="" disabled selected>Select your data</option>
-                         <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        <option [value]="'1'">1</option>
+                        <option [value]="'2'">2</option>
+                        <option [value]="'3'">3</option>
                       </select>
                     </div>
-                
-                    <div class="mb-4">
-                      <label for="initial-severity" class="text-md font-semibold">Initial Severity</label>
-                      <select id="initial-severity" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                     <!-- problem analysis Dropdown -->
+                     <div class="mb-4">
+                      <label for="problem-analysis" class="text-md font-semibold">Problem Analysis</label>
+                      <select id="problem-analysis" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
                         <option value="" disabled selected>Select your data</option>
-                         <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
+                        <option [value]="'Required'">Required</option>
+                        <option [value]="'Not required'">Not required</option>
+                   </select>
                     </div>
-                
+                    <!-- Issue IAN Dropdown -->
                     <div class="mb-4">
-                      <label for="initial-riskindex" class="text-md font-semibold">Initial Risk Index</label>
-                      <select id="initial-riskindex" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                      <label for="issue-ian" class="text-md font-semibold">Issue IAN</label>
+                      <select id="issue-ian" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
                         <option value="" disabled selected>Select your data</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
+                        <option [value]="'yes'">Yes</option>
+                        <option [value]="'no'">No</option>
+                   </select>
                     </div>
-                    <!-- Current Probability, Initial Severity, Initial Risk Index Dropdowns -->
+                    <!-- Status Dropdown -->
                     <div class="mb-4">
-                      <label for="Current-probability" class="text-md font-semibold">Current Probability</label>
-                      <select id="Current-probability" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
+                      <label for="status" class="text-md font-semibold">Status</label>
+                      <select id="status" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
                         <option value="" disabled selected>Select your data</option>
-                         <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    </div>
-                
-                    <div class="mb-4">
-                      <label for="Current-severity" class="text-md font-semibold">Current Severity</label>
-                      <select id="Current-severity" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
-                        <option value="" disabled selected>Select your data</option>
-                         <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    </div>
-                
-                    <div class="mb-4">
-                      <label for="Current-riskindex" class="text-md font-semibold">Current Risk Index</label>
-                      <select id="Current-riskindex" class="block w-full mt-2 p-2 border border-gray-300 rounded-md">
-                        <option value="" disabled selected>Select your data</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
+                        <option [value]="'Open'">Open</option>
+                        <option [value]="'Closed'">Closed</option>
+                        <option [value]="'Monitor'">Monitor</option>
+                    </select>
                     </div>
                   </div>
                 </div>
