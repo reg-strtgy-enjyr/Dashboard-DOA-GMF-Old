@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { FooterComponent } from "../../footer/footer.component";
 import axios from 'axios';
-import _ from 'lodash';
 import * as XLSX from 'xlsx';
 import { FormsModule } from '@angular/forms'; // Ensure FormsModule is imported
-import { response } from 'express';
 
 @Component({
   selector: 'app-search-ior',
@@ -100,9 +98,5 @@ export class SearchIORComponent implements OnInit {
   navigateEdit(documentId: string) {
     sessionStorage.setItem('document_id', documentId);
     window.location.href = 'Edit_IOR_2.html';
-  }
-
-  search() {
-    this.fetchDataBySearchTerm();
   }
 }
