@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { FooterComponent } from "../../footer/footer.component";
-import { FormsModule } from '@angular/forms';
 import axios from 'axios';
+import _ from 'lodash';
 import * as XLSX from 'xlsx';
+import { FormsModule } from '@angular/forms'; // Ensure FormsModule is imported
+import { response } from 'express';
 
 @Component({
   selector: 'app-search-ior',
@@ -40,7 +42,7 @@ export class SearchIORComponent implements OnInit {
 
   async fetchDataFromServer() {
     try {
-      const response = await axios.get("http://localhost:3000/showIORInit");
+      const response = await axios.get('http://localhost:3000/showOccurrenceAll');
       if (response.data.status === 200) {
         this.items = response.data.showProduct;
       } else {
@@ -53,7 +55,7 @@ export class SearchIORComponent implements OnInit {
 
   async fetchDataBySearchTerm() {
     try {
-      const response = await axios.post("http://localhost:3000/searchIOR", { searchTerm: this.searchTerm, filterBy: this.filterBy });
+      const response = await axios.post('http://localhost:3000/searchIOR', this.searchData);
       if (response.data.status === 200) {
         this.items = response.data.showProduct;
       } else {
@@ -68,26 +70,39 @@ export class SearchIORComponent implements OnInit {
 
   exportToExcel(): void {
     const table = document.getElementById('data-table');
-    if (table) {
-      const ws = XLSX.utils.table_to_sheet(table);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    
-      const date = new Date();
-      const formattedDate = date.toISOString().slice(0, 10);
-      const fileName = `IOR_${formattedDate}.xlsx`;
-    
-      XLSX.writeFile(wb, fileName);
+    const ws = XLSX.utils.table_to_sheet(table);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+    const date = new Date();
+    const formattedDate = date.toISOString().slice(0, 10);
+    const fileName = `IOR_${formattedDate}.xlsx`;
+  
+    XLSX.writeFile(wb, fileName);
+  }
+
+  async navigatePreview(documentId: string) {
+    try {
+      sessionStorage.setItem('document_id', documentId);
+      console.log(documentId);
+      const response = await axios.post('http://localhost:3000/getPDFDrive', {documentId});
+      console.log(response.data.message);
+      if (response.data.status === 200) {
+        window.location.href = response.data.message;
+      } else {
+        console.error('Error Message:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
 
-  navigatePreview(iorNo: string): void {
-    sessionStorage.setItem('ior_init_id', iorNo);
-    window.location.href = '/preview';
+  navigateEdit(documentId: string) {
+    sessionStorage.setItem('document_id', documentId);
+    window.location.href = 'Edit_IOR_2.html';
   }
 
-  navigateEdit(iorNo: string): void {
-    sessionStorage.setItem('ior_init_id', iorNo);
-    window.location.href = '/editIOR';
+  search() {
+    this.fetchDataBySearchTerm();
   }
 }

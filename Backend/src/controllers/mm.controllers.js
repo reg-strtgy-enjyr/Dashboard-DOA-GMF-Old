@@ -407,6 +407,15 @@ async function showOccurrenceAll(req,res){
     }
 }
 
+async function searchIOR(req,res){
+    try{
+        const result = await mmService.searchIOR(req.body);
+        res.json(result);
+    }catch(err){
+        res.json(err.detail);
+    }
+}
+
 module.exports = {
     login,
     addAccount,
@@ -449,5 +458,6 @@ module.exports = {
     updateFollowUpOccurrence,
     showFollupOccurrence,
     showFollupOccurrenceID,
-    showOccurrenceAll
+    showOccurrenceAll,
+    searchIOR
 };
