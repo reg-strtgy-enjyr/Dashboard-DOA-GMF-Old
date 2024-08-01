@@ -953,7 +953,7 @@ async function updateFollowUpOccurrence(followUpData) {
 //==========================================
 
 async function addNCRInit(mm) {
-    const { accountid, regulationbased, subject, audit_no, ncr_no, issued_date, responsible_office, audit_type, audit_scope, to_uic, attention, require_condition, level_finding, problem_analis, answer_duedate, issue_ian, ian_no, encounter_condition, audit_by, audit_date, acknowledge_by, acknowledge_date, status, temporarylink } = mm;
+    const { accountid, regulationbased, subject, audit_plan_no, ncr_no, issued_date, responsibility_office, audit_type, audit_scope, to_uic, attention, require_condition_reference, level_finding, problem_analysis, answer_due_date, issue_ian, ian_no, encountered_condition, audit_by, audit_date, acknowledge_by, acknowledge_date, status, temporarylink } = mm;
     console.log(issued_date);
     console.log("Test")
     // New title for the copied document, including ncr_no from the parameters
@@ -964,20 +964,20 @@ async function addNCRInit(mm) {
     await moveFileToFolder(copiedDocumentId, parentFolderId);
     // List of placeholders and their replacements
     const replacements = {
-        '{AuditPlan}' : audit_no,
+        '{AuditPlan}' : audit_plan_no,
         '{NCR_No}': ncr_no,
         '{IssuedDate}': issued_date,
-        '{Responsibility_Office}': responsible_office,
+        '{Responsibility_Office}': responsibility_office,
         '{Audit_Type}': audit_type,
         '{to_uic}': to_uic,
         '{attention}': attention,
         '{regulationbased}': regulationbased,
         '{Level_Finding}': level_finding,
-        '{Problem_Analysis}': problem_analis,
-        '{Due_Date}': answer_duedate,
+        '{Problem_Analysis}': problem_analysis,
+        '{Due_Date}': answer_due_date,
         '{IAN}': issue_ian,
         '{No}': ian_no,
-        '{Encountered_Condition}': encounter_condition,
+        '{Encountered_Condition}': encountered_condition,
         '{Audit_by}': audit_by,
         '{Audit_Date}': audit_date,
         '{Acknowledge_by}': acknowledge_by,
@@ -989,12 +989,12 @@ async function addNCRInit(mm) {
     }
     console.log("Added document")
     const query = `INSERT INTO NCR_Initial ( AccountID, RegulationBased, Subject, Audit_Plan_No, NCR_No, Issued_Date, 
-    Responsibility_Office, Audit_Type, Audit_Scope, To_UIC, Attention, Require_Condition_Reference, Level_Finding, 
+    Responsibility_Office, Audit_Type, Audit_Scope, To_UIC, Attention, require_condition_reference, Level_Finding, 
     Problem_Analysis, Answer_Due_Date, Issue_IAN, IAN_No, Encountered_Condition, Audit_by, Audit_Date, Acknowledge_by, 
     Acknowledge_date, Status, TemporaryLink, documentid) VALUES ('${accountid}','${regulationbased}', '${subject}', 
-    '${audit_no}', '${ncr_no}', '${issued_date}', '${responsible_office}', '${audit_type}', '${audit_scope}', '${to_uic}', 
-    '${attention}', '${require_condition}', '${level_finding}', '${problem_analis}', '${answer_duedate}', '${issue_ian}', 
-    '${ian_no}', '${encounter_condition}', '${audit_by}', '${audit_date}', '${acknowledge_by}', '${acknowledge_date}', 
+    '${audit_plan_no}', '${ncr_no}', '${issued_date}', '${responsibility_office}', '${audit_type}', '${audit_scope}', '${to_uic}', 
+    '${attention}', '${require_condition_reference}', '${level_finding}', '${problem_analysis}', '${answer_due_date}', '${issue_ian}', 
+    '${ian_no}', '${encountered_condition}', '${audit_by}', '${audit_date}', '${acknowledge_by}', '${acknowledge_date}', 
     '${status}', '${temporarylink}', '${copiedDocumentId}')`;
     console.log(query)
     const result = await db.query(query);
@@ -1177,8 +1177,10 @@ async function deleteNCRInit(temp) {
 }
 
 async function UpdateNCRInit(temp) {
-    const { accountid, ncr_init_id, regulationbased, subject, audit_no, ncr_no, issued_date, responsible_office, audit_type, audit_scope, to_uic, attention, require_condition, level_finding, problem_analis, answer_duedate, issue_ian, ian_no, encounter_condition, audit_by, audit_date, acknowledge_by, acknowledge_date, status, temporarylink } = temp;
-    const query = `UPDATE NCR_Initial SET AccountID = '${accountid}', RegulationBased = '${regulationbased}', Subject = '${subject}', Audit_Plan_No = '${audit_no}', NCR_No = '${ncr_no}', Issued_Date = '${issued_date}', Responsibility_Office = '${responsible_office}', Audit_Type = '${audit_type}', Audit_Scope = '${audit_scope}', To_UIC = '${to_uic}', Attention = '${attention}', Require_Condition_Reference = '${require_condition}', Level_Finding = '${level_finding}', Problem_Analysis = '${problem_analis}', Answer_Due_Date = '${answer_duedate}', Issue_IAN = '${issue_ian}', IAN_No = '${ian_no}', Encountered_Condition = '${encounter_condition}', Audit_by = '${audit_by}', Audit_Date = '${audit_date}', Acknowledge_by = '${acknowledge_by}', Acknowledge_date = '${acknowledge_date}', Status = '${status}', TemporaryLink = '${temporarylink}' WHERE NCR_init_ID = '${ncr_init_id}'`;
+    const { accountid, ncr_init_id, regulationbased, subject, audit_plan_no, ncr_no, issued_date, responsibility_office, audit_type, audit_scope, to_uic, attention, require_condition_reference, level_finding, problem_analysis, answer_due_date, issue_ian, ian_no, encountered_condition, audit_by, audit_date, acknowledge_by, acknowledge_date, status, temporarylink, documentid } = temp;
+    console.log(temp);
+    const query = `UPDATE NCR_Initial SET AccountID = '${accountid}', RegulationBased = '${regulationbased}', Subject = '${subject}', Audit_Plan_No = '${audit_plan_no}', NCR_No = '${ncr_no}', Issued_Date = '${issued_date}', Responsibility_Office = '${responsibility_office}', Audit_Type = '${audit_type}', Audit_Scope = '${audit_scope}', To_UIC = '${to_uic}', Attention = '${attention}', require_condition_reference = '${require_condition_reference}', Level_Finding = '${level_finding}', Problem_Analysis = '${problem_analysis}', Answer_Due_Date = '${answer_due_date}', Issue_IAN = '${issue_ian}', IAN_No = '${ian_no}', Encountered_Condition = '${encountered_condition}', Audit_by = '${audit_by}', Audit_Date = '${audit_date}', Acknowledge_by = '${acknowledge_by}', Acknowledge_date = '${acknowledge_date}', Status = '${status}', TemporaryLink = '${temporarylink}', documentid = '${documentid}' WHERE NCR_init_ID = '${ncr_init_id}';`;
+    console.log(query);
     const result = await db.query(query);
     if (result.rowCount === 1) {
         return {

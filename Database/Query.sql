@@ -42,7 +42,8 @@ CREATE TABLE Account (
     Name VARCHAR(255),
     Unit Office_Code,
     Password VARCHAR(255) DEFAULT 'admin',
-    Role user_role
+    Role user_role,
+    email VARCHAR(255) UNIQUE
 );
 
 
