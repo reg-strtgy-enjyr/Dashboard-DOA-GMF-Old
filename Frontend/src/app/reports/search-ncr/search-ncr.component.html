@@ -3,7 +3,8 @@
     <div class="mx-auto w-11/12 bg-white shadow-md rounded-lg overflow-hidden">
         <div class="p-6">
             <h2 class="text-2xl font-bold text-gray-900 text-center justify-center mb-3 uppercase py-3">Search NON-CONFORMANCE REPORT </h2>
-            <form class="w-full mx-auto" (ngSubmit)="search()">
+            <form class="w-full mx-auto" (ngSubmit)="search()">  
+            </form>
               <div class="relative flex items-center">
                 <!-- Button with filter icon -->
                 <button type="button" (click)="toggleFilter()" class="p-2 bg-gray-200 hover:bg-gray-300 rounded-full focus:outline-none">
@@ -131,7 +132,7 @@
                 </div>
               </div>
             
-            </form>
+          
             <div class="show-table mt-5 border border-gray-500">
                 <div class="table-responsive overflow-auto "style="max-height: 600px; min-height: 200px;">
                   <table class="table w-full bg-white overflow-y-scroll text-sm" id="data-table">
