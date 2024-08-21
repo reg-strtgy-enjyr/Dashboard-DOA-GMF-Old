@@ -4,10 +4,13 @@ const port = process.env.PORT || 3000;
 const session = require('express-session');
 const cors = require('cors');
 const passport = require('passport');
-const local = require('./src/middlewares/local');
+//const local = require('./src/middlewares/local');
 const mmRoute = require('./src/routes/mm.routes');
 const store = new session.MemoryStore();
 const app = express();
+const { swaggerUi, swaggerDocs } = require('./src/configs/swagger.config.js');
+
+
 
 const corsOptions = {
     origin: '*',
@@ -38,7 +41,13 @@ app.get('/', (req, res) => {
     }
 });
 
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
+
 app.use(mmRoute);   
+//setupSwagger(app);
 
 app.listen(port, () => {
     console.log('Server is running on port: ' + port);

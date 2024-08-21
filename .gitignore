@@ -5,6 +5,7 @@
 
 Backend/googleCredential.json
 Backend/artnaon-d7b021c1b7c5.json
+Backend/.env
 # Compiled output
 Frontend/dist
 Frontend/tmp

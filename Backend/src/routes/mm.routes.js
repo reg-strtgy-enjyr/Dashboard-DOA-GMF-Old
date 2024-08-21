@@ -1,75 +1,177 @@
-const passport = require('passport');
+//const passport = require('passport');
 const express = require('express');
 const router = express.Router();
 const mmController = require('../controllers/mm.controllers');
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/login', mmController.login);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/addAccount', mmController.addAccount);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/updatePassword', mmController.updatePassword);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/showAccount', mmController.showAccount);
 
-router.delete('/deleteAccount', mmController.deleteAccount);
-
-router.post('/addAuditPlan', mmController.addAuditPlan);
-
-router.delete('/deleteAuditPlan', mmController.deleteAuditPlan);
-
-router.put('/UpdateAuditPlan', mmController.UpdateAuditPlan);
-
-router.get('/showAuditPlanACC', mmController.showAuditPlanACC);
-
-router.post('/addAPdetail', mmController.addAPdetail);
-
-router.get('/showAPdetail', mmController.showAPdetail);
-
-router.put('/UpdateAPdetail', mmController.UpdateAPdetail);
-
-router.post('/addIssuence', mmController.addIssuence);
-
-router.put('/UpdateaddIssuence', mmController.UpdateaddIssuence);
-
-router.post('/addOccurrence', mmController.addOccurrence);
-
-router.get('/showOccurrence', mmController.showOccurrence);
-
-router.get('/showOccurrenceAll', mmController.showOccurrenceAll);
-
-router.post('/searchIOR', mmController.searchIOR);
-
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.get('/showAllAccount', mmController.showAllAccount);
 
-router.get('/showissuence', mmController.showissuence);
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.delete('/deleteAccount', mmController.deleteAccount);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.post('/addAuditPlan', mmController.addAuditPlan);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.delete('/deleteAuditPlan', mmController.deleteAuditPlan);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.put('/updateAuditPlan', mmController.UpdateAuditPlan);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.get('/showAuditPlanACC', mmController.showAuditPlanACC);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.post('/addAPdetail', mmController.addAPdetail);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.get('/showAPdetail', mmController.showAPdetail);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.put('/updateAPdetail', mmController.UpdateAPdetail);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.post('/addIssuence', mmController.addIssuence);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.put('/updateaddIssuence', mmController.UpdateAddIssuence);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.get('/showIssuence', mmController.showIssuence);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.post('/addOccurrence', mmController.addOccurrence);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.get('/showOccurrence', mmController.showOccurrence);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.get('/showOccurrenceAll', mmController.showOccurrenceAll);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.post('/searchIOR', mmController.searchIOR);
+
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.put('/updateOccurrence', mmController.updateOccurrence);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.delete('/deleteOccurrence', mmController.deleteOccurrence);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/addCategoryIOR', mmController.addCategoryIOR);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/addFollowUpOccurrence', mmController.addFollowUpOccurrence);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.put('/updateFollowUpOccurrence', mmController.updateFollowUpOccurrence);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/addNCRInit', mmController.addNCRInit);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.delete('/deleteNCRInit', mmController.deleteNCRInit);
 
-router.put('/UpdateNCRInit', mmController.UpdateNCRInit);
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.put('/updateNCRInit', mmController.UpdateNCRInit);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.get('/showNCRInit', mmController.showNCRInit);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/searchNCR', mmController.searchNCR);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/showNCRInit_ID', mmController.showNCRInit_ID);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.post('/addNCRReply', mmController.addNCRReply);
 
+/*
+    Swagger Docs on mm.controllers.js
+*/
 router.delete('/deleteNCRReply', mmController.deleteNCRReply);
 
-router.put('/UpdateNCRReply', mmController.UpdateNCRReply);
+/*
+    Swagger Docs on mm.controllers.js
+*/
+router.put('/updateNCRReply', mmController.UpdateNCRReply);
 
 router.get('/showNCRReply', mmController.showNCRReply);
 

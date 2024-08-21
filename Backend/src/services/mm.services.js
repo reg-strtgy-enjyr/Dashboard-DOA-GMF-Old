@@ -1,5 +1,5 @@
-const res = require('express/lib/response');
-const { use } = require('passport/lib');
+//const res = require('express/lib/response');
+//const { use } = require('passport/lib');
 const os = require('os');
 const path = require('path');
 const db = require('../configs/db.config');
@@ -140,7 +140,7 @@ async function login(mm) {
 async function addAccount(mm) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@gmf-aeroasia\.co\.id$/;
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-    const { accountid, name, unit, password, role, email } = mm;
+    const { /*accountid,*/name, unit, password, role, email } = mm;
     
     if (!emailRegex.test(email)) {
         return { status: 400, message: 'Add Account Failed: Email not valid' };
@@ -960,7 +960,7 @@ async function addNCRInit(mm) {
     const newTitle = `NCR_${ncr_no}`;
     const parentFolderId = '1tkj7lPPXC8IbJrqsk4WwyrMoR3F6RJK0';
     const copiedDocumentId = await copyGoogleDoc('1TsYiA9MRFPCgkqYCwusHTwnhSDBRekhCzpU6fZF8JwI', newTitle);
-    let ian = issue_ian ? "Yes" : "No";
+    //let ian = issue_ian ? "Yes" : "No";
     await moveFileToFolder(copiedDocumentId, parentFolderId);
     // List of placeholders and their replacements
     const replacements = {
@@ -1210,21 +1210,21 @@ async function showNCRInit() {
     }
 }
 
-async function showNCRInit_ID(temp) {
-    const { ncr_init_id } = temp;
-    const query = `SELECT * FROM NCR_Initial WHERE ncr_init_id = '${ncr_init_id}'`;
-    const result = await db.query(query);
-    if (result.rowCount) {
-        return {
-            message: 'Showing NCR Intial by ID',
-            showProduct: result.rows
-        }
-    } else {
-        return {
-            message: 'No Data NCR Initial by ID'
-        }
-    }
-}
+// async function showNCRInit_ID(temp) {
+//     const { ncr_init_id } = temp;
+//     const query = `SELECT * FROM NCR_Initial WHERE ncr_init_id = '${ncr_init_id}'`;
+//     const result = await db.query(query);
+//     if (result.rowCount) {
+//         return {
+//             message: 'Showing NCR Intial by ID',
+//             showProduct: result.rows
+//         }
+//     } else {
+//         return {
+//             message: 'No Data NCR Initial by ID'
+//         }
+//     }
+// }
 
 async function searchNCR(temp) {
     const {input} = temp;
@@ -1438,7 +1438,6 @@ module.exports = {
     showNCRInit_ID,
     showAllAccount,
     updatePassword,
-    showNCRInit_ID,
     updateFollowUpOccurrence,
     showFollupOccurrence,
     showFollupOccurrenceID,
