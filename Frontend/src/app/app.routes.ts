@@ -13,6 +13,7 @@ import { FollowonIORComponent } from './reports/followon-ior/followon-ior.compon
 import { UserGuideComponent } from './user-guide/user-guide.component';
 import { EditNCRComponent } from './reports/edit-ncr/edit-ncr.component';
 import { EditIORComponent } from './reports/edit-ior/edit-ior.component';
+import { PersonnelComponent } from './personnel/personnel.component';
 
 export const routes: Routes = [
     // Essential routes
@@ -21,6 +22,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'account', component: AccountComponent },
     { path: 'userGuide', component: UserGuideComponent},
+    { path: 'personnel', component: PersonnelComponent},
     // Report routes
     { path: 'formNCR', component: FormNCRComponent },
     { path: 'searchNCR', component: SearchNCRComponent },

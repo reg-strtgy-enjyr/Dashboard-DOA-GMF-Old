@@ -191,6 +191,8 @@ router.get('/showFollupOccurrence', mmController.showFollupOccurrence);
 
 router.get('/showFollupOccurrenceID', mmController.showFollupOccurrenceID);
 
+router.post('/searchPersonnel', mmController.searchPersonnel);
+
 router.post('/logout', (req, res) => {
     // Assuming you're using sessions
     req.session.destroy((err) => {

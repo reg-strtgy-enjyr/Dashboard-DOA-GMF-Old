@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing'; // Add this for HTTP testing
 import { SearchNCRComponent } from './search-ncr.component';
 import { NavbarComponent } from "../../navbar/navbar.component";
-import { FooterComponent } from "../../footer/footer.component';
+import { FooterComponent } from "../../footer/footer.component";
 
 describe('SearchNCRComponent', () => {
   let component: SearchNCRComponent;

@@ -1922,6 +1922,15 @@ async function showFollupOccurrenceID(req,res){
     }
 }
 
+async function searchPersonnel(req,res){
+  try{
+      const result = await mmService.searchPersonnel(req.body);
+      res.json(result);
+  }catch(err){
+      res.json(err.detail);
+  }
+}
+
 async function getPDF(req, res) {
     try {
         const result = await mmService.getPDF(req.body);
@@ -2007,5 +2016,6 @@ module.exports = {
     showFollupOccurrence,
     showFollupOccurrenceID,
     showOccurrenceAll,
-    searchIOR
+    searchIOR,
+    searchPersonnel
 };

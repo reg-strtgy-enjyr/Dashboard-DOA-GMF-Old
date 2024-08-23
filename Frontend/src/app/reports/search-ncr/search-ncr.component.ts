@@ -6,6 +6,43 @@ import axios from 'axios';
 import * as XLSX from 'xlsx';
 import { FormsModule } from '@angular/forms'; // Ensure FormsModule is imported
 
+interface NCRInitial {
+  ncr_init_id: string,
+  regulationbased: string,
+  subject: string,
+  audit_plan_no: string,
+  ncr_no: string,
+  issued_date: string,
+  responsibility_office: string,
+  audit_type: string,
+  to_uic: string,
+  require_condition_reference: string,
+  level_finding: string,
+  problem_analysis: string,
+  answer_due_date: string,
+  issue_ian: string,
+  ian_no: string,
+  encountered_condition: string,
+  audit_by: string,
+  audit_date: string,
+  acknowledge_by: string,
+  acknowledge_date: string,
+  status: string,
+  documentid: string
+}
+
+interface Filters {
+  regulationBased: string,
+  responsibilityOffice: string,
+  auditType: string,
+  auditScope: string,
+  toUIC: string,
+  levelFinding: string,
+  problemAnalysis: string,
+  issueIAN: string,
+  status: string
+}
+
 @Component({
   selector: 'app-search-ncr',
   standalone: true,
@@ -14,10 +51,19 @@ import { FormsModule } from '@angular/forms'; // Ensure FormsModule is imported
   styleUrls: ['./search-ncr.component.css']
 })
 export class SearchNCRComponent implements OnInit {
-  items: any[] = [];
-  searchData = { input: '' };
-  searchTerm: string = ''; // Define searchTerm here
-  filterBy: string = 'all'; // Default filter
+  items: NCRInitial[] = [];
+  searchTerm = '';
+  filterBy: Filters = { 
+    regulationBased : '',
+    responsibilityOffice : '',
+    auditType : '',
+    auditScope : '',
+    toUIC : '',
+    levelFinding : '',
+    problemAnalysis : '',
+    issueIAN : '',
+    status : ''
+  }; // Filter terms
   showFilters: boolean = false; // Toggle for filter visibility
   
   ngOnInit() {
@@ -40,11 +86,17 @@ export class SearchNCRComponent implements OnInit {
   async fetchDataBySearchTerm() {
     try {
       const response = await axios.post('http://localhost:3000/searchNCR', {
-        ...this.searchData,
+        input: this.searchTerm,
         filterBy: this.filterBy // Include filter criteria in the request
       });
       if (response.data.status === 200) {
         this.items = response.data.showProduct;
+        for (let i = 0; this.items.length; i++) {
+          this.items[i].issued_date = this.items[i].issued_date.slice(0, 10);
+          this.items[i].answer_due_date = this.items[i].answer_due_date.slice(0, 10);
+          this.items[i].audit_date = this.items[i].audit_date.slice(0, 10);
+          this.items[i].acknowledge_date = this.items[i].acknowledge_date.slice(0, 10);
+        }
       } else {
         console.error('Error Message:', response.data.message);
         this.items = [];

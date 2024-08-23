@@ -1399,6 +1399,33 @@ async function showNCRFollowResult(mm) {
     }
 }
 
+async function searchPersonnel(temp) {
+  const {input} = temp;
+  const numberRegex = /^\d+$/;
+  let query;
+  if(numberRegex.test(input)){
+      query = `SELECT * FROM NCR_Initial WHERE ncr_init_id = '${input}'`;
+  }else{
+      query = `SELECT * FROM NCR_Initial WHERE audit_by ILIKE '%${input}%' OR to_uic::TEXT ILIKE '%${input}%'`;
+  }
+  console.log(query);
+  const result = await db.query(query);
+  if (result.rowCount) {
+      console.log("Found");
+      return {
+          status: 200,
+          message: 'Showing result of NCR',
+          showProduct: result.rows
+      }
+  } else {
+      return {
+          status: 200, // Still return status 200 to indicate the request was successful
+          message: 'No Data NCR',
+          showProduct: [] // Return an empty array to indicate no results
+      }
+  }
+}
+
 module.exports = {
     login,
     addAccount,
@@ -1442,5 +1469,6 @@ module.exports = {
     showFollupOccurrence,
     showFollupOccurrenceID,
     showOccurrenceAll,
-    searchIOR
+    searchIOR,
+    searchPersonnel
 };
